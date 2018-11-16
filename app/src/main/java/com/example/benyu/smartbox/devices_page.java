@@ -32,7 +32,7 @@ public class devices_page extends AppCompatActivity {
             }
         });
         logOut = (Button) findViewById(R.id.button2);
-        list = (ListView) findViewById(R.id.list);
+      //  list = (ListView) findViewById(R.id.list);
         Control model = Control.getInstance();
         final List<Device> SearchShelter = model.getDeviceList();
         final ArrayList<Device> nameList = new ArrayList<>();

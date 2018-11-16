@@ -36,11 +36,12 @@
     <string name="confirm_password">confirm password</string>
     <string name="name">Id</string>
 
-    <string name="todo">TODO</string>
+
     <string name="create">CREATE</string>
 
     <string name="title_activity_basic">basic</string>
     <string name="cancel">CANCEL</string>
     <string name="logout">LOGOUT</string>
+    <string name="todo">TODO</string>
 
 </resources>
