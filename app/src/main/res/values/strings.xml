@@ -39,13 +39,14 @@
     <string name="create">CREATE</string>
 
     <string name="title_activity_basic">basic</string>
-    <string name="cancel">CANCEL</string>
+
     <string name="todo">TODO</string>
     <string name="logout">LOGOUT</string>
     <string name="button">Button</string>
     <string name="device_name">Device Name</string>
     <string name="location">Location</string>
     <string name="device_id">Device Id</string>
-    <string name="device_name">Device Name</string>
+    <string name="cancel">CANCEL</string>
+    <string name="add">ADD</string>
 
 </resources>

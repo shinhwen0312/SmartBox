@@ -19,11 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class devices_page extends AppCompatActivity {
-
+    private account cur;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Button logOut;
         ListView list;
+        Control model = Control.getInstance();
+
+        final account current = getIntent().getParcelableExtra("user data");
+         cur = model.updateAccount(current);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -35,13 +39,14 @@ public class devices_page extends AppCompatActivity {
             public void onClick(View view) {
                 Intent addIntent = new Intent(devices_page.this,
                         new_device_page.class);
+
+                addIntent.putExtra("user data", cur);
                 devices_page.this.startActivity(addIntent);
             }
         });
         logOut = (Button) findViewById(R.id.button);
         list = (ListView) findViewById(R.id.list);
-        Control model = Control.getInstance();
-        final account current = getIntent().getParcelableExtra("user data");
+
 
         final List<Device> deviceList = current.getDeviceList();
 

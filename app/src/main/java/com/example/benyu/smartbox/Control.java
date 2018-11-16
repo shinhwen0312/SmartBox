@@ -25,7 +25,7 @@ public class Control {
     private void loadDummyData() {
         accountList.add(new account("test", "1234","test@something.com"));
         accountList.add(new account("ben", "abcd","ben@something.com"));
-        Device device = new Device("Device 1","house", 12345);
+        Device device = new Device("Device 1","house", "123");
         accountList.get(0).addDevice(device);
      //   accountList.get(0).getDeviceList().add(new Device("Device 1","house", 12345));
         Date start = new Date(2018,11,13);

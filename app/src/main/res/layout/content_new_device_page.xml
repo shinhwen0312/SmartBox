@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
         android:layout_marginLeft="84dp"
-        android:text="@string/button"
+        android:text="CANCEL"
         app:layout_constraintBaseline_toBaselineOf="@+id/button6"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -71,7 +71,7 @@
         android:layout_marginStart="39dp"
         android:layout_marginLeft="39dp"
         android:layout_marginBottom="59dp"
-        android:text="@string/button"
+        android:text="ADD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button5" />
 

@@ -7,18 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Device implements Parcelable {
-    private int id;
+    private String id;
     private String name;
     private String location;
     private boolean lockStage;
     private List<User> users;
 
-    public Device(String name, String location, int id) {
+    public Device(String name, String location, String id) {
         this.name = name;
         this.location = location;
         this.id = id;
         lockStage = true;
         users = new ArrayList<>();
+    }
+
+    public Device() { this("Enter a name", "Enter a password", "123");
     }
 
     public String getName() {
@@ -27,7 +30,7 @@ public class Device implements Parcelable {
     public String getLocation() {
         return location;
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
     public boolean getLockStage() { return lockStage; }
@@ -65,7 +68,7 @@ public class Device implements Parcelable {
     public void setLocation(String location) {
         this.location = location;
     }
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public void setLockStage(boolean lockStage) { this.lockStage = lockStage; }
@@ -75,7 +78,7 @@ public class Device implements Parcelable {
     }
 
     private Device(Parcel in) {
-        id = in.readInt();
+        id = in.readString();
         name = in.readString();
         location = in.readString();
      //   lockStage = in.readS();
@@ -90,7 +93,7 @@ public class Device implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(location);
-        dest.writeInt(id);
+        dest.writeString(id);
     }
 
     /**
@@ -108,4 +111,6 @@ public class Device implements Parcelable {
             return new Device[size];
         }
     };
+
+
 }
