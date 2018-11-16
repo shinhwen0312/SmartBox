@@ -13,8 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="Device Name"
+        android:inputType="textUri|textPersonName"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="28dp" />
 
@@ -24,7 +24,6 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="96dp" />
 

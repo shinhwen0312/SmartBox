@@ -2,7 +2,6 @@
     <string name="app_name">SmartBox</string>
     <string name="title_activity_device_page">DevicePage</string>
     <string name="devices">Devices</string>
-    <string name="button">Button</string>
     <string name="title_activity_new_device_page">New Device</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -41,7 +40,12 @@
 
     <string name="title_activity_basic">basic</string>
     <string name="cancel">CANCEL</string>
-    <string name="logout">LOGOUT</string>
     <string name="todo">TODO</string>
+    <string name="logout">LOGOUT</string>
+    <string name="button">Button</string>
+    <string name="device_name">Device Name</string>
+    <string name="location">Location</string>
+    <string name="device_id">Device Id</string>
+    <string name="device_name">Device Name</string>
 
 </resources>

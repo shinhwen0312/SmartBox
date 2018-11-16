@@ -1,10 +1,13 @@
 package com.example.benyu.smartbox;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
-public class User {
+public class User implements Parcelable {
 
     private String name;
     private int pin;
@@ -78,6 +81,40 @@ public class User {
     public String toString() {
         return String.format("%s     %d  ",name,pin);
     }
+
+    private User(Parcel in) {
+        pin = in.readInt();
+        name = in.readString();
+    //    startDate = in.read();
+
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeInt(pin);
+    }
+
+    /**
+     * allows you to receive the ClassLoader the object is being created in
+     */
+    public static final Parcelable.Creator<User> CREATOR
+            = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
 }
 

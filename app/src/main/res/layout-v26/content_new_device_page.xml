@@ -12,40 +12,37 @@
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="67dp"
+        android:layout_marginTop="76dp"
+        android:autofillHints=""
         android:ems="10"
-        android:hint="name"
+        android:hint="@string/device_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" tools:targetApi="o" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
         android:layout_marginTop="63dp"
         android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
+
+        android:autofillHints=""
         android:ems="10"
-        android:hint="Location"
+        android:hint="@string/location"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButton3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
     <EditText
         android:id="@+id/editText9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
         android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
         android:ems="10"
         android:hint="@string/device_id"
         android:importantForAutofill="no"
@@ -59,7 +56,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
         android:text="@string/button"
         app:layout_constraintBaseline_toBaselineOf="@+id/button6"
         app:layout_constraintStart_toStartOf="parent" />
@@ -69,7 +65,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="39dp"
-        android:layout_marginLeft="39dp"
         android:layout_marginBottom="59dp"
         android:text="@string/button"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,26 +76,24 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         android:layout_marginEnd="27dp"
-        android:layout_marginRight="27dp"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editText8"
         app:layout_constraintTop_toTopOf="@+id/editText8"
-        app:srcCompat="@android:drawable/ic_menu_help"
-        android:focusable="true" />
+        app:srcCompat="@android:drawable/ic_menu_help" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="27dp"
-        android:layout_marginRight="27dp"
         android:layout_marginBottom="191dp"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editText9"
-        app:srcCompat="@android:drawable/ic_menu_help"
-        android:focusable="true" />
+        app:srcCompat="@android:drawable/ic_menu_help" />
 
 </android.support.constraint.ConstraintLayout>

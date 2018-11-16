@@ -1,5 +1,7 @@
 package com.example.benyu.smartbox;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,74 +12,33 @@ public class Control {
 
     public static Control getInstance() { return _instance; }
 
-    private final List<Device> deviceList;
-    private final List<User> userList;
+
     private final List<account> accountList;
+    private account currentAccout;
 
     private Control() {
-        userList = new ArrayList<>();
-        deviceList = new ArrayList<>();
+
         accountList = new ArrayList<>();
+        loadDummyData();
     }
 
-    public List<User> getUserList() {
-        return Collections.unmodifiableList(userList);
+    private void loadDummyData() {
+        accountList.add(new account("test", "1234","test@something.com"));
+        accountList.add(new account("ben", "abcd","ben@something.com"));
+        Device device = new Device("Device 1","house", 12345);
+        accountList.get(0).addDevice(device);
+     //   accountList.get(0).getDeviceList().add(new Device("Device 1","house", 12345));
+        Date start = new Date(2018,11,13);
+        Date end = new Date(2018,12,10);
+        Time startT = new Time(5,12,39);
+        Time endT = new Time(8,3,58);
+        accountList.get(0).getDeviceList().get(0).getUserList().add(new User("bob",1234, start, end, startT, endT));
     }
-    public List<Device> getDeviceList() {
-        return Collections.unmodifiableList(deviceList);
-    }
+
     public List<account> getAccountList() {
-        return Collections.unmodifiableList(accountList);
+        return accountList;
     }
 
-    public List getUserNameList() {
-        List<String> nameList = new ArrayList<>();
-        for (User c : userList) {
-            if (c == null) {
-                //nothing
-            } else {
-                nameList.add(c.getName());
-            }
-        }
-        return nameList;
-    }
-
-    public List getDeviceNameList() {
-        List<String> nameList = new ArrayList<>();
-        for (Device c : deviceList) {
-            if (c == null) {
-                //nothing
-            } else {
-                nameList.add(c.getName());
-            }
-        }
-        return nameList;
-    }
-
-    public boolean addUser(User user) {
-        if (user == null) {
-            return false;
-        }
-        for (User c : userList ) {
-            if (c.equals(user)) return false;
-        }
-        userList.add(user);
-        //database.getReference("userList").setValue(userList);
-        return true;
-    }
-
-    public boolean addDevice(Device device) {
-        if (device == null) {
-            return false;
-        }
-        for (Device c : deviceList ) {
-            if (c.equals(device)) return false;
-        }
-
-        deviceList.add(device);
-        //database.getReference("shelterList").setValue(shelterList);
-        return true;
-    }
 
     public boolean addAccount(account account) {
         if (account == null) {
@@ -90,4 +51,19 @@ public class Control {
         //database.getReference("userList").setValue(userList);
         return true;
     }
+
+    public account getCurrentAccout() { return currentAccout;}
+
+    public void setCurrentAccout(account account) { currentAccout = account; }
+
+    public account updateAccount(final account account) {
+        for (account c : accountList) {
+            if (c.getName().equals(account.getName())) {
+                return c;
+
+            }
+        }
+        return account;
+    }
+
 }
