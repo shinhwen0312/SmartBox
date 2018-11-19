@@ -48,5 +48,7 @@
     <string name="device_id">Device Id</string>
     <string name="cancel">CANCEL</string>
     <string name="add">ADD</string>
+    <string name="textview">TextView</string>
+
 
 </resources>

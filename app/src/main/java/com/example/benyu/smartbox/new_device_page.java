@@ -27,14 +27,15 @@ public class new_device_page extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
         name = (EditText) findViewById(R.id.editText3);
         location = (EditText) findViewById(R.id.editText8);
         id = (EditText) findViewById(R.id.editText9);
@@ -62,7 +63,11 @@ public class new_device_page extends AppCompatActivity {
                     newDevice.setId(id.getText().toString());
                     Log.d("Edit", "Add account");
                     model.updateAccount(current).addDevice(newDevice);
-                    finish();
+                Intent addIntent = new Intent(new_device_page.this,
+                        devices_page.class);
+                addIntent.putExtra("user data", model.updateAccount(current));
+                new_device_page.this.startActivity(addIntent);
+
 
             }
         });
