@@ -29,8 +29,8 @@ public class Control {
         Device device2 = new Device("Device 2","house", "123");
         Device device3 = new Device("Device 3","house", "123");
         Device device4 = new Device("Device 3","house", "123");
-        device2.setLockStage(false);
-        device3.setLockStage(false);
+        device2.setLockStage(true);
+        device3.setLockStage(true);
         accountList.get(0).addDevice(device);
         accountList.get(0).addDevice(device2);
         accountList.get(0).addDevice(device3);

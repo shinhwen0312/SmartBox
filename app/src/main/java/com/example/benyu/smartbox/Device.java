@@ -17,7 +17,7 @@ public class Device implements Parcelable {
         this.name = name;
         this.location = location;
         this.id = id;
-        lockStage = true;
+        lockStage = false;
         users = new ArrayList<>();
     }
 
