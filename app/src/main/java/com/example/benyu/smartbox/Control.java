@@ -26,7 +26,15 @@ public class Control {
         accountList.add(new account("test", "1234","test@something.com"));
         accountList.add(new account("ben", "abcd","ben@something.com"));
         Device device = new Device("Device 1","house", "123");
+        Device device2 = new Device("Device 2","house", "123");
+        Device device3 = new Device("Device 3","house", "123");
+        Device device4 = new Device("Device 3","house", "123");
+        device2.setLockStage(false);
+        device3.setLockStage(false);
         accountList.get(0).addDevice(device);
+        accountList.get(0).addDevice(device2);
+        accountList.get(0).addDevice(device3);
+        accountList.get(0).addDevice(device4);
      //   accountList.get(0).getDeviceList().add(new Device("Device 1","house", 12345));
         Date start = new Date(2018,11,13);
         Date end = new Date(2018,12,10);

@@ -105,6 +105,11 @@ public class devices_page extends AppCompatActivity {
                 final Device device =  devicesList.get(position);
                 viewHolder.name.setText(device.getName());
                 viewHolder.lockButton = (ImageButton) convertView.findViewById(R.id.list_item_button);
+                if (device.getLockStage()) {
+                    viewHolder.lockButton.setImageResource(R.drawable.lock_state);
+                } else {
+                    viewHolder.lockButton.setImageResource(R.drawable.unlock_state);
+                }
                 viewHolder.lockButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

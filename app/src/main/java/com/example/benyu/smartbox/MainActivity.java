@@ -60,10 +60,10 @@ public class MainActivity extends AppCompatActivity {
                                               Toast.makeText(MainActivity.this,
                                                       "Username and password is NOT correct",
                                                       Toast.LENGTH_SHORT).show();
-                                              counter--;
-                                              if (counter == 0) {   //setting counters for password tries
-                                                  button.setEnabled(false);
-                                              }
+//                                              counter--;
+//                                              if (counter == 0) {   //setting counters for password tries
+//                                                  button.setEnabled(false);
+//                                              }
                                           }
                                       }
                                   }

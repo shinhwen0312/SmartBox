@@ -46,9 +46,7 @@ public class new_device_page extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent logoutIntent = new Intent(new_device_page.this,
-                        devices_page.class);
-                new_device_page.this.startActivity(logoutIntent);
+                finish();
             }
         });
 
@@ -67,8 +65,6 @@ public class new_device_page extends AppCompatActivity {
                         devices_page.class);
                 addIntent.putExtra("user data", model.updateAccount(current));
                 new_device_page.this.startActivity(addIntent);
-
-
             }
         });
 
