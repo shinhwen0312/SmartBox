@@ -1,6 +1,9 @@
 package com.example.benyu.smartbox;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,6 +28,7 @@ import java.util.List;
 
 public class devices_page extends AppCompatActivity {
     private account cur;
+    Dialog myDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Button logOut;
@@ -60,6 +64,8 @@ public class devices_page extends AppCompatActivity {
 //                new ArrayAdapter(this,android.R.layout.simple_list_item_1,
 //                        model.updateAccount(current).getDeviceNameList());
         list.setAdapter(new MylistAdpater(this,R.layout.list_item, model.updateAccount(current).getDeviceList()));
+        myDialog = new Dialog(this);
+
         // this sets the click action for listview when click on the screen
 //        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -105,22 +111,54 @@ public class devices_page extends AppCompatActivity {
                 final Device device =  devicesList.get(position);
                 viewHolder.name.setText(device.getName());
                 viewHolder.lockButton = (ImageButton) convertView.findViewById(R.id.list_item_button);
+
                 if (device.getLockStage()) {
                     viewHolder.lockButton.setImageResource(R.drawable.lock_state);
                 } else {
                     viewHolder.lockButton.setImageResource(R.drawable.unlock_state);
                 }
+
                 viewHolder.lockButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                       //  Toast.makeText(getContext(),"button clicked",Toast.LENGTH_SHORT).show();
-                        if(device.getLockStage()) {
-                            viewHolder.lockButton.setImageResource(R.drawable.unlock_state);
-                            device.setLockStage(false);
-                        } else {
-                            viewHolder.lockButton.setImageResource(R.drawable.lock_state);
-                            device.setLockStage(true);
-                        }
+                        AlertDialog.Builder altdial = new AlertDialog.Builder(devices_page.this);
+                        altdial.setMessage("Are you sure?").setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if (device.getLockStage()) {
+                                            device.setLockStage(false);
+                                            viewHolder.lockButton.setImageResource(R.drawable.unlock_state);
+                                        } else {
+                                            device.setLockStage(true);
+                                            viewHolder.lockButton.setImageResource(R.drawable.lock_state);
+                                        }
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if (device.getLockStage()) {
+                                            device.setLockStage(true);
+                                            viewHolder.lockButton.setImageResource(R.drawable.lock_state);
+                                        } else {
+                                            device.setLockStage(false);
+                                            viewHolder.lockButton.setImageResource(R.drawable.unlock_state);
+                                        }
+                                    }
+                                });
+//                        if(device.getLockStage()) {
+//                            viewHolder.lockButton.setImageResource(R.drawable.lock_state);
+//                            //  device.setLockStage(false);
+//                        } else {
+//                            viewHolder.lockButton.setImageResource(R.drawable.unlock_state);
+//                            //  device.setLockStage(true);
+//                        }
+
+                        AlertDialog alert = altdial.create();
+                        alert.setTitle("Toggle Lock Status");
+                        alert.show();
                     }
                 });
 
@@ -137,5 +175,7 @@ public class devices_page extends AppCompatActivity {
         TextView name;
         ImageButton lockButton;
     }
+
+
 
 }

@@ -51,7 +51,9 @@
 
     <string name="textview">TextView</string>
     <string name="password">Password</string>
-
+    <string name="no">NO</string>
+    <string name="yes">YES</string>
+    <string name="are_you_sure">ARE YOU SURE?</string>
 
 
 </resources>
