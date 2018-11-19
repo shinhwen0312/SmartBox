@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     private TextView forget;
     private TextView newAccount;
+    private TextView idText;
+    private TextView passwordText;
     private account current;
     private int counter = 3;
 
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.button);
         forget = (TextView) findViewById(R.id.forget);
         newAccount = (TextView) findViewById(R.id.newAccount);
+        idText = (TextView) findViewById(R.id.text_id);
+        passwordText = (TextView) findViewById(R.id.text_password);
 
         button.setOnClickListener(new View.OnClickListener() {
                                       @Override
