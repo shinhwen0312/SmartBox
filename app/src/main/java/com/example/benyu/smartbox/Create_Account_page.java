@@ -59,6 +59,11 @@ public class Create_Account_page extends AppCompatActivity {
             }
         });
 
-
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 }
 }
