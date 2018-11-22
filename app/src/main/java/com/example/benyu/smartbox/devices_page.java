@@ -47,7 +47,7 @@ public class devices_page extends AppCompatActivity {
 
         logOut = (Button) findViewById(R.id.button);
         list = (ListView) findViewById(R.id.list);
-        add = (ImageButton) findViewById(R.id.imageButton4);
+     //   add = (ImageButton) findViewById(R.id.imageButton4);
      //   ImageButton help = (ImageButton) findViewById(R.id.imageButton2);
 //        help.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -58,6 +58,16 @@ public class devices_page extends AppCompatActivity {
 //                devices_page.this.startActivity(newIntent);
 //            }
 //        });
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent =
+                        new Intent(devices_page.this, new_device_page.class);
+                newIntent.putExtra("user data", cur);
+                devices_page.this.startActivity(newIntent);
+            }
+        });
 
 
         final List<Device> deviceList = current.getDeviceList();
@@ -90,15 +100,15 @@ public class devices_page extends AppCompatActivity {
             }
         });
 
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent newIntent =
-                        new Intent(devices_page.this, new_device_page.class);
-                newIntent.putExtra("user data", cur);
-                devices_page.this.startActivity(newIntent);
-            }
-        });
+//        add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent newIntent =
+//                        new Intent(devices_page.this, new_device_page.class);
+//                newIntent.putExtra("user data", cur);
+//                devices_page.this.startActivity(newIntent);
+//            }
+//        });
 
 
 
