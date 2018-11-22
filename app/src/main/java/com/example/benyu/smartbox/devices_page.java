@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +35,7 @@ public class devices_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Button logOut;
         ListView list;
+        ImageButton add;
         Control model = Control.getInstance();
 
         final account current = getIntent().getParcelableExtra("user data");
@@ -42,19 +45,19 @@ public class devices_page extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent addIntent = new Intent(devices_page.this,
-                        new_device_page.class);
-
-                addIntent.putExtra("user data", cur);
-                devices_page.this.startActivity(addIntent);
-            }
-        });
         logOut = (Button) findViewById(R.id.button);
         list = (ListView) findViewById(R.id.list);
+        add = (ImageButton) findViewById(R.id.imageButton4);
+     //   ImageButton help = (ImageButton) findViewById(R.id.imageButton2);
+//        help.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent newIntent =
+//                        new Intent(devices_page.this, new_device_page.class);
+//                newIntent.putExtra("user data", cur);
+//                devices_page.this.startActivity(newIntent);
+//            }
+//        });
 
 
         final List<Device> deviceList = current.getDeviceList();
@@ -87,6 +90,19 @@ public class devices_page extends AppCompatActivity {
             }
         });
 
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent =
+                        new Intent(devices_page.this, new_device_page.class);
+                newIntent.putExtra("user data", cur);
+                devices_page.this.startActivity(newIntent);
+            }
+        });
+
+
+
+
     }
 
     private class MylistAdpater extends ArrayAdapter<Device> {
@@ -111,6 +127,7 @@ public class devices_page extends AppCompatActivity {
                 final Device device =  devicesList.get(position);
                 viewHolder.name.setText(device.getName());
                 viewHolder.lockButton = (ImageButton) convertView.findViewById(R.id.list_item_button);
+                viewHolder.lockButton2 = (ImageButton) convertView.findViewById(R.id.list_item_button2);
 
                 if (device.getLockStage()) {
                     viewHolder.lockButton.setImageResource(R.drawable.lock_state);
@@ -162,6 +179,15 @@ public class devices_page extends AppCompatActivity {
                     }
                 });
 
+                viewHolder.lockButton2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent editIntent = new Intent(devices_page.this,
+                                Edit_Device_Page.class);
+                        editIntent.putExtra("user data", cur);
+                        devices_page.this.startActivity(editIntent);
+                    }
+                });
                 convertView.setTag(viewHolder);
             }
             else {
@@ -174,8 +200,7 @@ public class devices_page extends AppCompatActivity {
     public class ViewHolder {
         TextView name;
         ImageButton lockButton;
+        ImageButton lockButton2;
     }
-
-
 
 }

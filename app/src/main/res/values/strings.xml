@@ -40,7 +40,7 @@
 
     <string name="title_activity_basic">basic</string>
 
-    <string name="todo">TODO</string>
+
     <string name="logout">LOGOUT</string>
     <string name="button">Button</string>
     <string name="device_name">Device Name</string>
@@ -54,6 +54,8 @@
     <string name="no">NO</string>
     <string name="yes">YES</string>
     <string name="are_you_sure">ARE YOU SURE?</string>
+    <string name="todo">TODO</string>
+
 
 
 </resources>
