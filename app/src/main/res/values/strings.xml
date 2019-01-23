@@ -55,7 +55,16 @@
     <string name="yes">YES</string>
     <string name="are_you_sure">ARE YOU SURE?</string>
     <string name="todo">TODO</string>
-
+    <string name="ex_bob_williams">ex: Bob Williams</string>
+    <string name="id_main">*********</string>
+    <string name="location">Location</string>
+    <string name="device_name">Device Name</string>
+    <string name="device_status">Device Status:</string>
+    <string name="manage_users">MANAGE USERS</string>
+    <string name="history">HISTORY</string>
+    <string name="add_user">ADD USER</string>
+    <string name="delete_device">DELETE DEVICE</string>
+    <string name="stars">***</string>
 
 
 </resources>

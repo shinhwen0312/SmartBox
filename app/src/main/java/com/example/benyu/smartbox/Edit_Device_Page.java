@@ -6,8 +6,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class Edit_Device_Page extends AppCompatActivity {
+
+    private EditText name;
+    private EditText location;
+    private EditText statusLabel;
+    private EditText statusInfo;
+    private Button manageButton;
+    private Button history;
+    private Button add;
+    private Button delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
