@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "85438359057",
+    "firebase_url": "https://smartbox-b8ba8.firebaseio.com",
+    "project_id": "smartbox-b8ba8",
+    "storage_bucket": "smartbox-b8ba8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85438359057:android:d8670115db6343eb",
+        "android_client_info": {
+          "package_name": "com.example.benyu.smartbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85438359057-irp1b7pd8hel7fl62o45iqgiqbipoi9t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.benyu.smartbox",
+            "certificate_hash": "c1ec85ee52daffeadfeb3d1b4afbcc35d66eb4c1"
+          }
+        },
+        {
+          "client_id": "85438359057-0du39g0c2s5gr742adh747r0n0jmkeav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCImNYnmtQI_TVoywFekNKInEydYXMc4CU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85438359057-0du39g0c2s5gr742adh747r0n0jmkeav.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
