@@ -11,6 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,10 +31,36 @@ public class MainActivity extends AppCompatActivity {
     private account current;
     private int counter = 3;
 
+    DatabaseReference databaseHosts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        databaseHosts = FirebaseDatabase.getInstance().getReference("path");
+
+        databaseHosts.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //clearing the previous object list
+                Control.getInstance().getAccountList().clear();
+
+                //iterating through all the objects
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    //getting object
+                    account a = postSnapshot.getValue(account.class);
+                    //adding object to the list
+                    Control.getInstance().addAccount(a);
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         final Control model = Control.getInstance();
         Id = (EditText) findViewById(R.id.Id);

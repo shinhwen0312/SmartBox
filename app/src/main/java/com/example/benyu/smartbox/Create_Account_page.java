@@ -11,12 +11,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class Create_Account_page extends AppCompatActivity {
     private EditText name;
     private EditText password;
     private EditText email;
     private EditText confirm;
     private account newAccount;
+    DatabaseReference databaseHosts;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,22 @@ public class Create_Account_page extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        databaseHosts = FirebaseDatabase.getInstance().getReference("path");
+
+/*
+        ButtonName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String id = databaseHosts.push().getKey();
+                databaseHosts.child(id).setValue(object to be added);
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+*/
 
         name = (EditText) findViewById(R.id.name);
         password = (EditText)findViewById(R.id.password);
@@ -49,6 +70,8 @@ public class Create_Account_page extends AppCompatActivity {
                     newAccount.setEmail(email.getText().toString());
                     Log.d("Edit", "Add account");
                     model.addAccount(newAccount);
+                    String id = databaseHosts.push().getKey();
+                    databaseHosts.child(id).setValue(newAccount);
                     finish();
                 }
                 else {
