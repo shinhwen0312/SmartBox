@@ -45,14 +45,14 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //clearing the previous object list
-                //Host.hostList.clear();
+                Control.getInstance().getAccountList().clear();
 
                 //iterating through all the objects
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     //getting object
-                    //Host host = postSnapshot.getValue(Host.class);
+                    account a = postSnapshot.getValue(account.class);
                     //adding object to the list
-                    //Host.hostList.add(host);
+                    Control.getInstance().addAccount(a);
 
                 }
             }

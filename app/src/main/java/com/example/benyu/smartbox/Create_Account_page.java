@@ -70,6 +70,8 @@ public class Create_Account_page extends AppCompatActivity {
                     newAccount.setEmail(email.getText().toString());
                     Log.d("Edit", "Add account");
                     model.addAccount(newAccount);
+                    String id = databaseHosts.push().getKey();
+                    databaseHosts.child(id).setValue(newAccount);
                     finish();
                 }
                 else {
