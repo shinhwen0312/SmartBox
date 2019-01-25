@@ -20,7 +20,9 @@ public class Create_Account_page extends AppCompatActivity {
     private EditText email;
     private EditText confirm;
     private account newAccount;
+    //***************
     DatabaseReference databaseHosts;
+    //*******************
 
 
     @Override
@@ -33,7 +35,9 @@ public class Create_Account_page extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //**********************
         databaseHosts = FirebaseDatabase.getInstance().getReference("path");
+        //***********************
 
 /*
         ButtonName.setOnClickListener(new View.OnClickListener() {
@@ -70,8 +74,12 @@ public class Create_Account_page extends AppCompatActivity {
                     newAccount.setEmail(email.getText().toString());
                     Log.d("Edit", "Add account");
                     model.addAccount(newAccount);
+
+                    //********************************
                     String id = databaseHosts.push().getKey();
                     databaseHosts.child(id).setValue(newAccount);
+
+                    //*******************************************
                     finish();
                 }
                 else {
