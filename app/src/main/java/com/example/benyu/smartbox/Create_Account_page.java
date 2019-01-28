@@ -36,7 +36,7 @@ public class Create_Account_page extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //**********************
-        databaseHosts = FirebaseDatabase.getInstance().getReference("path");
+        databaseHosts = FirebaseDatabase.getInstance().getReference("users");
         //***********************
 
 /*
@@ -77,7 +77,7 @@ public class Create_Account_page extends AppCompatActivity {
 
                     //********************************
                     String id = databaseHosts.push().getKey();
-                    databaseHosts.child(id).setValue(newAccount);
+                    databaseHosts.child(name.getText().toString()).setValue(newAccount);
 
                     //*******************************************
                     finish();
