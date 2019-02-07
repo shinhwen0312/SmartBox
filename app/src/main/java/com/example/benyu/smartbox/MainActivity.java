@@ -1,13 +1,12 @@
 package com.example.benyu.smartbox;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +21,12 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private EditText Id;
     private EditText Password;
-    private CheckBox checkBox;
+    private Switch rememberSwitch;
     private Button button;
     private TextView forget;
     private TextView newAccount;
-    private TextView idText;
-    private TextView passwordText;
+    //private TextView idText;
+    //private TextView passwordText;
     private account current;
     private int counter = 3;
 
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.test_activity_main);
 
         databaseHosts = FirebaseDatabase.getInstance().getReference("path");
 
@@ -65,12 +64,21 @@ public class MainActivity extends AppCompatActivity {
         final Control model = Control.getInstance();
         Id = (EditText) findViewById(R.id.Id);
         Password = (EditText) findViewById(R.id.Password);
-        checkBox = (CheckBox) findViewById(R.id.checkBox);
+        rememberSwitch = (Switch) findViewById(R.id.rememberSwitch);
         button = (Button) findViewById(R.id.button);
         forget = (TextView) findViewById(R.id.forget);
         newAccount = (TextView) findViewById(R.id.newAccount);
-        idText = (TextView) findViewById(R.id.text_id);
-        passwordText = (TextView) findViewById(R.id.text_password);
+        //idText = (TextView) findViewById(R.id.text_id);
+        //passwordText = (TextView) findViewById(R.id.text_password);
+
+        newAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent =
+                        new Intent(MainActivity.this, Create_Account_page.class);
+                MainActivity.this.startActivity(newIntent);
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
                                       @Override
@@ -94,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                                               MainActivity.this.startActivity(logIntent);
                                           } else {  // toast is just pop-up msg
                                               Toast.makeText(MainActivity.this,
-                                                      "Username and password is NOT correct",
+                                                      "Incorrect Username and/or Password.",
                                                       Toast.LENGTH_SHORT).show();
 //                                              counter--;
 //                                              if (counter == 0) {   //setting counters for password tries

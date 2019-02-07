@@ -23,12 +23,12 @@
     <string name="id">ID</string>
 
 
-    <string name="forgot_passowrd">Forgot Passowrd?</string>
+    <string name="forgot_password">Forgot password?</string>
 
-    <string name="new_account">New Account</string>
+    <string name="new_account">Don\'t have an account? Sign up!</string>
 
-    <string name="login">LOGIN</string>
-    <string name="remember_me">Remember Me</string>
+    <string name="login">Login</string>
+    <string name="remember_me">Remember me?</string>
 
 
     <string name="email">Email</string>
@@ -54,7 +54,7 @@
     <string name="yes">YES</string>
     <string name="are_you_sure">ARE YOU SURE?</string>
     <string name="todo">TODO</string>
-    <string name="ex_bob_williams">ex: Bob Williams</string>
+    <string name="username">Username</string>
     <string name="id_main">*********</string>
     <string name="location">Location</string>
     <string name="device_name">Device Name</string>
