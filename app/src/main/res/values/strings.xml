@@ -23,16 +23,27 @@
     <string name="id">ID</string>
 
 
+    <!--activity-main-->
+    <string name="app_name_lowercase">smartbox</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
     <string name="forgot_password">Forgot password?</string>
-
     <string name="new_account">Don\'t have an account? Sign up!</string>
-
-    <string name="login">Login</string>
+    <string name="login">Log In</string>
     <string name="remember_me">Remember me?</string>
 
 
+    <!--activity-create-account-->
+    <string name="create_account">create account</string>
     <string name="email">Email</string>
-    <string name="confirm_password">confirm password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign Up</string>
+
+
+    <!--activity-devices-page-->
+    <string name="devices_lowercase">devices</string>
+
+
     <string name="name">Id</string>
 
 
@@ -49,12 +60,10 @@
     <string name="add">ADD</string>
 
     <string name="textview">TextView</string>
-    <string name="password">Password</string>
     <string name="no">NO</string>
     <string name="yes">YES</string>
     <string name="are_you_sure">ARE YOU SURE?</string>
     <string name="todo">TODO</string>
-    <string name="username">Username</string>
     <string name="id_main">*********</string>
     <string name="location">Location</string>
     <string name="device_name">Device Name</string>
