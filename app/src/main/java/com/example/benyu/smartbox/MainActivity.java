@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -30,8 +31,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView passwordText;
     private account current;
     private int counter = 3;
+    boolean check;
+    String passHolder;
+    String userHolder;
 
     DatabaseReference databaseHosts;
+    DatabaseReference databaseUsers;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,36 +77,72 @@ public class MainActivity extends AppCompatActivity {
         newAccount = (TextView) findViewById(R.id.newAccount);
         idText = (TextView) findViewById(R.id.text_id);
         passwordText = (TextView) findViewById(R.id.text_password);
-
+        Log.d("check","check");
         button.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
-                                          final Control model = Control.getInstance();
-                                          List<account> newList = model.getAccountList();
 
-                                          boolean check = false;
-                                          for (account c : newList) {    //checking username and password stored in userdata
+                                          databaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
+                                            //.child(Id.getText().toString())
+                                          databaseUsers.addValueEventListener(new ValueEventListener() {
+                                              @Override
+                                              public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                                                  if (dataSnapshot.exists() && dataSnapshot.child(Id.getText().toString()).exists()) {
+                                                      /*Log.d("check",dataSnapshot.toString());
+                                                      Log.d("check",Id.getText().toString());
+                                                      Log.d("check",dataSnapshot.child(Id.getText().toString()).toString());
+                                                      Log.d("check",dataSnapshot.child(Id.getText().toString()).child("password").getValue().toString());
+                                                      Log.d("check",Password.getText().toString());*/
+
+
+                                                      if(dataSnapshot.child(Id.getText().toString()).exists()) {
+                                                          passHolder = dataSnapshot.child(Id.getText().toString()).child("password").getValue().toString();
+                                                      }
+
+                                                      //iterating through all the objects
+                                                      if (passHolder.equals(Password.getText().toString())) {
+                                                          check = true;
+                                                          Intent logIntent = new Intent(MainActivity.this,
+                                                                  devices_page.class);
+                                                          logIntent.putExtra("user data", current);
+                                                          MainActivity.this.startActivity(logIntent);
+
+                                                      } else if (!check) {
+                                                          Toast.makeText(MainActivity.this,
+                                                                  "Username and password is NOT correct!",
+                                                                  Toast.LENGTH_SHORT).show();
+                                                      }
+                                                  }
+                                              }
+                                              @Override
+                                              public void onCancelled(DatabaseError databaseError) {
+
+                                              }
+                                          });
+
+                                            if(!check) {
+                                                Toast.makeText(MainActivity.this,
+                                                        "Username and password is NOT correct",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+//                                              counter--;
+//                                              if (counter == 0) {   //setting counters for password tries
+//                                                  button.setEnabled(false);
+//                                              }
+                                          /*final Control model = Control.getInstance();
+                                          List<account> newList = model.getAccountList();
+                                          Log.d("check", "True1");*/
+
+                                          /*for (account c : newList) {    //checking username and password stored in userdata
                                               if ((c.getName().equals(Id.getText().toString())) &&
                                                       (c.getPassword().equals(Password.getText().toString()))) {
                                                   check = true;
                                                   current = c;
                                               }
-                                          }
-                                          if (check) {  // if true, move to logout page
-                                              //this intent changes page from this page to LogoutActivity page
-                                              Intent logIntent = new Intent(MainActivity.this,
-                                                      devices_page.class);
-                                              logIntent.putExtra("user data", current);
-                                              MainActivity.this.startActivity(logIntent);
-                                          } else {  // toast is just pop-up msg
-                                              Toast.makeText(MainActivity.this,
-                                                      "Username and password is NOT correct",
-                                                      Toast.LENGTH_SHORT).show();
-//                                              counter--;
-//                                              if (counter == 0) {   //setting counters for password tries
-//                                                  button.setEnabled(false);
-//                                              }
-                                          }
+                                          }*/
+
                                       }
                                   }
         );

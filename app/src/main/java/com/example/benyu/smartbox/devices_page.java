@@ -70,14 +70,14 @@ public class devices_page extends AppCompatActivity {
         });
 
 
-        final List<Device> deviceList = current.getDeviceList();
+        /*final List<Device> deviceList = current.getDeviceList();
 
 
 //        ListAdapter DeviceAdapter =
 //                new ArrayAdapter(this,android.R.layout.simple_list_item_1,
 //                        model.updateAccount(current).getDeviceNameList());
         list.setAdapter(new MylistAdpater(this,R.layout.list_item, model.updateAccount(current).getDeviceList()));
-        myDialog = new Dialog(this);
+        myDialog = new Dialog(this);*/
 
         // this sets the click action for listview when click on the screen
 //        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
