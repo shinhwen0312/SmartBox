@@ -1,82 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingEnd="16dp"
-    android:paddingLeft="16dp"
-    android:paddingBottom="16dp"
-    android:paddingTop="16dp"
-    android:paddingRight="16dp"
-    android:paddingStart="16dp"
-    android:background="@color/colorBackground">
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/list_item_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="end"
-            android:textColor="@color/colorNormalPrimary"
-            android:textSize="16sp"
-            android:maxLines="1"
-            android:text="@string/textview"/>
-
-        <TextView
-            android:id="@+id/list_item_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="end"
-            android:textColor="@color/colorLightPrimary"
-            android:textSize="14sp"
-            android:maxLines="1"
-            android:text="@string/textview"/>
-
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/list_item_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_gravity="center_vertical"
-        android:clickable="true"
-        android:contentDescription="@string/todo"
-        android:focusable="true"
-        android:background="@drawable/circle"
-        app:srcCompat="@drawable/ic_locked_state" />
-
-    <ImageButton
-        android:id="@+id/list_item_button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:srcCompat="@drawable/edit"
-        android:background="@color/colorBackground"
-        android:contentDescription="@string/todo" />
-
-</LinearLayout>
-<!--<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -134,4 +56,3 @@
         app:srcCompat="@drawable/edit"
         android:contentDescription="@string/todo" />
 </android.support.constraint.ConstraintLayout>
-    -->

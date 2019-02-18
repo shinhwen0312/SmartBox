@@ -9,28 +9,27 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-<<<<<<< HEAD
 import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-=======
-
->>>>>>> Elmer
 import java.util.List;
 
 public class devices_page extends AppCompatActivity {
@@ -41,7 +40,7 @@ public class devices_page extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Button logOut;
+        Button logOut;
         ListView list;
         ImageButton add;
         Control model = Control.getInstance();
@@ -74,9 +73,8 @@ public class devices_page extends AppCompatActivity {
         setContentView(R.layout.activity_devices_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        //logOut = (Button) findViewById(R.id.button);
+        logOut = (Button) findViewById(R.id.button);
         list = (ListView) findViewById(R.id.list);
 
      //   add = (ImageButton) findViewById(R.id.imageButton4);
@@ -102,11 +100,7 @@ public class devices_page extends AppCompatActivity {
         });
 
 
-<<<<<<< HEAD
 
-=======
-        final List<Device> deviceList = current.getDeviceList();
->>>>>>> Elmer
 
 
 //        ListAdapter DeviceAdapter =
@@ -127,16 +121,14 @@ public class devices_page extends AppCompatActivity {
 //                context.startActivity(intent);
 //            }
 //        });
-/*        logOut.setOnClickListener(new View.OnClickListener() {
+        logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent logoutIntent = new Intent(devices_page.this,
                         MainActivity.class);
-                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 devices_page.this.startActivity(logoutIntent);
-                finish();
             }
-        });*/
+        });
 
 //        add.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -151,35 +143,6 @@ public class devices_page extends AppCompatActivity {
 
 
 
-    }
-
-    public void logoutAction() {
-        Intent logoutIntent = new Intent(devices_page.this,
-                MainActivity.class);
-        logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        devices_page.this.startActivity(logoutIntent);
-        finish();
-    }
-
-    //handles the inflation of menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.accountmenu, menu);
-        return true;
-    }
-
-    //handles the menu clicks
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_logout:
-                logoutAction();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     private class MylistAdpater extends ArrayAdapter<Device> {
@@ -202,18 +165,15 @@ public class devices_page extends AppCompatActivity {
                 convertView = inflater.inflate(layout,parent,false);
                 viewHolder = new ViewHolder();
                 viewHolder.name = (TextView) convertView.findViewById(R.id.list_item_name);
-                viewHolder.status = (TextView) convertView.findViewById(R.id.list_item_status);
                 final Device device =  devicesList.get(position);
                 viewHolder.name.setText(device.getName());
                 viewHolder.lockButton = (ImageButton) convertView.findViewById(R.id.list_item_button);
                 viewHolder.lockButton2 = (ImageButton) convertView.findViewById(R.id.list_item_button2);
 
                 if (device.getLockStage()) {
-                    viewHolder.lockButton.setImageResource(R.drawable.ic_locked_state);
-                    viewHolder.status.setText(getResources().getString(R.string.locked));
+                    viewHolder.lockButton.setImageResource(R.drawable.lock_state);
                 } else {
-                    viewHolder.lockButton.setImageResource(R.drawable.ic_unlocked_state);
-                    viewHolder.status.setText(getResources().getString(R.string.unlocked));
+                    viewHolder.lockButton.setImageResource(R.drawable.unlock_state);
                 }
 
                 viewHolder.lockButton.setOnClickListener(new View.OnClickListener() {
@@ -227,21 +187,12 @@ public class devices_page extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         if (device.getLockStage()) {
                                             device.setLockStage(false);
-<<<<<<< HEAD
                                             databaseLockStates.child(device.getName()).child("lockStage").setValue(false);
                                             viewHolder.lockButton.setImageResource(R.drawable.unlock_state);
                                         } else {
                                             device.setLockStage(true);
                                             databaseLockStates.child(device.getName()).child("lockStage").setValue(true);
                                             viewHolder.lockButton.setImageResource(R.drawable.lock_state);
-=======
-                                            viewHolder.lockButton.setImageResource(R.drawable.ic_unlocked_state);
-                                            viewHolder.status.setText(getResources().getString(R.string.unlocked));
-                                        } else {
-                                            device.setLockStage(true);
-                                            viewHolder.lockButton.setImageResource(R.drawable.ic_locked_state);
-                                            viewHolder.status.setText(getResources().getString(R.string.locked));
->>>>>>> Elmer
                                         }
                                     }
                                 })
@@ -250,12 +201,10 @@ public class devices_page extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         if (device.getLockStage()) {
                                             device.setLockStage(true);
-                                            viewHolder.lockButton.setImageResource(R.drawable.ic_locked_state);
-                                            viewHolder.status.setText(getResources().getString(R.string.locked));
+                                            viewHolder.lockButton.setImageResource(R.drawable.lock_state);
                                         } else {
                                             device.setLockStage(false);
-                                            viewHolder.lockButton.setImageResource(R.drawable.ic_unlocked_state);
-                                            viewHolder.status.setText(getResources().getString(R.string.unlocked));
+                                            viewHolder.lockButton.setImageResource(R.drawable.unlock_state);
                                         }
                                     }
                                 });
@@ -293,7 +242,6 @@ public class devices_page extends AppCompatActivity {
 
     public class ViewHolder {
         TextView name;
-        TextView status;
         ImageButton lockButton;
         ImageButton lockButton2;
     }
