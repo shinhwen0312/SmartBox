@@ -36,6 +36,7 @@ public class devices_page extends AppCompatActivity {
     private account cur;
     Dialog myDialog;
     DatabaseReference databaseLocks;
+    DatabaseReference databaseLockStates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +158,7 @@ public class devices_page extends AppCompatActivity {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             final ViewHolder viewHolder;
+            databaseLockStates = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices");
 
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -185,9 +187,11 @@ public class devices_page extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         if (device.getLockStage()) {
                                             device.setLockStage(false);
+                                            databaseLockStates.child(device.getName()).child("lockStage").setValue(false);
                                             viewHolder.lockButton.setImageResource(R.drawable.unlock_state);
                                         } else {
                                             device.setLockStage(true);
+                                            databaseLockStates.child(device.getName()).child("lockStage").setValue(true);
                                             viewHolder.lockButton.setImageResource(R.drawable.lock_state);
                                         }
                                     }
