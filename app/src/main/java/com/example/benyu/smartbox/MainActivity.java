@@ -32,11 +32,13 @@ public class MainActivity extends AppCompatActivity {
     private account current;
     private int counter = 3;
     boolean check;
+    account c;
     String passHolder;
     String userHolder;
 
     DatabaseReference databaseHosts;
     DatabaseReference databaseUsers;
+    DatabaseReference databaseLocks;
 
 
     @Override
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         newAccount = (TextView) findViewById(R.id.newAccount);
         idText = (TextView) findViewById(R.id.text_id);
         passwordText = (TextView) findViewById(R.id.text_password);
-        Log.d("check","check");
+
         button.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
@@ -103,13 +105,15 @@ public class MainActivity extends AppCompatActivity {
 
                                                       //iterating through all the objects
                                                       if (passHolder.equals(Password.getText().toString())) {
+
+
+
+
                                                           check = true;
-
-
                                                           final Control model = Control.getInstance();
                                                           List<account> newList = model.getAccountList();
-                                                          account c = new account(Id.getText().toString(), passHolder, dataSnapshot.child(Id.getText().toString()).child("email").getValue().toString());
-                                                          model.addAccount(c);
+                                                          c = new account(Id.getText().toString(), passHolder, dataSnapshot.child(Id.getText().toString()).child("email").getValue().toString());
+
                                                           /*for (account c : newList) {    //checking username and password stored in userdata
                                                               if ((c.getName().equals(Id.getText().toString())) &&
                                                                       (c.getPassword().equals(Password.getText().toString()))) {
@@ -117,6 +121,29 @@ public class MainActivity extends AppCompatActivity {
                                                                   current = c;
                                                               }
                                                           }*/
+                                                          databaseLocks = FirebaseDatabase.getInstance().getReference("users").child(c.getName()).child("devices");
+
+                                                          databaseLocks.addValueEventListener(new ValueEventListener() {
+                                                              @Override
+                                                              public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                                  //iterating through all the objects
+                                                                  c.getDeviceList().clear();
+                                                                  for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                                                      //getting object
+                                                                      Device a = postSnapshot.getValue(Device.class);
+                                                                      //adding object to the list
+                                                                      c.addDevice(a);
+                                                                      Log.d("check","checking how many times");
+
+                                                                  }
+                                                              }
+                                                              @Override
+                                                              public void onCancelled(DatabaseError databaseError) {
+
+                                                              }
+                                                          });
+                                                          model.addAccount(c);
                                                           Intent logIntent = new Intent(MainActivity.this,
                                                                   devices_page.class);
                                                           logIntent.putExtra("user data", c);

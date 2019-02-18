@@ -25,12 +25,18 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 public class devices_page extends AppCompatActivity {
     private account cur;
     Dialog myDialog;
+    DatabaseReference databaseLocks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Button logOut;
@@ -38,8 +44,30 @@ public class devices_page extends AppCompatActivity {
         ImageButton add;
         Control model = Control.getInstance();
 
-        final account current = getIntent().getParcelableExtra("user data");
-         cur = model.updateAccount(current);
+        account current = getIntent().getParcelableExtra("user data");
+        cur = model.updateAccount(current);
+        databaseLocks = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices");
+
+        databaseLocks.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //iterating through all the objects
+                cur.getDeviceList().clear();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    //getting object
+                    Device a = postSnapshot.getValue(Device.class);
+                    //adding object to the list
+                    cur.addDevice(a);
+                    Log.d("check","checking how many times");
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -47,6 +75,7 @@ public class devices_page extends AppCompatActivity {
 
         logOut = (Button) findViewById(R.id.button);
         list = (ListView) findViewById(R.id.list);
+
      //   add = (ImageButton) findViewById(R.id.imageButton4);
      //   ImageButton help = (ImageButton) findViewById(R.id.imageButton2);
 //        help.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +99,7 @@ public class devices_page extends AppCompatActivity {
         });
 
 
-        final List<Device> deviceList = current.getDeviceList();
+
 
 
 //        ListAdapter DeviceAdapter =
@@ -212,5 +241,6 @@ public class devices_page extends AppCompatActivity {
         ImageButton lockButton;
         ImageButton lockButton2;
     }
+
 
 }
