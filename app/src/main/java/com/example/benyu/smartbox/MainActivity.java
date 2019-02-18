@@ -104,10 +104,25 @@ public class MainActivity extends AppCompatActivity {
                                                       //iterating through all the objects
                                                       if (passHolder.equals(Password.getText().toString())) {
                                                           check = true;
+
+
+                                                          final Control model = Control.getInstance();
+                                                          List<account> newList = model.getAccountList();
+                                                          account c = new account(Id.getText().toString(), passHolder, dataSnapshot.child(Id.getText().toString()).child("email").getValue().toString());
+                                                          model.addAccount(c);
+                                                          /*for (account c : newList) {    //checking username and password stored in userdata
+                                                              if ((c.getName().equals(Id.getText().toString())) &&
+                                                                      (c.getPassword().equals(Password.getText().toString()))) {
+                                                                  check = true;
+                                                                  current = c;
+                                                              }
+                                                          }*/
                                                           Intent logIntent = new Intent(MainActivity.this,
                                                                   devices_page.class);
-                                                          logIntent.putExtra("user data", current);
+                                                          logIntent.putExtra("user data", c);
                                                           MainActivity.this.startActivity(logIntent);
+
+
 
                                                       } else if (!check) {
                                                           Toast.makeText(MainActivity.this,
@@ -131,17 +146,6 @@ public class MainActivity extends AppCompatActivity {
 //                                              if (counter == 0) {   //setting counters for password tries
 //                                                  button.setEnabled(false);
 //                                              }
-                                          /*final Control model = Control.getInstance();
-                                          List<account> newList = model.getAccountList();
-                                          Log.d("check", "True1");*/
-
-                                          /*for (account c : newList) {    //checking username and password stored in userdata
-                                              if ((c.getName().equals(Id.getText().toString())) &&
-                                                      (c.getPassword().equals(Password.getText().toString()))) {
-                                                  check = true;
-                                                  current = c;
-                                              }
-                                          }*/
 
                                       }
                                   }
