@@ -11,14 +11,12 @@ public class account implements Parcelable {
     private String name;
     private String password;
     private String email;
-
     private List<Device> devices;
 
     public account(String name, String password, String email) {
         this.name = name;
         this.password = password;
         this.email = email;
-
         devices = new ArrayList<>();
     }
 
@@ -77,8 +75,6 @@ public class account implements Parcelable {
         }
         this.email = email;
     }
-
-
 
     public String toString() {
         return name + "  " + password + "   " + email;

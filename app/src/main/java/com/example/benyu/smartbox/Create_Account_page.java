@@ -1,8 +1,6 @@
 package com.example.benyu.smartbox;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -69,7 +67,6 @@ public class Create_Account_page extends AppCompatActivity {
                 Control model = Control.getInstance();
                 if(password.getText().toString().equals(confirm.getText().toString()))
                 {
-                    String id = databaseHosts.push().getKey();
                     newAccount.setName(name.getText().toString());
                     newAccount.setPassword(password.getText().toString());
                     newAccount.setEmail(email.getText().toString());
@@ -77,8 +74,7 @@ public class Create_Account_page extends AppCompatActivity {
                     model.addAccount(newAccount);
 
                     //********************************
-
-
+                    String id = databaseHosts.push().getKey();
                     databaseHosts.child(name.getText().toString()).setValue(newAccount);
 
                     //*******************************************
@@ -86,7 +82,7 @@ public class Create_Account_page extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(Create_Account_page.this,
-                            "passwords does not match",
+                            "Passwords Do Not Match!",
                             Toast.LENGTH_SHORT).show();
                 }
             }
