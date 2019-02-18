@@ -67,7 +67,6 @@ public class Create_Account_page extends AppCompatActivity {
                 Control model = Control.getInstance();
                 if(password.getText().toString().equals(confirm.getText().toString()))
                 {
-                    String id = databaseHosts.push().getKey();
                     newAccount.setName(name.getText().toString());
                     newAccount.setPassword(password.getText().toString());
                     newAccount.setEmail(email.getText().toString());
@@ -75,8 +74,7 @@ public class Create_Account_page extends AppCompatActivity {
                     model.addAccount(newAccount);
 
                     //********************************
-
-
+                    String id = databaseHosts.push().getKey();
                     databaseHosts.child(name.getText().toString()).setValue(newAccount);
 
                     //*******************************************
