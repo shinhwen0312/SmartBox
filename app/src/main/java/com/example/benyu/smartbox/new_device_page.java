@@ -2,12 +2,16 @@ package com.example.benyu.smartbox;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -19,7 +23,7 @@ public class new_device_page extends AppCompatActivity {
     private Button cancel;
     private Button add;
     private Device newDevice;
-    DatabaseReference databaseHosts = FirebaseDatabase.getInstance().getReference("devices");
+    DatabaseReference databaseHosts = FirebaseDatabase.getInstance().getReference("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +31,6 @@ public class new_device_page extends AppCompatActivity {
         setContentView(R.layout.activity_new_device_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        toolbar.setNavigationIcon(R.drawable.ic_cancel_white);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //
@@ -50,16 +44,16 @@ public class new_device_page extends AppCompatActivity {
         name = (EditText) findViewById(R.id.editText3);
         location = (EditText) findViewById(R.id.editText8);
         id = (EditText) findViewById(R.id.editText9);
-        //cancel = (Button)findViewById(R.id.button5);
+        cancel = (Button)findViewById(R.id.button5);
         add = (Button)findViewById(R.id.button6);
         newDevice = new Device();
 
-       /* cancel.setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
-        });*/
+        });
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +68,7 @@ public class new_device_page extends AppCompatActivity {
                     model.updateAccount(current).addDevice(newDevice);
                 Intent addIntent = new Intent(new_device_page.this,
                         devices_page.class);
-                databaseHosts.child(current.getName()).setValue(newDevice);
+                databaseHosts.child(current.getName()).child("devices").child(newDevice.getName()).setValue(newDevice);
                 addIntent.putExtra("user data", model.updateAccount(current));
                 new_device_page.this.startActivity(addIntent);
             }
