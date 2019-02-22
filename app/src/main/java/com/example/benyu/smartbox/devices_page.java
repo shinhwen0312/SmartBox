@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,11 +23,20 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.List;
 
 public class devices_page extends AppCompatActivity {
     private account cur;
     Dialog myDialog;
+    DatabaseReference databaseLocks;
+    DatabaseReference databaseLockStates;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Button logOut;
@@ -34,8 +44,31 @@ public class devices_page extends AppCompatActivity {
         ImageButton add;
         Control model = Control.getInstance();
 
-        final account current = getIntent().getParcelableExtra("user data");
-         cur = model.updateAccount(current);
+        account current = getIntent().getParcelableExtra("user data");
+        cur = model.updateAccount(current);
+        databaseLocks = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices");
+
+        databaseLocks.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //iterating through all the objects
+                cur.getDeviceList().clear();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    //getting object
+                    Device a = postSnapshot.getValue(Device.class);
+                    //adding object to the list
+                    cur.addDevice(a);
+                    Log.d("check","checking how many times");
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -157,6 +190,7 @@ public class devices_page extends AppCompatActivity {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             final ViewHolder viewHolder;
+            databaseLockStates = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices");
 
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -188,10 +222,12 @@ public class devices_page extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         if (device.getLockStage()) {
                                             device.setLockStage(false);
+                                            databaseLockStates.child(device.getName()).child("lockStage").setValue(false);
                                             viewHolder.lockButton.setImageResource(R.drawable.ic_unlocked_state);
                                             viewHolder.status.setText(getResources().getString(R.string.unlocked));
                                         } else {
                                             device.setLockStage(true);
+                                            databaseLockStates.child(device.getName()).child("lockStage").setValue(true);
                                             viewHolder.lockButton.setImageResource(R.drawable.ic_locked_state);
                                             viewHolder.status.setText(getResources().getString(R.string.locked));
                                         }

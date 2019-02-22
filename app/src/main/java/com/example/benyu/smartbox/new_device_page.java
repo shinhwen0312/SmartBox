@@ -20,7 +20,7 @@ public class new_device_page extends AppCompatActivity {
     private Button cancel;
     private Button add;
     private Device newDevice;
-    DatabaseReference databaseHosts = FirebaseDatabase.getInstance().getReference("devices");
+    DatabaseReference databaseHosts = FirebaseDatabase.getInstance().getReference("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +68,14 @@ public class new_device_page extends AppCompatActivity {
                 Log.d("Edit", "Add account");
                 Control model = Control.getInstance();
                 final account current = getIntent().getParcelableExtra("user data");
-                    newDevice.setName(name.getText().toString());
-                    newDevice.setLocation(location.getText().toString());
-                    newDevice.setId(id.getText().toString());
-                    Log.d("Edit", "Add account");
-                    model.updateAccount(current).addDevice(newDevice);
+                newDevice.setName(name.getText().toString());
+                newDevice.setLocation(location.getText().toString());
+                newDevice.setId(id.getText().toString());
+                Log.d("Edit", "Add account");
+                model.updateAccount(current).addDevice(newDevice);
                 Intent addIntent = new Intent(new_device_page.this,
                         devices_page.class);
-                databaseHosts.child(current.getName()).setValue(newDevice);
+                databaseHosts.child(current.getName()).child("devices").child(newDevice.getName()).setValue(newDevice);
                 addIntent.putExtra("user data", model.updateAccount(current));
                 new_device_page.this.startActivity(addIntent);
             }
