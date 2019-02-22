@@ -30,6 +30,7 @@ public class Create_Account_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create__account_page);
 
+        //no more toolbar in create_account
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

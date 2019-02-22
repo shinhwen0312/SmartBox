@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class new_device_page extends AppCompatActivity {
+    //list of device details
     private EditText name;
     private EditText location;
     private EditText id;

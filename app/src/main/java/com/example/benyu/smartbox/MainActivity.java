@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private account current;
     private int counter = 3;
 
+    //database ref
     DatabaseReference databaseHosts;
 
     @Override

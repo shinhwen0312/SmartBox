@@ -26,6 +26,7 @@ public class Edit_Device_Page extends AppCompatActivity {
         setContentView(R.layout.activity_edit__device__page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //no toolbar title
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setNavigationIcon(R.drawable.ic_cancel_white);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

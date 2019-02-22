@@ -40,6 +40,7 @@ public class devices_page extends AppCompatActivity {
         setContentView(R.layout.activity_devices_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //no title, custom one in XML
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //logOut = (Button) findViewById(R.id.button);
