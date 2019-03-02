@@ -267,6 +267,8 @@ public class devices_page extends AppCompatActivity {
                         Intent editIntent = new Intent(devices_page.this,
                                 Edit_Device_Page.class);
                         editIntent.putExtra("user data", cur);
+                        //pass along device name to edit_device_page
+                        editIntent.putExtra("device name", viewHolder.name.getText().toString());
                         devices_page.this.startActivity(editIntent);
                     }
                 });

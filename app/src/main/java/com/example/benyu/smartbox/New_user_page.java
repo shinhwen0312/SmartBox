@@ -1,11 +1,17 @@
 package com.example.benyu.smartbox;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class New_user_page extends AppCompatActivity {
 
@@ -15,15 +21,66 @@ public class New_user_page extends AppCompatActivity {
         setContentView(R.layout.activity_new_user_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setNavigationIcon(R.drawable.ic_cancel_white);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                finish();
             }
         });
+
+        MyEditTextDatePicker start_date = new MyEditTextDatePicker(this, R.id.start_date);
+        MyEditTextDatePicker end_date = new MyEditTextDatePicker(this, R.id.end_date);
+
+
+    }
+
+
+    /*  Handles the start and end date pickers.
+     *
+     *  https://stackoverflow.com/questions/14933330/datepicker-how-to-popup-datepicker-when-click-on-edittext
+     */
+    public class MyEditTextDatePicker  implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
+        EditText _editText;
+        private int _day;
+        private int _month;
+        private int _birthYear;
+        private Context _context;
+
+        public MyEditTextDatePicker(Context context, int editTextViewID)
+        {
+            Activity act = (Activity)context;
+            this._editText = (EditText)act.findViewById(editTextViewID);
+            this._editText.setOnClickListener(this);
+            this._context = context;
+        }
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            _birthYear = year;
+            _month = monthOfYear;
+            _day = dayOfMonth;
+            updateDisplay();
+        }
+        @Override
+        public void onClick(View v) {
+            Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+
+            DatePickerDialog dialog = new DatePickerDialog(_context, this,
+                    calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH));
+            dialog.show();
+
+        }
+
+        // updates the date in the birth date EditText
+        private void updateDisplay() {
+
+            _editText.setText(new StringBuilder()
+                    // Month is 0 based so add 1
+                    .append(_day).append("/").append(_month + 1).append("/").append(_birthYear).append(" "));
+        }
     }
 
 }

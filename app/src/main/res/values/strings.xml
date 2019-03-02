@@ -20,6 +20,7 @@
     <string name="title_activity_create__account_page">Create_Account_page</string>
     <string name="title_activity_new_user_page">New_user_page</string>
     <string name="title_activity_edit__device__page">Edit_Device_Page</string>
+    <string name="title_activity_users_page">Users</string>
     <string name="id">ID</string>
 
 
@@ -55,6 +56,17 @@
     <string name="history_setting">History</string>
     <string name="delete">Delete</string>
     <string name="manage">Manage Users</string>
+
+    <!--activity-users-page-->
+    <string name="users_lowercase">users</string>
+
+    <!--activity-new-users-page-->
+    <string name="new_user_lowercase">new user</string>
+    <string name="person_name">Person\'s Name</string>
+    <string name="pin">Access Pin</string>
+    <string name="generate">Generate Pin</string>
+    <string name="startdate">Start Date</string>
+    <string name="enddate">End Date</string>
 
 
     <string name="name">Id</string>

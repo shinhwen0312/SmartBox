@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:weightSum="6"
     android:gravity="center_horizontal"
     android:background="@color/colorBackground">
 
@@ -19,8 +20,9 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_weight="4"
         android:text="@string/create_account"
         android:textStyle="bold"
         android:textAlignment="gravity"
@@ -32,7 +34,6 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
         android:gravity="center_vertical"
         android:background="@drawable/edittext"
         android:autofillHints=""

@@ -54,6 +54,11 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".users_page"
+            android:label="@string/title_activity_users_page"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".basic"
             android:label="@string/title_activity_basic"
             android:theme="@style/AppTheme.NoActionBar"></activity>
