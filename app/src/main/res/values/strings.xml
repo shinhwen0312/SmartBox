@@ -67,6 +67,8 @@
     <string name="generate">Generate Pin</string>
     <string name="startdate">Start Date</string>
     <string name="enddate">End Date</string>
+    <string name="starttime">Start Time</string>
+    <string name="endtime">End Time</string>
 
 
     <string name="name">Id</string>

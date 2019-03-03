@@ -61,7 +61,8 @@ public class users_page extends AppCompatActivity {
             public void onClick(View view) {
                 Intent newIntent =
                         new Intent(users_page.this, New_user_page.class);
-                //newIntent.putExtra("user data", cur);
+                newIntent.putExtra("user data", cur);
+                newIntent.putExtra("device data", cur2);
                 users_page.this.startActivity(newIntent);
             }
         });
