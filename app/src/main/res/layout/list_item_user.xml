@@ -12,40 +12,111 @@
     android:paddingStart="16dp"
     android:background="@color/colorBackground">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/list_item_name"
+        android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_gravity="center_vertical"
+        android:ellipsize="end"
+        android:textColor="@color/colorNormalPrimary"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:text="@string/textview"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/list_item_name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="end"
-            android:textColor="@color/colorNormalPrimary"
-            android:textSize="16sp"
-            android:maxLines="1"
-            android:text="@string/textview"/>
+            android:layout_marginLeft="16dp">
 
-        <TextView
-            android:id="@+id/list_item_status"
+            <TextView
+                android:id="@+id/list_item_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:textColor="@color/colorNormalPrimary"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:text="@string/textview"/>
+
+            <TextView
+                android:id="@+id/list_item_starttime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:textColor="@color/colorNormalPrimary"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:text="@string/textview"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="end"
-            android:textColor="@color/colorLightPrimary"
-            android:textSize="14sp"
-            android:maxLines="1"
-            android:text="@string/textview"/>
+            android:layout_marginLeft="16dp">
+
+            <TextView
+                android:id="@+id/list_item_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:textColor="@color/colorNormalPrimary"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:text="@string/textview"/>
+
+            <TextView
+                android:id="@+id/list_item_endtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:textColor="@color/colorNormalPrimary"
+                android:textSize="14sp"
+                android:maxLines="1"
+                android:text="@string/textview"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/list_item_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/edit"
+        android:background="@color/colorBackground"
+        android:contentDescription="@string/todo" />
+
 
 </LinearLayout>
     <!--<?xml version="1.0" encoding="utf-8"?>

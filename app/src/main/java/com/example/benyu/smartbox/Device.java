@@ -54,9 +54,9 @@ public class Device implements Parcelable {
         if (user == null) {
             return false;
         }
-        for (User c : users ) {
+/*        for (User c : users ) {
             if (c.equals(user)) return false;
-        }
+        }*/
         users.add(user);
         return true;
     }

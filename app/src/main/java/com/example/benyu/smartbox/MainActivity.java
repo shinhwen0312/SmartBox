@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -172,9 +171,9 @@ public class MainActivity extends AppCompatActivity {
                                           });
 
                                           if(!check) {
-                                              Toast.makeText(MainActivity.this,
+                                              /*Toast.makeText(MainActivity.this,
                                                       "Incorrect Username and/or Password.",
-                                                      Toast.LENGTH_SHORT).show();
+                                                      Toast.LENGTH_SHORT).show();*/
                                           }
 //                                              counter--;
 //                                              if (counter == 0) {   //setting counters for password tries

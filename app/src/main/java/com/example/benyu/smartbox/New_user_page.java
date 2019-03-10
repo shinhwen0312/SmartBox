@@ -7,15 +7,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.util.Calendar;
-import java.sql.Date;
+import java.util.List;
+import java.util.Random;
 import java.util.TimeZone;
 
 //import java.util.Date;
@@ -27,6 +31,8 @@ public class New_user_page extends AppCompatActivity {
     private Button add;
     private EditText personName;
     private EditText pin;
+    private ImageButton generate;
+    private String pinNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,25 +58,48 @@ public class New_user_page extends AppCompatActivity {
         Control model = Control.getInstance();
 
         account current = getIntent().getParcelableExtra("user data");
-        final Device deviceCurrent = getIntent().getParcelableExtra("device data");
+        String deviceCurrentTest = getIntent().getStringExtra("device data");
         cur = model.updateAccount(current);
+        final Device deviceCurrent = getDevice(current);
         cur2 = deviceCurrent;
 
         personName = (EditText) findViewById(R.id.person_name);
         pin = (EditText) findViewById(R.id.pin);
+        generate = (ImageButton) findViewById(R.id.generate);
+
+        generate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Random ran = new Random();
+                pinNumber = String.valueOf(100000 + ran.nextInt(899999));
+                pin.setText(pinNumber);
+            }
+        });
 
         add = (Button) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String person_name = personName.getText().toString();
-                int pinNumber = Integer.parseInt(pin.getText().toString());
+                if (pinNumber == null) {
+                    pinNumber = pin.getText().toString();
+                }
                 Date start = start_date.getDate();
                 Date end = end_date.getDate();
                 Time startTime = start_time.getTime();
                 Time endTime = end_time.getTime();
                 User newUser = new User(person_name, pinNumber, start, end, startTime, endTime);
                 deviceCurrent.addUser(newUser);
+                Control model = Control.getInstance();
+                cur = model.updateAccount(cur);
+                finish();
+
+/*                Control model = Control.getInstance();
+                Intent addIntent = new Intent(New_user_page.this,
+                        users_page.class);
+                addIntent.putExtra("user data", model.updateAccount(cur));
+                addIntent.putExtra("device data", deviceCurrent.getName());
+                New_user_page.this.startActivity(addIntent);*/
             }
         });
     }
@@ -119,7 +148,7 @@ public class New_user_page extends AppCompatActivity {
 
             _editText.setText(new StringBuilder()
                     // Month is 0 based so add 1
-                    .append(_day).append("/").append(_month + 1).append("/").append(_birthYear).append(" "));
+                    .append(_month + 1).append("/").append(_day).append("/").append(_birthYear).append(" "));
         }
 
         public Date getDate() {
@@ -135,31 +164,38 @@ public class New_user_page extends AppCompatActivity {
      *  https://stackoverflow.com/questions/14933330/datepicker-how-to-popup-datepicker-when-click-on-edittext
      */
     public class TimeChooser  implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
-        EditText _editText;
-        private int _hourOfDay;
+        ImageButton _editText;
+        private int _hourOfDay = -1;
         private int _minute;
         private Context _context;
 
         public TimeChooser(Context context, int editTextViewID)
         {
             Activity act = (Activity)context;
-            this._editText = (EditText)act.findViewById(editTextViewID);
+            this._editText = (ImageButton)act.findViewById(editTextViewID);
             this._editText.setOnClickListener(this);
             this._context = context;
         }
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            hourOfDay = _hourOfDay;
-            minute = _minute;
-            updateDisplay();
+            _hourOfDay = hourOfDay;
+            _minute = minute;
+            //updateDisplay();
         }
 
         @Override
         public void onClick(View v) {
-            Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
+            int hour;
+            int minute;
+            if (_hourOfDay == -1) {
+                Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+                hour = calendar.get(Calendar.HOUR_OF_DAY);
+                minute = calendar.get(Calendar.MINUTE);
+            } else {
+                hour = _hourOfDay;
+                minute = _minute;
+            }
 
             TimePickerDialog dialog = new TimePickerDialog(_context, this, hour, minute, false);
             dialog.show();
@@ -167,17 +203,39 @@ public class New_user_page extends AppCompatActivity {
         }
 
         // updates the date in the birth date EditText
-        private void updateDisplay() {
+/*        private void updateDisplay() {
 
             _editText.setText(new StringBuilder()
                     // Month is 0 based so add 1
                     .append(_hourOfDay).append(":").append(_minute).append(" "));
-        }
+        }*/
 
         public Time getTime() {
             Time current = new Time(_hourOfDay, _minute, 0);
             return current;
         }
+    }
+
+    /*  Takes the current account and looks through the devices to find matching name
+     *
+     *  current      account name
+     *
+     *  returns      device currently on
+     */
+    public Device getDevice(account current) {
+        List<Device> devices = cur.getDeviceList();
+        String deviceName = getIntent().getStringExtra("device data");
+        Log.d("TEST", "NAME OF DEVICE FROM INTENT: " + deviceName);
+
+        for (Device item : devices) {
+            if (item.getName().equals(deviceName)) {
+                Log.d("TEST", "ITEM FOUND: " + item.toString());
+                return item;
+            }
+        }
+
+        //no device found (error?)
+        return null;
     }
 
 }

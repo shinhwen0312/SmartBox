@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class User implements Parcelable {
 
     private String name;
-    private int pin;
+    private String pin;
 //    private int startMonth;
 //    private int startDate;
 //    private int startHour;
@@ -25,7 +25,7 @@ public class User implements Parcelable {
     private Time startTime;
     private Time endTime;
 
-    public User(String name, int pin, Date startDate, Date endDate, Time startTime, Time endTime) {
+    public User(String name, String pin, Date startDate, Date endDate, Time startTime, Time endTime) {
         this.name = name;
         this.pin = pin;
         this.startDate = startDate;
@@ -35,7 +35,7 @@ public class User implements Parcelable {
 
     }
     public String getName() { return name; }
-    public int getPin() { return pin; }
+    public String getPin() { return pin; }
     public Time getStartTime() { return startTime; }
     public Time getEndTime() { return endTime; }
     public Date getStartDate() { return startDate; }
@@ -67,7 +67,7 @@ public class User implements Parcelable {
         this.name = name;
     }
 
-    public void setPin(int pin) {
+    public void setPin(String pin) {
         this.pin = pin;
     }
 
@@ -79,11 +79,11 @@ public class User implements Parcelable {
         this.endTime = endTime;
     }
     public String toString() {
-        return String.format("%s     %d  ",name,pin);
+        return String.format("%s     %s  ",name,pin);
     }
 
     private User(Parcel in) {
-        pin = in.readInt();
+        pin = in.readString();
         name = in.readString();
     //    startDate = in.read();
 
@@ -97,7 +97,7 @@ public class User implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        dest.writeInt(pin);
+        dest.writeString(pin);
     }
 
     /**

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -49,6 +50,7 @@ public class Edit_Device_Page extends AppCompatActivity {
         cur = model.updateAccount(current);
         Device deviceCurrent = getDevice(current);
         cur2 = deviceCurrent;
+        Log.d("TEST", "ITEM RETURNED FROM METHOD: " + cur2.toString());
 
         manageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +58,7 @@ public class Edit_Device_Page extends AppCompatActivity {
                 Intent editIntent = new Intent(Edit_Device_Page.this,
                         users_page.class);
                 editIntent.putExtra("user data", cur);
-                editIntent.putExtra("device data", cur2);
+                editIntent.putExtra("device data", cur2.getName());
                 Edit_Device_Page.this.startActivity(editIntent);
             }
         });
@@ -72,9 +74,11 @@ public class Edit_Device_Page extends AppCompatActivity {
     public Device getDevice(account current) {
         List<Device> devices = cur.getDeviceList();
         String deviceName = getIntent().getStringExtra("device name");
+        Log.d("TEST", "NAME OF DEVICE FROM INTENT: " + deviceName);
 
         for (Device item : devices) {
             if (item.getName().equals(deviceName)) {
+                Log.d("TEST", "ITEM FOUND: " + item.toString());
                 return item;
             }
         }
