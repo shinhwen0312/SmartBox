@@ -152,8 +152,7 @@
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:editable="false"
-            android:clickable="true"
-            android:focusable="true"
+            android:focusable="false"
             android:drawablePadding="8dp"
             android:ems="9"/>
 
