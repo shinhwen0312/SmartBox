@@ -18,8 +18,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class users_page extends AppCompatActivity {
     private account cur;
@@ -123,18 +123,31 @@ public class users_page extends AppCompatActivity {
 /*                    viewHolder.lockButton = (ImageButton) convertView.findViewById(R.id.list_item_button);*/
                     viewHolder.lockButton2 = (ImageButton) convertView.findViewById(R.id.list_item_button2);
 
-                    viewHolder.start.setText(new StringBuilder()
-                            // Month is 0 based so add 1
-                            .append(user.getStartDate().getMonth() + 1).append("/").append(user.getStartDate().getDay()).append("/").append(user.getStartDate().getYear()).append(" "));
-                    viewHolder.end.setText(new StringBuilder()
-                            // Month is 0 based so add 1
-                            .append(user.getEndDate().getMonth() + 1).append("/").append(user.getEndDate().getDay()).append("/").append(user.getEndDate().getYear()).append(" "));
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/YY");
+                    String day = dateFormat.format(user.getStartDate());
 
-                    long hour = TimeUnit.HOURS.convert(user.getStartTime().getTime(), TimeUnit.MILLISECONDS);
-                    long minutes = TimeUnit.MINUTES.convert(user.getStartTime().getTime(), TimeUnit.MILLISECONDS);
-                    viewHolder.time_start.setText(new StringBuilder()
+                    viewHolder.start.setText(day);
+/*                            new StringBuilder()
                             // Month is 0 based so add 1
-                            .append(hour).append(":").append(minutes));
+                            .append(user.getStartDate().getMonth() + 1).append("/").append(user.getStartDate().getDay()).append("/").append(user.getStartDate().getYear()).append(" "));*/
+
+                    String endday = dateFormat.format(user.getEndDate());
+                    viewHolder.end.setText(endday);
+/*                            new StringBuilder()
+                            // Month is 0 based so add 1
+                            .append(user.getEndDate().getMonth() + 1).append("/").append(user.getEndDate().getDay()).append("/").append(user.getEndDate().getYear()).append(" "));*/
+
+                    long hour = user.getStartTime().getTime() / (1000 * 60 * 60) % 24;
+                    long minutes = user.getStartTime().getTime() / (1000 * 60) % 60;
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                    String date = timeFormat.format(user.getStartTime().getTime());
+
+                    viewHolder.time_start.setText(date);
+                    date = timeFormat.format(user.getEndTime().getTime());
+                    viewHolder.time_end.setText(date);
+/*                            new StringBuilder()
+                            // Month is 0 based so add 1
+                            .append(hour).append(":").append(minutes));*/
 
 /*                    if (user.getLockStage()) {
                         viewHolder.lockButton.setImageResource(R.drawable.ic_locked_state);

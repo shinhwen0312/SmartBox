@@ -78,6 +78,7 @@
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:inputType="number"
+            android:maxLength="6"
             android:drawablePadding="8dp"
             android:ems="9"/>
 

@@ -182,6 +182,7 @@ public class New_user_page extends AppCompatActivity {
             _hourOfDay = hourOfDay;
             _minute = minute;
             //updateDisplay();
+            Log.d("TEST", "MINUTE: " + _minute + ", HOUR: " + _hourOfDay);
         }
 
         @Override
@@ -212,6 +213,7 @@ public class New_user_page extends AppCompatActivity {
 
         public Time getTime() {
             Time current = new Time(_hourOfDay, _minute, 0);
+            Log.d("TEST", "TIME: " + current.getTime());
             return current;
         }
     }
