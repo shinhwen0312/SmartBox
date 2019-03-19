@@ -18,6 +18,7 @@ import java.util.List;
 public class Edit_Device_Page extends AppCompatActivity {
     private account cur;
     private Device cur2;
+    //DatabaseReference databaseDeviceStates;
 
     private EditText deviceName;
     private EditText deviceLocation;
@@ -87,8 +88,11 @@ public class Edit_Device_Page extends AppCompatActivity {
                             "Cannot have empty name or location.",
                             Toast.LENGTH_SHORT).show();
                 } else {
+/*                    databaseDeviceStates = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices");
+                    databaseDeviceStates.child(cur2.getName()).child("name").setValue(rename);*/
                     cur2.setName(rename);
                     cur2.setLocation(renameLocation);
+
                     Toast.makeText(Edit_Device_Page.this,
                             "Successfully saved.",
                             Toast.LENGTH_SHORT).show();

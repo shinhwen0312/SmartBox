@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHosts = FirebaseDatabase.getInstance().getReference("path");
 
-        databaseHosts.addValueEventListener(new ValueEventListener() {
+        databaseHosts.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
                                           databaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
                                           //.child(Id.getText().toString())
-                                          databaseUsers.addValueEventListener(new ValueEventListener() {
+                                          databaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
                                               @Override
                                               public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                                                           }*/
                                                           databaseLocks = FirebaseDatabase.getInstance().getReference("users").child(c.getName()).child("devices");
 
-                                                          databaseLocks.addValueEventListener(new ValueEventListener() {
+                                                          databaseLocks.addListenerForSingleValueEvent(new ValueEventListener() {
                                                               @Override
                                                               public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
                                                               }
                                                           });
+
                                                           model.addAccount(c);
                                                           Intent logIntent = new Intent(MainActivity.this,
                                                                   devices_page.class);

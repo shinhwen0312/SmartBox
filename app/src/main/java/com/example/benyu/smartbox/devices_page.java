@@ -47,7 +47,7 @@ public class devices_page extends AppCompatActivity {
         cur = model.updateAccount(current);
         databaseLocks = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices");
 
-        databaseLocks.addValueEventListener(new ValueEventListener() {
+        databaseLocks.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
