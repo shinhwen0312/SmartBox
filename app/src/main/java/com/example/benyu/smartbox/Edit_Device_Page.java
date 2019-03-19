@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,14 +19,10 @@ public class Edit_Device_Page extends AppCompatActivity {
     private account cur;
     private Device cur2;
 
-    private EditText name;
-    private EditText location;
-    private EditText statusLabel;
-    private EditText statusInfo;
+    private EditText deviceName;
+    private EditText deviceLocation;
     private Button manageButton;
-    private Button history;
-    private Button add;
-    private Button delete;
+    private Button saveButton;
 
     Control model = Control.getInstance();
 
@@ -35,8 +32,11 @@ public class Edit_Device_Page extends AppCompatActivity {
         setContentView(R.layout.activity_edit__device__page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         //no toolbar title
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        //back arrow functionality in toolbar
         toolbar.setNavigationIcon(R.drawable.ic_cancel_white);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,14 +44,24 @@ public class Edit_Device_Page extends AppCompatActivity {
                 finish();
             }
         });
-        manageButton = (Button) findViewById(R.id.button13);
 
+
+
+
+        //local storage
         account current = getIntent().getParcelableExtra("user data");
         cur = model.updateAccount(current);
-        Device deviceCurrent = getDevice(current);
+        final Device deviceCurrent = getDevice(current); //method that searches all device names to find matching one
         cur2 = deviceCurrent;
-        Log.d("TEST", "ITEM RETURNED FROM METHOD: " + cur2.toString());
+        //Log.d("TEST", "ITEM RETURNED FROM METHOD: " + cur2.toString());
 
+        deviceName = (EditText) findViewById(R.id.device_name);
+        deviceName.setText(deviceCurrent.getName());
+        deviceLocation = (EditText) findViewById(R.id.device_location);
+        deviceLocation.setText(deviceCurrent.getLocation());
+
+        //manage users button
+        manageButton = (Button) findViewById(R.id.manage_users);
         manageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -60,6 +70,29 @@ public class Edit_Device_Page extends AppCompatActivity {
                 editIntent.putExtra("user data", cur);
                 editIntent.putExtra("device data", cur2.getName());
                 Edit_Device_Page.this.startActivity(editIntent);
+            }
+        });
+
+        //save button functionality
+        saveButton = (Button) findViewById(R.id.save);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                //TODO More In-Depth Error Checking
+                //TODO Update in Database
+                String rename = deviceName.getText().toString();
+                String renameLocation = deviceLocation.getText().toString();
+                if(rename.equals("") || renameLocation.equals("")) {
+                    Toast.makeText(Edit_Device_Page.this,
+                            "Cannot have empty name or location.",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    cur2.setName(rename);
+                    cur2.setLocation(renameLocation);
+                    Toast.makeText(Edit_Device_Page.this,
+                            "Successfully saved.",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -84,6 +117,7 @@ public class Edit_Device_Page extends AppCompatActivity {
         }
 
         //no device found (error?)
+        //TODO Handle Errors
         return null;
     }
 
@@ -101,10 +135,10 @@ public class Edit_Device_Page extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_history:
-                //OPEN INTENT FOR NEW HISTORY PAGE
+                //TODO Manage History
                 return true;
             case R.id.action_delete:
-                //DELETE THE DEVICE FROM USER ACCOUNT
+                //TODO Delete Device
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

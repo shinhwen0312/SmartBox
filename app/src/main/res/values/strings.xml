@@ -25,7 +25,7 @@
 
 
     <!--activity-main-->
-    <string name="app_name_lowercase">smartbox</string>
+    <string name="app_name_lowercase">SmartBox</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot password?</string>
@@ -35,33 +35,33 @@
 
 
     <!--activity-create-account-->
-    <string name="create_account">create account</string>
+    <string name="create_account">Create Account</string>
     <string name="email">Email</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="sign_up">Sign Up</string>
 
 
     <!--activity-devices-page-->
-    <string name="devices_lowercase">devices</string>
+    <string name="devices_lowercase">Devices</string>
     <string name="logout_menu">Log Out</string>
     <string name="locked">Locked</string>
     <string name="unlocked">Unlocked</string>
 
     <!--activity-new-device-page-->
-    <string name="new_device_lowercase">new device</string>
+    <string name="new_device_lowercase">New Device</string>
 
     <!--activity-edit-device-page-->
-    <string name="edit_device_lowercase">edit device</string>
+    <string name="edit_device_lowercase">Edit Device</string>
     <string name="save">Save</string>
     <string name="history_setting">History</string>
     <string name="delete">Delete</string>
     <string name="manage">Manage Users</string>
 
     <!--activity-users-page-->
-    <string name="users_lowercase">users</string>
+    <string name="users_lowercase">Users</string>
 
     <!--activity-new-users-page-->
-    <string name="new_user_lowercase">new user</string>
+    <string name="new_user_lowercase">New User</string>
     <string name="person_name">Person\'s Name</string>
     <string name="pin">Access Pin</string>
     <string name="generate">Generate Pin</string>

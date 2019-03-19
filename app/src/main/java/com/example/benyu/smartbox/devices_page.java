@@ -33,14 +33,13 @@ import java.util.List;
 
 public class devices_page extends AppCompatActivity {
     private account cur;
+    private ListView list;
     Dialog myDialog;
     DatabaseReference databaseLocks;
     DatabaseReference databaseLockStates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Button logOut;
-        ListView list;
         ImageButton add;
         Control model = Control.getInstance();
 
@@ -71,24 +70,14 @@ public class devices_page extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_page);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //no title, custom one in XML
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        //logOut = (Button) findViewById(R.id.button);
         list = (ListView) findViewById(R.id.list);
-     //   add = (ImageButton) findViewById(R.id.imageButton4);
-     //   ImageButton help = (ImageButton) findViewById(R.id.imageButton2);
-//        help.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent newIntent =
-//                        new Intent(devices_page.this, new_device_page.class);
-//                newIntent.putExtra("user data", cur);
-//                devices_page.this.startActivity(newIntent);
-//            }
-//        });
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,10 +92,6 @@ public class devices_page extends AppCompatActivity {
 
         final List<Device> deviceList = current.getDeviceList();
 
-
-//        ListAdapter DeviceAdapter =
-//                new ArrayAdapter(this,android.R.layout.simple_list_item_1,
-//                        model.updateAccount(current).getDeviceNameList());
         list.setAdapter(new MylistAdpater(this,R.layout.list_item, model.updateAccount(current).getDeviceList()));
         myDialog = new Dialog(this);
 
@@ -122,30 +107,13 @@ public class devices_page extends AppCompatActivity {
 //                context.startActivity(intent);
 //            }
 //        });
-/*        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent logoutIntent = new Intent(devices_page.this,
-                        MainActivity.class);
-                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                devices_page.this.startActivity(logoutIntent);
-                finish();
-            }
-        });*/
+    }
 
-//        add.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent newIntent =
-//                        new Intent(devices_page.this, new_device_page.class);
-//                newIntent.putExtra("user data", cur);
-//                devices_page.this.startActivity(newIntent);
-//            }
-//        });
-
-
-
-
+    protected void onStart() {
+        super.onStart();
+        final List<Device> deviceList = cur.getDeviceList();
+        if (cur.getDeviceList() != null) { list.setAdapter(new devices_page.MylistAdpater(this, R.layout.list_item, cur.getDeviceList()));}
+        myDialog = new Dialog(this);
     }
 
     public void logoutAction() {
