@@ -43,6 +43,9 @@ public class devices_page extends AppCompatActivity {
         ImageButton add;
         Control model = Control.getInstance();
 
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_devices_page);
+
         account current = getIntent().getParcelableExtra("user data");
         cur = model.updateAccount(current);
         databaseLocks = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices");
@@ -67,9 +70,6 @@ public class devices_page extends AppCompatActivity {
 
             }
         });
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_devices_page);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

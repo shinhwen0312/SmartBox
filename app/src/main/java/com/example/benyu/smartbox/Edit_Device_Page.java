@@ -57,8 +57,10 @@ public class Edit_Device_Page extends AppCompatActivity {
         //Log.d("TEST", "ITEM RETURNED FROM METHOD: " + cur2.toString());
 
         deviceName = (EditText) findViewById(R.id.device_name);
+        if(deviceCurrent.getName() != null)
         deviceName.setText(deviceCurrent.getName());
         deviceLocation = (EditText) findViewById(R.id.device_location);
+        if(deviceCurrent.getName() != null)
         deviceLocation.setText(deviceCurrent.getLocation());
 
         //manage users button
