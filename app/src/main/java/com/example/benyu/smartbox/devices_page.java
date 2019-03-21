@@ -45,6 +45,7 @@ public class devices_page extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_page);
+        list = (ListView) findViewById(R.id.list);
 
         account current = getIntent().getParcelableExtra("user data");
         cur = model.updateAccount(current);
@@ -62,8 +63,12 @@ public class devices_page extends AppCompatActivity {
                     //adding object to the list
                     cur.addDevice(a);
                     Log.d("check","checking how many times");
-
                 }
+                
+                final List<Device> deviceList = cur.getDeviceList();
+
+                list.setAdapter(new MylistAdpater(devices_page.this,R.layout.list_item, deviceList));
+                myDialog = new Dialog(devices_page.this);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -76,7 +81,6 @@ public class devices_page extends AppCompatActivity {
         //no title, custom one in XML
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        list = (ListView) findViewById(R.id.list);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -89,11 +93,6 @@ public class devices_page extends AppCompatActivity {
             }
         });
 
-
-        final List<Device> deviceList = current.getDeviceList();
-
-        list.setAdapter(new MylistAdpater(this,R.layout.list_item, model.updateAccount(current).getDeviceList()));
-        myDialog = new Dialog(this);
 
         // this sets the click action for listview when click on the screen
 //        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
