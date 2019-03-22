@@ -155,7 +155,10 @@ public class Edit_Device_Page extends AppCompatActivity {
                 return true;
             case R.id.action_delete:
                 dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(cur2.getName());
+                cur.getDeviceList().remove(cur2);
+                Log.d("TEST", cur.getDeviceList().toString());
                 dbRef.removeValue();
+
                 finish();
             default:
                 return super.onOptionsItemSelected(item);
