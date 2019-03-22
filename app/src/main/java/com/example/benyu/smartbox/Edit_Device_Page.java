@@ -87,7 +87,6 @@ public class Edit_Device_Page extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 //TODO More In-Depth Error Checking
-                //TODO Update in Database
                 String rename = deviceName.getText().toString();
                 String renameLocation = deviceLocation.getText().toString();
                 if(rename.equals("") || renameLocation.equals("")) {
@@ -98,16 +97,17 @@ public class Edit_Device_Page extends AppCompatActivity {
 /*                    databaseDeviceStates = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices");
                     databaseDeviceStates.child(cur2.getName()).child("name").setValue(rename);*/
                     updatedDev = new Device(rename, renameLocation, cur2.getId());
-                    dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(updatedDev.getName());
-                    dbRef.setValue(updatedDev);
                     dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(cur2.getName());
                     dbRef.removeValue();
+                    dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(updatedDev.getName());
+                    dbRef.setValue(updatedDev);
                     cur2.setName(rename);
                     cur2.setLocation(renameLocation);
 
                     Toast.makeText(Edit_Device_Page.this,
                             "Successfully saved.",
                             Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             }
         });
