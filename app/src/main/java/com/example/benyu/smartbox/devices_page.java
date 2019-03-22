@@ -115,6 +115,7 @@ public class devices_page extends AppCompatActivity {
         myDialog = new Dialog(this);
     }
 
+
     public void logoutAction() {
         Intent logoutIntent = new Intent(devices_page.this,
                 MainActivity.class);

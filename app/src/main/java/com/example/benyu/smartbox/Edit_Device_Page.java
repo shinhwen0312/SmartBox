@@ -22,6 +22,7 @@ import java.util.List;
 public class Edit_Device_Page extends AppCompatActivity {
     private account cur;
     private Device cur2;
+    private Device updatedDev;
     //DatabaseReference databaseDeviceStates;
 
     private EditText deviceName;
@@ -96,6 +97,11 @@ public class Edit_Device_Page extends AppCompatActivity {
                 } else {
 /*                    databaseDeviceStates = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices");
                     databaseDeviceStates.child(cur2.getName()).child("name").setValue(rename);*/
+                    updatedDev = new Device(rename, renameLocation, cur2.getId());
+                    dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(updatedDev.getName());
+                    dbRef.setValue(updatedDev);
+                    dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(cur2.getName());
+                    dbRef.removeValue();
                     cur2.setName(rename);
                     cur2.setLocation(renameLocation);
 
@@ -149,7 +155,8 @@ public class Edit_Device_Page extends AppCompatActivity {
                 return true;
             case R.id.action_delete:
                 dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(cur2.getName());
-                dbRef.setValue(null);
+                dbRef.removeValue();
+                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }
