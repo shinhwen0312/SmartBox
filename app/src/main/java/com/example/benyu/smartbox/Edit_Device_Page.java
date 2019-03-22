@@ -13,6 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 public class Edit_Device_Page extends AppCompatActivity {
@@ -26,7 +30,7 @@ public class Edit_Device_Page extends AppCompatActivity {
     private Button saveButton;
 
     Control model = Control.getInstance();
-
+    DatabaseReference dbRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,8 +148,8 @@ public class Edit_Device_Page extends AppCompatActivity {
                 //TODO Manage History
                 return true;
             case R.id.action_delete:
-                //TODO Delete Device
-                return true;
+                dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(cur2.getName());
+                dbRef.setValue(null);
             default:
                 return super.onOptionsItemSelected(item);
         }
