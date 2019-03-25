@@ -18,14 +18,24 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class users_page extends AppCompatActivity {
     private account cur;
     private Device cur2;
     private Device deviceCurrent;
     private ListView list;
+    DatabaseReference databaseUsers;
     Dialog myDialog;
 
 /*    DatabaseReference databaseLocks;
@@ -57,6 +67,54 @@ public class users_page extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices")
+                .child(deviceCurrent.getName()).child("Users");
+
+        databaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //iterating through all the objects
+                deviceCurrent.getUserList().clear();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                    try {
+
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+                        Date startD;
+                        Date endD;
+                        String userName = postSnapshot.child("name").getValue().toString();
+                        String pin = postSnapshot.child("pin").getValue().toString();
+                        String startDate = postSnapshot.child("startDate").getValue().toString();
+                        String endDate = postSnapshot.child("endDate").getValue().toString();
+                        String startTime = postSnapshot.child("startTime").getValue().toString();
+                        String endTime = postSnapshot.child("endTime").getValue().toString();
+
+                        startD = dateFormat.parse(startDate);
+                        endD = dateFormat.parse(endDate);
+
+                        java.sql.Date startDD = new java.sql.Date(startD.getTime());
+                        java.sql.Date endDD = new java.sql.Date(endD.getTime());
+
+                        java.sql.Time startT = new java.sql.Time(timeFormat.parse(startTime).getTime());
+                        java.sql.Time endT = new java.sql.Time(timeFormat.parse(endTime).getTime());
+
+                        User a = new User(userName, pin, startDD, endDD, startT, endT);
+
+                        deviceCurrent.addUser(a);
+                        Log.d("123TEST", "NAME OF DEVICE FROM INTENT: " + a.getStartDate());
+
+                    } catch (ParseException e) {
+
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 

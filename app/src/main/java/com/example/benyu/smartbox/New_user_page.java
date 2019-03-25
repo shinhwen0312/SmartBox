@@ -22,12 +22,20 @@ import java.util.List;
 import java.util.Random;
 import java.util.TimeZone;
 
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 //import java.util.Date;
+
+
 
 public class New_user_page extends AppCompatActivity {
     private account cur;
     private Device cur2;
-
+    DatabaseReference databaseUsers;
     private Button add;
     private EditText personName;
     private EditText pin;
@@ -75,6 +83,10 @@ public class New_user_page extends AppCompatActivity {
                 pin.setText(pinNumber);
             }
         });
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices")
+                .child(cur2.getName()).child("Users");
+
+
 
         add = (Button) findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +104,7 @@ public class New_user_page extends AppCompatActivity {
                 deviceCurrent.addUser(newUser);
                 Control model = Control.getInstance();
                 cur = model.updateAccount(cur);
+                addUser(newUser);
                 finish();
 
 /*                Control model = Control.getInstance();
@@ -238,6 +251,16 @@ public class New_user_page extends AppCompatActivity {
 
         //no device found (error?)
         return null;
+    }
+    public void addUser(User user) {
+        databaseUsers.child(user.getName()).child("name").setValue(user.getName());
+        databaseUsers.child(user.getName()).child("pin").setValue(user.getPin());
+        databaseUsers.child(user.getName()).child("startDate").setValue(user.getStartDate().toString());
+        databaseUsers.child(user.getName()).child("endDate").setValue(user.getEndDate().toString());
+        databaseUsers.child(user.getName()).child("startTime").setValue(user.getStartTime().toString());
+        databaseUsers.child(user.getName()).child("endTime").setValue(user.getEndTime().toString());
+
+
     }
 
 }
