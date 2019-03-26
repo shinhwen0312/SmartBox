@@ -188,12 +188,12 @@ public class devices_page extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         if (device.getLockStage()) {
                                             device.setLockStage(false);
-                                            databaseLockStates.child(device.getName()).child("lockStage").setValue(false);
+                                            databaseLockStates.child(device.getId()).child("lockStage").setValue(false);
                                             viewHolder.lockButton.setImageResource(R.drawable.ic_unlocked_state);
                                             viewHolder.status.setText(getResources().getString(R.string.unlocked));
                                         } else {
                                             device.setLockStage(true);
-                                            databaseLockStates.child(device.getName()).child("lockStage").setValue(true);
+                                            databaseLockStates.child(device.getId()).child("lockStage").setValue(true);
                                             viewHolder.lockButton.setImageResource(R.drawable.ic_locked_state);
                                             viewHolder.status.setText(getResources().getString(R.string.locked));
                                         }
