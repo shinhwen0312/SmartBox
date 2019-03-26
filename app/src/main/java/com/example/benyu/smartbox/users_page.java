@@ -82,7 +82,7 @@ public class users_page extends AppCompatActivity {
 
                     try {
 
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/YY");
                         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
                         Date startD;
                         Date endD;

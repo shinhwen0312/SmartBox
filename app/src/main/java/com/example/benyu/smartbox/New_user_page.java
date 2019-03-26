@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
@@ -255,8 +256,12 @@ public class New_user_page extends AppCompatActivity {
     public void addUser(User user) {
         databaseUsers.child(user.getName()).child("name").setValue(user.getName());
         databaseUsers.child(user.getName()).child("pin").setValue(user.getPin());
-        databaseUsers.child(user.getName()).child("startDate").setValue(user.getStartDate().toString());
-        databaseUsers.child(user.getName()).child("endDate").setValue(user.getEndDate().toString());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/YY");
+        String day = dateFormat.format(user.getStartDate());
+        Log.d("TEST", "NAME OF DEVICE FROM INTENT: " + day);
+        databaseUsers.child(user.getName()).child("startDate").setValue(day);
+        day = dateFormat.format(user.getEndDate());
+        databaseUsers.child(user.getName()).child("endDate").setValue(day);
         databaseUsers.child(user.getName()).child("startTime").setValue(user.getStartTime().toString());
         databaseUsers.child(user.getName()).child("endTime").setValue(user.getEndTime().toString());
 
