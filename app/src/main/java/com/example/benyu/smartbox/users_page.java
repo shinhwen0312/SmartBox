@@ -261,10 +261,9 @@ public class users_page extends AppCompatActivity {
                     viewHolder.lockButton2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-/*                            Intent editIntent = new Intent(users_page.this,
-                                    Edit_Device_Page.class);
+                            Intent editIntent = new Intent(users_page.this, Edit_Device_Page.class);
                             editIntent.putExtra("user data", cur);
-                            users_page.this.startActivity(editIntent);*/
+                            users_page.this.startActivity(editIntent);
                         }
                     });
                     convertView.setTag(viewHolder);

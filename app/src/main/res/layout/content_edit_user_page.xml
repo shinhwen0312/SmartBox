@@ -1,113 +1,330 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".edit_user_page"
-    tools:showIn="@layout/activity_edit_user_page">
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/colorBackground"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/person_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="80dp"
-        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/edittext"
+        android:autofillHints=""
+        android:hint="@string/person_name"
+        android:textColor="@color/colorNormalPrimary"
+        android:textColorHint="@color/colorLightPrimary"
+        android:drawableStart="@drawable/ic_username"
+        android:drawableLeft="@drawable/ic_username"
+        android:textCursorDrawable="@null"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="@+id/editText2"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:drawablePadding="8dp"
+        android:ems="10"/>
 
-    <EditText
-        android:id="@+id/editText2"
+    <!--    <EditText
+            android:id="@+id/pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/edittext"
+            android:autofillHints=""
+            android:hint="@string/pin"
+            android:textColor="@color/colorNormalPrimary"
+            android:textColorHint="@color/colorLightPrimary"
+            android:drawableStart="@drawable/ic_password"
+            android:drawableLeft="@drawable/ic_password"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:inputType="textPersonName"
+            android:drawablePadding="8dp"
+            android:ems="10"/>-->
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toStartOf="@+id/editText4"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp">
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginRight="17dp"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText6"
-        app:layout_constraintEnd_toStartOf="@+id/editText6"
-        app:layout_constraintStart_toStartOf="parent" />
+        <EditText
+            android:id="@+id/pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@drawable/edittextsmall"
+            android:autofillHints=""
+            android:hint="@string/pin"
+            android:textColor="@color/colorNormalPrimary"
+            android:textColorHint="@color/colorLightPrimary"
+            android:drawableStart="@drawable/ic_password"
+            android:drawableLeft="@drawable/ic_password"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:inputType="number"
+            android:maxLength="6"
+            android:drawablePadding="8dp"
+            android:ems="9"/>
 
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:layout_marginLeft="75dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginRight="17dp"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText7"
-        app:layout_constraintEnd_toStartOf="@+id/editText7"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageButton
+            android:id="@+id/generate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:layout_gravity="center_vertical"
+            android:focusable="true"
+            android:background="@drawable/circle"
+            app:srcCompat="@drawable/ic_random_pin_white" />
 
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="85dp"
-        android:layout_marginRight="85dp"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText4"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/editText7"
-        android:layout_width="0dp"
+    <!--    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:padding="8dp">
+
+            <ImageButton
+                android:id="@+id/list_item_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:contentDescription="@string/todo"
+                android:focusable="true"
+                android:background="@drawable/circle"
+                app:srcCompat="@drawable/ic_random_pin_white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_gravity="center_vertical"
+                android:text="@string/generate"
+                android:textSize="14sp"
+                android:textColor="@color/colorNormalPrimary"/>
+
+        </LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="85dp"
-        android:layout_marginRight="85dp"
-        android:layout_marginBottom="33dp"
-        android:ems="10"
-        android:inputType="time"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText5" />
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp">
+
+        <EditText
+            android:id="@+id/start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@drawable/edittextsmall"
+            android:autofillHints=""
+            android:hint="@string/startdate"
+            android:textColor="@color/colorNormalPrimary"
+            android:textColorHint="@color/colorLightPrimary"
+            android:drawableStart="@drawable/ic_date"
+            android:drawableLeft="@drawable/ic_date"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:editable="false"
+            android:focusable="false"
+            android:drawablePadding="8dp"
+            android:ems="9"/>
+
+        <ImageButton
+            android:id="@+id/start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:layout_gravity="center_vertical"
+            android:focusable="true"
+            android:background="@drawable/circle"
+            app:srcCompat="@drawable/ic_clock_white" />
+
+    </LinearLayout>
+
+
+
+    <!--    <EditText
+            android:id="@+id/start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/edittext"
+            android:autofillHints=""
+            android:hint="@string/starttime"
+            android:textColor="@color/colorNormalPrimary"
+            android:textColorHint="@color/colorLightPrimary"
+            android:drawableStart="@drawable/ic_date"
+            android:drawableLeft="@drawable/ic_date"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:editable="false"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawablePadding="8dp"
+            android:ems="10"/>-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp">
+
+        <EditText
+            android:id="@+id/end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@drawable/edittextsmall"
+            android:autofillHints=""
+            android:hint="@string/enddate"
+            android:textColor="@color/colorNormalPrimary"
+            android:textColorHint="@color/colorLightPrimary"
+            android:drawableStart="@drawable/ic_date"
+            android:drawableLeft="@drawable/ic_date"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:editable="false"
+            android:longClickable="false"
+            android:focusable="false"
+            android:drawablePadding="8dp"
+            android:ems="9"/>
+
+        <ImageButton
+            android:id="@+id/end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:clickable="true"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/todo"
+            android:focusable="true"
+            android:background="@drawable/circle"
+            app:srcCompat="@drawable/ic_clock_white" />
+
+    </LinearLayout>
+
+    <!--    <EditText
+            android:id="@+id/end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/edittext"
+            android:autofillHints=""
+            android:hint="@string/endtime"
+            android:textColor="@color/colorNormalPrimary"
+            android:textColorHint="@color/colorLightPrimary"
+            android:drawableStart="@drawable/ic_date"
+            android:drawableLeft="@drawable/ic_date"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:editable="false"
+            android:clickable="true"
+            android:focusable="true"
+            android:drawablePadding="8dp"
+            android:ems="10"/>-->
+
+    <!--
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="84dp"
+            android:text="@string/cancel"
+            app:layout_constraintBaseline_toBaselineOf="@+id/button6"
+            app:layout_constraintStart_toStartOf="parent" /> -->
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:layout_marginLeft="75dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginRight="26dp"
-        android:text="Button"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button4"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button4"
+        android:id="@+id/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="93dp"
-        android:layout_marginRight="93dp"
-        android:layout_marginBottom="71dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button3" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="OK"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBackground"
+        android:background="@drawable/button"/>
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="45dp"
+        android:text="@string/delete"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBackground"
+        android:background="@drawable/button"/>
+
+    <!--    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="196dp"
+            android:layout_marginEnd="17dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_help" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="47dp"
+            android:layout_marginEnd="17dp"
+
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/floatingActionButton3"
+            app:srcCompat="@android:drawable/ic_menu_help" />-->
+
+</LinearLayout>
