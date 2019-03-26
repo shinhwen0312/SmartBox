@@ -105,12 +105,16 @@ public class users_page extends AppCompatActivity {
                         User a = new User(userName, pin, startDD, endDD, startT, endT);
 
                         deviceCurrent.addUser(a);
-                        Log.d("123TEST", "NAME OF DEVICE FROM INTENT: " + a.getStartDate());
+
 
                     } catch (ParseException e) {
 
                     }
+
+                    if (deviceCurrent.getUserList() != null) { list.setAdapter(new MylistAdpater(users_page.this, R.layout.list_item_user, deviceCurrent.getUserList()));}
+                    myDialog = new Dialog(users_page.this);
                 }
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -133,19 +137,10 @@ public class users_page extends AppCompatActivity {
         });
 
 
-        final List<User> userList = deviceCurrent.getUserList();
-
-
-//        ListAdapter DeviceAdapter =
-//                new ArrayAdapter(this,android.R.layout.simple_list_item_1,
-//                        model.updateAccount(current).getDeviceNameList());
-        if (deviceCurrent.getUserList() != null) { list.setAdapter(new MylistAdpater(this, R.layout.list_item_user, deviceCurrent.getUserList()));}
-        myDialog = new Dialog(this);
     }
 
     protected void onStart() {
         super.onStart();
-        final List<User> userList = deviceCurrent.getUserList();
         if (deviceCurrent.getUserList() != null) { list.setAdapter(new MylistAdpater(this, R.layout.list_item_user, deviceCurrent.getUserList()));}
         myDialog = new Dialog(this);
     }

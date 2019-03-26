@@ -32,6 +32,7 @@ public class Edit_Device_Page extends AppCompatActivity {
 
     Control model = Control.getInstance();
     DatabaseReference dbRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +51,6 @@ public class Edit_Device_Page extends AppCompatActivity {
                 finish();
             }
         });
-
-
 
 
         //local storage

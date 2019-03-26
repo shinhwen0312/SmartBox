@@ -40,7 +40,6 @@ public class devices_page extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ImageButton add;
         Control model = Control.getInstance();
 
         super.onCreate(savedInstanceState);
@@ -110,7 +109,6 @@ public class devices_page extends AppCompatActivity {
 
     protected void onStart() {
         super.onStart();
-        final List<Device> deviceList = cur.getDeviceList();
         if (cur.getDeviceList() != null) { list.setAdapter(new devices_page.MylistAdpater(this, R.layout.list_item, cur.getDeviceList()));}
         myDialog = new Dialog(this);
     }
