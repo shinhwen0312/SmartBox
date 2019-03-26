@@ -76,6 +76,7 @@ public class new_device_page extends AppCompatActivity {
                 Intent addIntent = new Intent(new_device_page.this,
                         devices_page.class);
                 databaseHosts.child(current.getName()).child("devices").child(newDevice.getName()).setValue(newDevice);
+                databaseHosts.child(current.getName()).child("devices").child(newDevice.getId()).setValue(newDevice);
                 addIntent.putExtra("user data", model.updateAccount(current));
                 new_device_page.this.startActivity(addIntent);
             }

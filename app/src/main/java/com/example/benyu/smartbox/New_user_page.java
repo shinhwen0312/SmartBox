@@ -84,7 +84,7 @@ public class New_user_page extends AppCompatActivity {
             }
         });
         databaseUsers = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices")
-                .child(cur2.getName()).child("Users");
+                .child(cur2.getId()).child("Users");
 
 
 

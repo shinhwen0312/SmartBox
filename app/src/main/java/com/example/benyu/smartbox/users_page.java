@@ -70,7 +70,7 @@ public class users_page extends AppCompatActivity {
             }
         });
         databaseUsers = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices")
-                .child(deviceCurrent.getName()).child("Users");
+                .child(deviceCurrent.getId()).child("Users");
 
         databaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

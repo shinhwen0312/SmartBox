@@ -95,11 +95,10 @@ public class Edit_Device_Page extends AppCompatActivity {
                 } else {
 /*                    databaseDeviceStates = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices");
                     databaseDeviceStates.child(cur2.getName()).child("name").setValue(rename);*/
-                    updatedDev = new Device(rename, renameLocation, cur2.getId());
-                    dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(cur2.getName());
-                    dbRef.removeValue();
-                    dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(updatedDev.getName());
-                    dbRef.setValue(updatedDev);
+
+                    dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(cur2.getId());
+                    dbRef.child("name").setValue(rename);
+                    dbRef.child("location").setValue(renameLocation);
                     cur2.setName(rename);
                     cur2.setLocation(renameLocation);
 
