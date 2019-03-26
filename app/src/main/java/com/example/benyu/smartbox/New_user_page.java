@@ -256,7 +256,7 @@ public class New_user_page extends AppCompatActivity {
     public void addUser(User user) {
         databaseUsers.child(user.getName()).child("name").setValue(user.getName());
         databaseUsers.child(user.getName()).child("pin").setValue(user.getPin());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/YY");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
         String day = dateFormat.format(user.getStartDate());
         Log.d("TEST", "NAME OF DEVICE FROM INTENT: " + day);
         databaseUsers.child(user.getName()).child("startDate").setValue(day);

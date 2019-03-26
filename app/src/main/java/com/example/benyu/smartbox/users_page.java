@@ -69,6 +69,7 @@ public class users_page extends AppCompatActivity {
                 finish();
             }
         });
+
         databaseUsers = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices")
                 .child(deviceCurrent.getId()).child("Users");
 
@@ -82,7 +83,7 @@ public class users_page extends AppCompatActivity {
 
                     try {
 
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/YY");
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
                         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
                         Date startD;
                         Date endD;
@@ -261,9 +262,10 @@ public class users_page extends AppCompatActivity {
                     viewHolder.lockButton2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent editIntent = new Intent(users_page.this, edit_user_page.class);
+/*                            Intent editIntent = new Intent(users_page.this,
+                                    Edit_Device_Page.class);
                             editIntent.putExtra("user data", cur);
-                            users_page.this.startActivity(editIntent);
+                            users_page.this.startActivity(editIntent);*/
                         }
                     });
                     convertView.setTag(viewHolder);
