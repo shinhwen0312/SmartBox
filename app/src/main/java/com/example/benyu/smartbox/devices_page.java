@@ -1,9 +1,8 @@
 package com.example.benyu.smartbox;
 
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,7 +17,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -181,7 +182,7 @@ public class devices_page extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                       //  Toast.makeText(getContext(),"button clicked",Toast.LENGTH_SHORT).show();
-                        AlertDialog.Builder altdial = new AlertDialog.Builder(devices_page.this);
+                        /*AlertDialog.Builder altdial = new AlertDialog.Builder(devices_page.this);
                         altdial.setMessage("Are you sure?").setCancelable(false)
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override
@@ -212,7 +213,7 @@ public class devices_page extends AppCompatActivity {
                                             viewHolder.status.setText(getResources().getString(R.string.unlocked));
                                         }
                                     }
-                                });
+                                });*/
 //                        if(device.getLockStage()) {
 //                            viewHolder.lockButton.setImageResource(R.drawable.lock_state);
 //                            //  device.setLockStage(false);
@@ -221,9 +222,11 @@ public class devices_page extends AppCompatActivity {
 //                            //  device.setLockStage(true);
 //                        }
 
-                        AlertDialog alert = altdial.create();
-                        alert.setTitle("Toggle Lock Status");
-                        alert.show();
+                        //AlertDialog alert = altdial.create();
+                        //alert.setTitle("Toggle Lock Status");
+                        //alert.show();
+                        ViewDialog mDialog = new ViewDialog();
+                        mDialog.showDialog(devices_page.this, device, viewHolder.lockButton, viewHolder.status);
                     }
                 });
 
@@ -247,11 +250,56 @@ public class devices_page extends AppCompatActivity {
         }
     }
 
+    //class containing all the elements inside a listview item for devices
     public class ViewHolder {
         TextView name;
         TextView status;
         ImageButton lockButton;
         ImageButton lockButton2;
+    }
+
+    //class that pops up a custom dialog menu for toggling lock status
+    public class ViewDialog {
+
+        public void showDialog(Activity activity, final Device d, final ImageButton b, final TextView s){
+            final Dialog dialog = new Dialog(activity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.popup);
+
+            //buttons for no and yes options in dialog menu
+            Button noBtn = (Button) dialog.findViewById(R.id.no);
+            Button yesBtn = (Button) dialog.findViewById(R.id.yes);
+
+            noBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            yesBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (d.getLockStage()) {
+                        d.setLockStage(false);
+                        databaseLockStates.child(d.getId()).child("lockStage").setValue(false);
+                        b.setImageResource(R.drawable.ic_unlocked_state);
+                        s.setText(getResources().getString(R.string.unlocked));
+                        dialog.dismiss();
+                    } else {
+                        d.setLockStage(true);
+                        databaseLockStates.child(d.getId()).child("lockStage").setValue(true);
+                        b.setImageResource(R.drawable.ic_locked_state);
+                        s.setText(getResources().getString(R.string.locked));
+                        dialog.dismiss();
+                    }
+                }
+            });
+
+            dialog.show();
+
+        }
     }
 
 }

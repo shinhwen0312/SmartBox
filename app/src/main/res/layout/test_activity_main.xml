@@ -119,7 +119,7 @@
         android:textStyle="bold"
         android:textAllCaps="true"
         android:textColor="@color/colorBackground"
-        android:background="@drawable/button"/>
+        android:background="@drawable/ripple"/>
 
     <TextView
         android:id="@+id/forget"

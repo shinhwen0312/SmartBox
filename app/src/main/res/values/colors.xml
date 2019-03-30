@@ -8,4 +8,5 @@
     <color name="colorNormalPrimary">#656D78</color>
     <color name="colorLightPrimary">#CCD1D9</color>
     <color name="colorHighlight">#4A89DC</color>
+    <color name="buttonHighlight">#6FA7F2</color>
 </resources>
