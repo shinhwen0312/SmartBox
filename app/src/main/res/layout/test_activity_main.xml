@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:weightSum="6"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    android:clickable="true"
+    android:focusableInTouchMode="true" >
 
     <TextView
         android:layout_width="wrap_content"

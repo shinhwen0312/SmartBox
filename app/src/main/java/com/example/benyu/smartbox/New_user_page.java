@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -22,13 +25,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.TimeZone;
-
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 //import java.util.Date;
 
 
@@ -73,7 +69,23 @@ public class New_user_page extends AppCompatActivity {
         cur2 = deviceCurrent;
 
         personName = (EditText) findViewById(R.id.person_name);
+        personName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         pin = (EditText) findViewById(R.id.pin);
+        pin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         generate = (ImageButton) findViewById(R.id.generate);
 
         generate.setOnClickListener(new View.OnClickListener() {

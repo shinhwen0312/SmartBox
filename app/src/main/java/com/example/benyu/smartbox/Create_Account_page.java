@@ -54,9 +54,41 @@ public class Create_Account_page extends AppCompatActivity {
 */
 
         name = (EditText) findViewById(R.id.name);
+        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         password = (EditText)findViewById(R.id.password);
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         email = (EditText) findViewById(R.id.email);
+        email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         confirm = (EditText) findViewById(R.id.confirm);
+        confirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         cancel = (Button) findViewById(R.id.cancel);
         create = (Button) findViewById(R.id.create);
         newAccount = new account();

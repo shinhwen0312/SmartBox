@@ -71,7 +71,25 @@ public class MainActivity extends AppCompatActivity {
 
         final Control model = Control.getInstance();
         Id = (EditText) findViewById(R.id.Id);
+        //hides keyboard when clicking on background
+        Id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         Password = (EditText) findViewById(R.id.Password);
+        //see above comment
+        Password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         //checkBox = (CheckBox) findViewById(R.id.checkBox);
         rememberSwitch = (Switch) findViewById(R.id.rememberSwitch);
         button = (Button) findViewById(R.id.button);

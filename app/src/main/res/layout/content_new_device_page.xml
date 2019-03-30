@@ -8,7 +8,9 @@
     android:layout_gravity="center_horizontal"
     android:background="@color/colorBackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_new_device_page">
+    tools:showIn="@layout/activity_new_device_page"
+    android:clickable="true"
+    android:focusableInTouchMode="true" >
 
     <EditText
         android:id="@+id/editText3"

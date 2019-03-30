@@ -49,8 +49,32 @@ public class new_device_page extends AppCompatActivity {
 //            }
 //        });
         name = (EditText) findViewById(R.id.editText3);
+        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         location = (EditText) findViewById(R.id.editText8);
+        location.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         id = (EditText) findViewById(R.id.editText9);
+        id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         //cancel = (Button)findViewById(R.id.button5);
         add = (Button)findViewById(R.id.button6);
         newDevice = new Device();
