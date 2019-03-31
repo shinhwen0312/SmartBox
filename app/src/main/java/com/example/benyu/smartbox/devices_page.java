@@ -2,6 +2,7 @@ package com.example.benyu.smartbox;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,6 +39,10 @@ public class devices_page extends AppCompatActivity {
     Dialog myDialog;
     DatabaseReference databaseLocks;
     DatabaseReference databaseLockStates;
+    private final static int REQUEST_ENABLE_BT = 1;
+
+    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +117,15 @@ public class devices_page extends AppCompatActivity {
         super.onStart();
         if (cur.getDeviceList() != null) { list.setAdapter(new devices_page.MylistAdpater(this, R.layout.list_item, cur.getDeviceList()));}
         myDialog = new Dialog(this);
+
+        if (bluetoothAdapter == null) {
+            // Dialog about bluetooth not being availabled
+        } else {
+            if (!bluetoothAdapter.isEnabled()) {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }
+        }
     }
 
 
