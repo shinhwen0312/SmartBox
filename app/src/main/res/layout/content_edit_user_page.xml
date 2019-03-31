@@ -277,18 +277,18 @@
             app:layout_constraintStart_toStartOf="parent" /> -->
 
     <Button
-        android:id="@+id/ok"
+        android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:text="OK"
+        android:text="@string/save"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:textColor="@color/colorBackground"
-        android:background="@drawable/button"/>
+        android:background="@drawable/ripple"/>
 
-    <Button
+<!--    <Button
         android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -298,7 +298,7 @@
         android:textStyle="bold"
         android:textAllCaps="true"
         android:textColor="@color/colorBackground"
-        android:background="@drawable/button"/>
+        android:background="@drawable/button"/>-->
 
     <!--    <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatingActionButton3"

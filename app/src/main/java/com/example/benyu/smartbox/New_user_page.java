@@ -180,7 +180,8 @@ public class New_user_page extends AppCompatActivity {
         public Date getDate() {
             Calendar cal = Calendar.getInstance();
             cal.set(_birthYear, _month, _day);
-            Date date = new Date(_birthYear, _month, _day);
+            Log.d("Test", "Time during new: " + _birthYear);
+            Date date = new Date(_birthYear - 1900, _month, _day);
             return date;
         }
     }

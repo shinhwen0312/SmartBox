@@ -18,17 +18,16 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class users_page extends AppCompatActivity {
     private account cur;
@@ -177,7 +176,7 @@ public class users_page extends AppCompatActivity {
 /*                    viewHolder.lockButton = (ImageButton) convertView.findViewById(R.id.list_item_button);*/
                     viewHolder.lockButton2 = (ImageButton) convertView.findViewById(R.id.list_item_button2);
 
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/YY");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/YYYY");
                     String day = dateFormat.format(user.getStartDate());
 
                     viewHolder.start.setText(day);
@@ -262,10 +261,13 @@ public class users_page extends AppCompatActivity {
                     viewHolder.lockButton2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-/*                            Intent editIntent = new Intent(users_page.this,
-                                    Edit_Device_Page.class);
+                            Intent editIntent = new Intent(users_page.this,
+                                    edit_user_page.class);
+                            //passing account, device name, and guest or user name
                             editIntent.putExtra("user data", cur);
-                            users_page.this.startActivity(editIntent);*/
+                            editIntent.putExtra("device data", cur2.getName());
+                            editIntent.putExtra("guest data", user.getName());
+                            users_page.this.startActivity(editIntent);
                         }
                     });
                     convertView.setTag(viewHolder);
