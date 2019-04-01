@@ -3,7 +3,6 @@ package com.example.benyu.smartbox;
 import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,8 +24,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,9 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class devices_page extends AppCompatActivity {
     private account cur;
@@ -45,10 +40,7 @@ public class devices_page extends AppCompatActivity {
     DatabaseReference databaseLocks;
     DatabaseReference databaseLockStates;
     private final static int REQUEST_ENABLE_BT = 1;
-    private Set<BluetoothDevice> pairedDevices;
-    public static String EXTRA_ADDRESS = "device_address";
-    String btDeviceName;
-    String btAddr;
+
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
 
@@ -59,38 +51,6 @@ public class devices_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_page);
         list = (ListView) findViewById(R.id.list);
-        if (bluetoothAdapter == null) {
-            Toast.makeText(getApplicationContext(), "Bluetooth Device Not Available", Toast.LENGTH_LONG).show();
-            finish();
-        } else {
-            if (!bluetoothAdapter.isEnabled()) {
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-            }
-
-            Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-            if (pairedDevices.size() > 0) {
-                // There are paired devices. Get the name and address of each paired device.
-                for (BluetoothDevice device : pairedDevices) {
-                    if (device.getAddress().equals("98:D3:33:81:06:2D")) {
-                        btDeviceName = device.getName();
-                        btAddr = device.getAddress(); // MAC address
-                    }
-                }
-                if (btAddr != null) {
-                    Toast.makeText(getApplicationContext(), "SmartBox successfully paired.",Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(),"Please Pair the Device first",Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(getApplicationContext(),"Please Pair the Device first",Toast.LENGTH_SHORT).show();
-            }
-
-
-        }
-
-
-
 
         account current = getIntent().getParcelableExtra("user data");
         cur = model.updateAccount(current);
@@ -158,6 +118,14 @@ public class devices_page extends AppCompatActivity {
         if (cur.getDeviceList() != null) { list.setAdapter(new devices_page.MylistAdpater(this, R.layout.list_item, cur.getDeviceList()));}
         myDialog = new Dialog(this);
 
+        if (bluetoothAdapter == null) {
+            // Dialog about bluetooth not being availabled
+        } else {
+            if (!bluetoothAdapter.isEnabled()) {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }
+        }
     }
 
 
@@ -227,6 +195,50 @@ public class devices_page extends AppCompatActivity {
                 viewHolder.lockButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                      //  Toast.makeText(getContext(),"button clicked",Toast.LENGTH_SHORT).show();
+                        /*AlertDialog.Builder altdial = new AlertDialog.Builder(devices_page.this);
+                        altdial.setMessage("Are you sure?").setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if (device.getLockStage()) {
+                                            device.setLockStage(false);
+                                            databaseLockStates.child(device.getId()).child("lockStage").setValue(false);
+                                            viewHolder.lockButton.setImageResource(R.drawable.ic_unlocked_state);
+                                            viewHolder.status.setText(getResources().getString(R.string.unlocked));
+                                        } else {
+                                            device.setLockStage(true);
+                                            databaseLockStates.child(device.getId()).child("lockStage").setValue(true);
+                                            viewHolder.lockButton.setImageResource(R.drawable.ic_locked_state);
+                                            viewHolder.status.setText(getResources().getString(R.string.locked));
+                                        }
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        if (device.getLockStage()) {
+                                            device.setLockStage(true);
+                                            viewHolder.lockButton.setImageResource(R.drawable.ic_locked_state);
+                                            viewHolder.status.setText(getResources().getString(R.string.locked));
+                                        } else {
+                                            device.setLockStage(false);
+                                            viewHolder.lockButton.setImageResource(R.drawable.ic_unlocked_state);
+                                            viewHolder.status.setText(getResources().getString(R.string.unlocked));
+                                        }
+                                    }
+                                });*/
+//                        if(device.getLockStage()) {
+//                            viewHolder.lockButton.setImageResource(R.drawable.lock_state);
+//                            //  device.setLockStage(false);
+//                        } else {
+//                            viewHolder.lockButton.setImageResource(R.drawable.unlock_state);
+//                            //  device.setLockStage(true);
+//                        }
+
+                        //AlertDialog alert = altdial.create();
+                        //alert.setTitle("Toggle Lock Status");
+                        //alert.show();
                         ViewDialog mDialog = new ViewDialog();
                         mDialog.showDialog(devices_page.this, device, viewHolder.lockButton, viewHolder.status);
                     }
@@ -235,7 +247,6 @@ public class devices_page extends AppCompatActivity {
                 viewHolder.lockButton2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         Intent editIntent = new Intent(devices_page.this,
                                 Edit_Device_Page.class);
                         editIntent.putExtra("user data", cur);
@@ -305,16 +316,4 @@ public class devices_page extends AppCompatActivity {
         }
     }
 
-    private void pairedDevicesList() {
-        pairedDevices = bluetoothAdapter.getBondedDevices();
-        ArrayList list = new ArrayList();
-
-        if (pairedDevices.size() > 0) {
-            for (BluetoothDevice bt : pairedDevices) {
-                list.add(bt.getName() + "\n" + bt.getAddress()); //Get the device's name and the address
-            }
-        } else {
-            Toast.makeText(getApplicationContext(), "No Paired Bluetooth Devices Found.", Toast.LENGTH_LONG).show();
-        }
-    }
 }
