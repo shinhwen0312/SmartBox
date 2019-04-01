@@ -7,7 +7,9 @@
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
     android:background="@color/colorBackground"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
     <EditText
         android:id="@+id/person_name"
