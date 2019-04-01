@@ -139,7 +139,7 @@ public class New_user_page extends AppCompatActivity {
         EditText _editText;
         private int _day;
         private int _month;
-        private int _birthYear = -1;
+        private int _birthYear;
         private Context _context;
 
         public MyEditTextDatePicker(Context context, int editTextViewID)
@@ -161,16 +161,10 @@ public class New_user_page extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-            DatePickerDialog dialog;
-            if(_birthYear == -1) {
-                dialog = new DatePickerDialog(_context, this,
-                        calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH));
-            } else {
-                dialog = new DatePickerDialog(_context, this,
-                        _birthYear, _month,
-                        _day);
-            }
+
+            DatePickerDialog dialog = new DatePickerDialog(_context, this,
+                    calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH));
             dialog.show();
 
         }

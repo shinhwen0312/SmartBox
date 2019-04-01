@@ -18,7 +18,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -116,35 +115,20 @@ public class edit_user_page extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String person_name = personName.getText().toString();
+/*                String person_name = personName.getText().toString();
                 if (pinNumber == null) {
                     pinNumber = pin.getText().toString();
                 }
-                if (person_name.equals("") || pinNumber.equals("")) {
-                    Toast.makeText(edit_user_page.this,
-                            "Cannot have empty name or pin.",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Date start = start_date.getDate();
-                    Date end = end_date.getDate();
-                    Time startTime = start_time.getTime();
-                    Time endTime = end_time.getTime();
-                    //User newUser = new User(person_name, pinNumber, start, end, startTime, endTime);
-                    //deviceCurrent.addUser(newUser);
-                    cur3.setName(person_name);
-                    cur3.setPin(pinNumber);
-                    cur3.setStartDate(start);
-                    cur3.setEndDate(end);
-                    cur3.setStartTime(startTime);
-                    cur3.setEndTime(endTime);
-                    Control model = Control.getInstance();
-                    cur = model.updateAccount(cur);
-                    //addUser(newUser);
-                    Toast.makeText(edit_user_page.this,
-                            "Successfully saved.",
-                            Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+                Date start = start_date.getDate();
+                Date end = end_date.getDate();
+                Time startTime = start_time.getTime();
+                Time endTime = end_time.getTime();
+                User newUser = new User(person_name, pinNumber, start, end, startTime, endTime);
+                deviceCurrent.addUser(newUser);
+                Control model = Control.getInstance();
+                cur = model.updateAccount(cur);*/
+                //addUser(newUser);
+                //finish();
             }
         });
     }
@@ -158,7 +142,7 @@ public class edit_user_page extends AppCompatActivity {
         EditText _editText;
         private int _day;
         private int _month;
-        private int _birthYear = -1;
+        private int _birthYear;
         private Context _context;
 
         public MyEditTextDatePicker(Context context, int editTextViewID)
@@ -188,16 +172,10 @@ public class edit_user_page extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-            DatePickerDialog dialog;
-            if(_birthYear == -1) {
-                dialog = new DatePickerDialog(_context, this,
-                        calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH));
-            } else {
-                dialog = new DatePickerDialog(_context, this,
-                        _birthYear, _month,
-                        _day);
-            }
+
+            DatePickerDialog dialog = new DatePickerDialog(_context, this,
+                    calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH));
             dialog.show();
 
         }
@@ -213,7 +191,7 @@ public class edit_user_page extends AppCompatActivity {
         public Date getDate() {
             Calendar cal = Calendar.getInstance();
             cal.set(_birthYear, _month, _day);
-            Date date = new Date(_birthYear - 1900, _month, _day);
+            Date date = new Date(_birthYear, _month, _day);
             return date;
         }
     }
