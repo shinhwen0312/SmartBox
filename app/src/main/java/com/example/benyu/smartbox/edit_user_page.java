@@ -22,11 +22,19 @@ import android.widget.Toast;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.TimeZone;
 //import java.util.Date;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import java.text.ParseException;
 
 
 
@@ -34,7 +42,7 @@ public class edit_user_page extends AppCompatActivity {
     private account cur;
     private Device cur2;
     private User cur3;
-    //DatabaseReference databaseUsers;
+    DatabaseReference databaseUsers;
     private Button save;
     private EditText personName;
     private EditText pin;
@@ -131,12 +139,24 @@ public class edit_user_page extends AppCompatActivity {
                     Time endTime = end_time.getTime();
                     //User newUser = new User(person_name, pinNumber, start, end, startTime, endTime);
                     //deviceCurrent.addUser(newUser);
+                    String formerName = cur3.getName();
                     cur3.setName(person_name);
                     cur3.setPin(pinNumber);
                     cur3.setStartDate(start);
                     cur3.setEndDate(end);
                     cur3.setStartTime(startTime);
                     cur3.setEndTime(endTime);
+                    databaseUsers = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(cur2.getId()).child("Users");
+                    databaseUsers.child(cur3.getName()).child("name").setValue(person_name);
+                    databaseUsers.child(cur3.getName()).child("pin").setValue(pinNumber);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+                    String day = dateFormat.format(start);
+                    databaseUsers.child(cur3.getName()).child("startDate").setValue(day);
+                    day = dateFormat.format(end);
+                    databaseUsers.child(cur3.getName()).child("endDate").setValue(day);
+                    databaseUsers.child(cur3.getName()).child("startTime").setValue(startTime.toString());
+                    databaseUsers.child(cur3.getName()).child("endTime").setValue(endTime.toString());
+                    databaseUsers.child(formerName).removeValue();
                     Control model = Control.getInstance();
                     cur = model.updateAccount(cur);
                     //addUser(newUser);
