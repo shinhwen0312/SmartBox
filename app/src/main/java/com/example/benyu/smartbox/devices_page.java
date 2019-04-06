@@ -2,11 +2,13 @@ package com.example.benyu.smartbox;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,9 +37,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public class devices_page extends AppCompatActivity {
     private account cur;
@@ -52,6 +56,9 @@ public class devices_page extends AppCompatActivity {
     String btAddr;
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     BluetoothSocket btSocket = null;
+    Boolean BluetoothConnected = false;
+    ProgressDialog progress;
+    static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +67,6 @@ public class devices_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_page);
         list = (ListView) findViewById(R.id.list);
-
-
-
 
 
         account current = getIntent().getParcelableExtra("user data");
@@ -80,14 +84,15 @@ public class devices_page extends AppCompatActivity {
                     Device a = postSnapshot.getValue(Device.class);
                     //adding object to the list
                     cur.addDevice(a);
-                    Log.d("check","checking how many times");
+                    Log.d("check", "checking how many times");
                 }
-                
+
                 final List<Device> deviceList = cur.getDeviceList();
 
-                list.setAdapter(new MylistAdapter(devices_page.this,R.layout.list_item, deviceList));
+                list.setAdapter(new MylistAdapter(devices_page.this, R.layout.list_item, deviceList));
                 myDialog = new Dialog(devices_page.this);
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -134,12 +139,12 @@ public class devices_page extends AppCompatActivity {
                             }
                         }
                         if (btAddr != null) {
-                            Toast.makeText(getApplicationContext(), "SmartBox successfully paired.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "SmartBox successfully paired.", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getApplicationContext(),"Please Pair the Device first",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Please Pair the Device first", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getApplicationContext(),"Please Pair the Device first",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Please Pair the Device first", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -162,7 +167,9 @@ public class devices_page extends AppCompatActivity {
 
     protected void onStart() {
         super.onStart();
-        if (cur.getDeviceList() != null) { list.setAdapter(new devices_page.MylistAdapter(this, R.layout.list_item, cur.getDeviceList()));}
+        if (cur.getDeviceList() != null) {
+            list.setAdapter(new devices_page.MylistAdapter(this, R.layout.list_item, cur.getDeviceList()));
+        }
         myDialog = new Dialog(this);
 
     }
@@ -200,6 +207,7 @@ public class devices_page extends AppCompatActivity {
     private class MylistAdapter extends ArrayAdapter<Device> {
         private int layout;
         private List<Device> devicesList;
+
         public MylistAdapter(@NonNull Context context, int resource, @NonNull List<Device> device) {
             super(context, resource, device);
             this.devicesList = device;
@@ -214,11 +222,11 @@ public class devices_page extends AppCompatActivity {
 
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(layout,parent,false);
+                convertView = inflater.inflate(layout, parent, false);
                 viewHolder = new ViewHolder();
                 viewHolder.name = (TextView) convertView.findViewById(R.id.list_item_name);
                 viewHolder.status = (TextView) convertView.findViewById(R.id.list_item_status);
-                final Device device =  devicesList.get(position);
+                final Device device = devicesList.get(position);
                 viewHolder.name.setText(device.getName());
                 viewHolder.lockButton = (ImageButton) convertView.findViewById(R.id.list_item_button);
                 viewHolder.lockButton2 = (ImageButton) convertView.findViewById(R.id.list_item_button2);
@@ -236,6 +244,7 @@ public class devices_page extends AppCompatActivity {
                     public void onClick(View v) {
                         ViewDialog mDialog = new ViewDialog();
                         mDialog.showDialog(devices_page.this, device, viewHolder.lockButton, viewHolder.status);
+                        new ConnectBT().execute();
                     }
                 });
 
@@ -249,12 +258,12 @@ public class devices_page extends AppCompatActivity {
                         //pass along device name to edit_device_page
                         editIntent.putExtra("device name", viewHolder.name.getText().toString());
                         devices_page.this.startActivity(editIntent);
+                        new ConnectBT().execute();
                     }
                 });
                 convertView.setTag(viewHolder);
-            }
-            else {
-            viewHolder = (ViewHolder)convertView.getTag();
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
             }
             return convertView;
         }
@@ -271,7 +280,7 @@ public class devices_page extends AppCompatActivity {
     //class that pops up a custom dialog menu for toggling lock status
     public class ViewDialog {
 
-        public void showDialog(Activity activity, final Device d, final ImageButton b, final TextView s){
+        public void showDialog(Activity activity, final Device d, final ImageButton b, final TextView s) {
             final Dialog dialog = new Dialog(activity);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setCancelable(false);
@@ -312,16 +321,52 @@ public class devices_page extends AppCompatActivity {
         }
     }
 
-    private void pairedDevicesList() {
-        pairedDevices = bluetoothAdapter.getBondedDevices();
-        ArrayList list = new ArrayList();
 
-        if (pairedDevices.size() > 0) {
-            for (BluetoothDevice bt : pairedDevices) {
-                list.add(bt.getName() + "\n" + bt.getAddress()); //Get the device's name and the address
+    private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
+    {
+        private boolean ConnectSuccess = true; //if it's here, it's almost connected
+
+        @Override
+        protected void onPreExecute() {
+            progress = ProgressDialog.show(devices_page.this, "Connecting...", "Please wait!!!");  //show a progress dialog
+        }
+
+        @Override
+        protected Void doInBackground(Void... devices) //while the progress dialog is shown, the connection is done in background
+        {
+            try {
+                if (btSocket == null || !BluetoothConnected) {
+                    bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
+                    BluetoothDevice dispositivo = bluetoothAdapter.getRemoteDevice(btAddr);//connects to the device's address and checks if it's available
+                    btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
+                    BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
+                    btSocket.connect();//start connection
+                }
+            } catch (IOException e) {
+                ConnectSuccess = false;//if the try failed, you can check the exception here
             }
-        } else {
-            Toast.makeText(getApplicationContext(), "No Paired Bluetooth Devices Found.", Toast.LENGTH_LONG).show();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) //after the doInBackground, it checks if everything went fine
+        {
+            super.onPostExecute(result);
+
+            if (!ConnectSuccess) {
+                msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
+                finish();
+            } else {
+                msg("Connected.");
+                BluetoothConnected = true;
+            }
+            progress.dismiss();
         }
     }
+
+
+    private void msg(String s) {
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+    }
+
 }
