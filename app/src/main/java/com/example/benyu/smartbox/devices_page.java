@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,7 +51,7 @@ public class devices_page extends AppCompatActivity {
     String btDeviceName;
     String btAddr;
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
+    BluetoothSocket btSocket = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,35 +60,7 @@ public class devices_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_page);
         list = (ListView) findViewById(R.id.list);
-        if (bluetoothAdapter == null) {
-            Toast.makeText(getApplicationContext(), "Bluetooth Device Not Available", Toast.LENGTH_LONG).show();
-            finish();
-        } else {
-            if (!bluetoothAdapter.isEnabled()) {
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-            }
 
-            Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-            if (pairedDevices.size() > 0) {
-                // There are paired devices. Get the name and address of each paired device.
-                for (BluetoothDevice device : pairedDevices) {
-                    if (device.getAddress().equals("98:D3:33:81:06:2D")) {
-                        btDeviceName = device.getName();
-                        btAddr = device.getAddress(); // MAC address
-                    }
-                }
-                if (btAddr != null) {
-                    Toast.makeText(getApplicationContext(), "SmartBox successfully paired.",Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(),"Please Pair the Device first",Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(getApplicationContext(),"Please Pair the Device first",Toast.LENGTH_SHORT).show();
-            }
-
-
-        }
 
 
 
@@ -112,7 +85,7 @@ public class devices_page extends AppCompatActivity {
                 
                 final List<Device> deviceList = cur.getDeviceList();
 
-                list.setAdapter(new MylistAdpater(devices_page.this,R.layout.list_item, deviceList));
+                list.setAdapter(new MylistAdapter(devices_page.this,R.layout.list_item, deviceList));
                 myDialog = new Dialog(devices_page.this);
             }
             @Override
@@ -138,6 +111,40 @@ public class devices_page extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton btButton = (FloatingActionButton) findViewById(R.id.bluetooth);
+        btButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (bluetoothAdapter == null) {
+                    Toast.makeText(getApplicationContext(), "Bluetooth Device Not Available", Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    if (!bluetoothAdapter.isEnabled()) {
+                        Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                        startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                    }
+
+                    Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+                    if (pairedDevices.size() > 0) {
+                        // There are paired devices. Get the name and address of each paired device.
+                        for (BluetoothDevice device : pairedDevices) {
+                            if (device.getAddress().equals("98:D3:33:81:06:2D")) {
+                                btDeviceName = device.getName();
+                                btAddr = device.getAddress(); // MAC address
+                            }
+                        }
+                        if (btAddr != null) {
+                            Toast.makeText(getApplicationContext(), "SmartBox successfully paired.",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(),"Please Pair the Device first",Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getApplicationContext(),"Please Pair the Device first",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
 
         // this sets the click action for listview when click on the screen
 //        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -155,7 +162,7 @@ public class devices_page extends AppCompatActivity {
 
     protected void onStart() {
         super.onStart();
-        if (cur.getDeviceList() != null) { list.setAdapter(new devices_page.MylistAdpater(this, R.layout.list_item, cur.getDeviceList()));}
+        if (cur.getDeviceList() != null) { list.setAdapter(new devices_page.MylistAdapter(this, R.layout.list_item, cur.getDeviceList()));}
         myDialog = new Dialog(this);
 
     }
@@ -190,10 +197,10 @@ public class devices_page extends AppCompatActivity {
         }
     }
 
-    private class MylistAdpater extends ArrayAdapter<Device> {
+    private class MylistAdapter extends ArrayAdapter<Device> {
         private int layout;
         private List<Device> devicesList;
-        public MylistAdpater(@NonNull Context context, int resource, @NonNull List<Device> device) {
+        public MylistAdapter(@NonNull Context context, int resource, @NonNull List<Device> device) {
             super(context, resource, device);
             this.devicesList = device;
             layout = resource;
