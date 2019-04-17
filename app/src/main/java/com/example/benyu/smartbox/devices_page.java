@@ -149,20 +149,6 @@ public class devices_page extends AppCompatActivity {
                 }
             }
         });
-
-
-        // this sets the click action for listview when click on the screen
-//        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Log.d("Edit", "add device");  //debugging msg
-//                Context context = parent.getContext();  //making context to current context
-//                Intent intent = new Intent(context, Edit_Device_Page.class);
-//                intent.putExtra("detail data",deviceList.get(position));
-//                intent.putExtra("user data", current);
-//                context.startActivity(intent);
-//            }
-//        });
     }
 
     protected void onStart() {
@@ -242,23 +228,29 @@ public class devices_page extends AppCompatActivity {
                 viewHolder.lockButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ViewDialog mDialog = new ViewDialog();
-                        mDialog.showDialog(devices_page.this, device, viewHolder.lockButton, viewHolder.status);
-                        new ConnectBT().execute();
+                        if (BluetoothConnected) {
+                            ViewDialog mDialog = new ViewDialog();
+                            mDialog.showDialog(devices_page.this, device, viewHolder.lockButton, viewHolder.status);
+                        } else {
+                            new ConnectBT().execute();
+                        }
+
                     }
                 });
 
                 viewHolder.lockButton2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                        Intent editIntent = new Intent(devices_page.this,
-                                Edit_Device_Page.class);
-                        editIntent.putExtra("user data", cur);
-                        //pass along device name to edit_device_page
-                        editIntent.putExtra("device name", viewHolder.name.getText().toString());
-                        devices_page.this.startActivity(editIntent);
-                        new ConnectBT().execute();
+                        if (BluetoothConnected) {
+                            Intent editIntent = new Intent(devices_page.this,
+                                    Edit_Device_Page.class);
+                            editIntent.putExtra("user data", cur);
+                            //pass along device name to edit_device_page
+                            editIntent.putExtra("device name", viewHolder.name.getText().toString());
+                            devices_page.this.startActivity(editIntent);
+                        } else {
+                            new ConnectBT().execute();
+                        }
                     }
                 });
                 convertView.setTag(viewHolder);
