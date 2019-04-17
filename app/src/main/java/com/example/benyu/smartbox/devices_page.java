@@ -231,24 +231,8 @@ public class devices_page extends AppCompatActivity {
                 viewHolder.lockButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (BluetoothConnected) {
-                            if (btSocket!=null && /**LOCKSTATE GOES FROM UNLOCKED TO LOCKED*/)
-                            {
-                                try
-                                {
-                                    btSocket.getOutputStream().write("1".getBytes());
-                                }
-                                catch (IOException e)
-                                {
-                                    msg("Error");
-                                }
-                            }
-                            ViewDialog mDialog = new ViewDialog();
-                            mDialog.showDialog(devices_page.this, device, viewHolder.lockButton, viewHolder.status);
-                        } else {
-                            new ConnectBT().execute();
-                        }
-
+                        ViewDialog mDialog = new ViewDialog();
+                        mDialog.showDialog(devices_page.this, device, viewHolder.lockButton, viewHolder.status);
                     }
                 });
 
@@ -302,18 +286,37 @@ public class devices_page extends AppCompatActivity {
             yesBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //locked->unlocked
                     if (d.getLockStage()) {
                         d.setLockStage(false);
                         databaseLockStates.child(d.getId()).child("lockStage").setValue(false);
                         b.setImageResource(R.drawable.ic_unlocked_state);
                         s.setText(getResources().getString(R.string.unlocked));
                         dialog.dismiss();
+                    //unlocked->locked
                     } else {
-                        d.setLockStage(true);
-                        databaseLockStates.child(d.getId()).child("lockStage").setValue(true);
-                        b.setImageResource(R.drawable.ic_locked_state);
-                        s.setText(getResources().getString(R.string.locked));
-                        dialog.dismiss();
+                        if (BluetoothConnected) {
+                            if (btSocket!=null)
+                            {
+                                try
+                                {
+                                    btSocket.getOutputStream().write("1".getBytes());
+                                    d.setLockStage(true);
+                                    databaseLockStates.child(d.getId()).child("lockStage").setValue(true);
+                                    b.setImageResource(R.drawable.ic_locked_state);
+                                    s.setText(getResources().getString(R.string.locked));
+                                    dialog.dismiss();
+                                }
+                                catch (IOException e)
+                                {
+                                    msg("Error");
+                                    dialog.dismiss();
+                                }
+                            } else {
+                                new ConnectBT().execute();
+                            }
+                        }
+
                     }
                 }
             });
