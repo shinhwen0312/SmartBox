@@ -287,12 +287,24 @@ public class devices_page extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //locked->unlocked
-                    if (d.getLockStage()) {
-                        d.setLockStage(false);
-                        databaseLockStates.child(d.getId()).child("lockStage").setValue(false);
-                        b.setImageResource(R.drawable.ic_unlocked_state);
-                        s.setText(getResources().getString(R.string.unlocked));
-                        dialog.dismiss();
+                    if ()
+                    if (BluetoothConnected) {
+                        if (btSocket != null) {
+                            try {
+                                btSocket.getOutputStream().write("0".getBytes());
+                                d.setLockStage(false);
+                                databaseLockStates.child(d.getId()).child("lockStage").setValue(false);
+                                b.setImageResource(R.drawable.ic_unlocked_state);
+                                s.setText(getResources().getString(R.string.unlocked));
+                                dialog.dismiss();
+                            } catch (IOException e) {
+                                msg("Error");
+                                dialog.dismiss();
+                            }
+                        } else {
+                            new ConnectBT().execute();
+                        }
+                    }
                     //unlocked->locked
                     } else {
                         if (BluetoothConnected) {
@@ -315,6 +327,8 @@ public class devices_page extends AppCompatActivity {
                             } else {
                                 new ConnectBT().execute();
                             }
+                        } else {
+                            msg("Bluetooth not connected.");
                         }
 
                     }
