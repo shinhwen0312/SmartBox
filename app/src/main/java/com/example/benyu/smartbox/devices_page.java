@@ -287,56 +287,81 @@ public class devices_page extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     //locked->unlocked
-                    if ()
-                    if (BluetoothConnected) {
-                        if (btSocket != null) {
-                            try {
-                                btSocket.getOutputStream().write("0".getBytes());
-                                d.setLockStage(false);
-                                databaseLockStates.child(d.getId()).child("lockStage").setValue(false);
-                                b.setImageResource(R.drawable.ic_unlocked_state);
-                                s.setText(getResources().getString(R.string.unlocked));
+                    if (d.getLockStage()) {
+                        if (BluetoothConnected) {
+                            if (btSocket != null) {
+                                try {
+                                    btSocket.getOutputStream().write("0".getBytes());
+                                    d.setLockStage(false);
+                                    databaseLockStates.child(d.getId()).child("lockStage").setValue(false);
+                                    b.setImageResource(R.drawable.ic_unlocked_state);
+                                    s.setText(getResources().getString(R.string.unlocked));
+                                    dialog.dismiss();
+                                } catch (IOException e) {
+                                    msg("Error");
+                                    dialog.dismiss();
+                                }
+                            } else {
                                 dialog.dismiss();
-                            } catch (IOException e) {
-                                msg("Error");
-                                dialog.dismiss();
+                                msg("Connecting to device first. Please try again.");
+                                new ConnectBT().execute();
                             }
                         } else {
+                            dialog.dismiss();
+                            msg("Connecting to device first. Please try again.");
                             new ConnectBT().execute();
                         }
-                    }
-                    //unlocked->locked
+                        //unlocked->locked
                     } else {
                         if (BluetoothConnected) {
-                            if (btSocket!=null)
-                            {
-                                try
-                                {
+                            if (btSocket != null) {
+                                try {
                                     btSocket.getOutputStream().write("1".getBytes());
                                     d.setLockStage(true);
                                     databaseLockStates.child(d.getId()).child("lockStage").setValue(true);
                                     b.setImageResource(R.drawable.ic_locked_state);
                                     s.setText(getResources().getString(R.string.locked));
                                     dialog.dismiss();
-                                }
-                                catch (IOException e)
-                                {
+                                } catch (IOException e) {
                                     msg("Error");
                                     dialog.dismiss();
                                 }
                             } else {
+                                dialog.dismiss();
+                                msg("Connecting to device first. Please try again.");
                                 new ConnectBT().execute();
                             }
                         } else {
-                            msg("Bluetooth not connected.");
-                        }
+                            if (BluetoothConnected) {
+                                if (btSocket != null) {
+                                    try {
+                                        btSocket.getOutputStream().write("0".getBytes());
+                                        d.setLockStage(false);
+                                        databaseLockStates.child(d.getId()).child("lockStage").setValue(false);
+                                        b.setImageResource(R.drawable.ic_unlocked_state);
+                                        s.setText(getResources().getString(R.string.unlocked));
+                                        dialog.dismiss();
+                                    } catch (IOException e) {
+                                        msg("Error");
+                                        dialog.dismiss();
+                                    }
+                                } else {
+                                    dialog.dismiss();
+                                    msg("Connecting to device first. Please try again.");
+                                    new ConnectBT().execute();
+                                }
+                            } else {
+                                dialog.dismiss();
+                                msg("Connecting to device first. Please try again.");
+                                new ConnectBT().execute();
 
+                            }
+                        }
                     }
                 }
             });
 
             dialog.show();
-
         }
     }
 
