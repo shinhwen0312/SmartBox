@@ -116,6 +116,9 @@ public class devices_page extends AppCompatActivity {
             }
         });
 
+        /**
+         * On Bluetooth icon click, enable
+         */
         FloatingActionButton btButton = (FloatingActionButton) findViewById(R.id.bluetooth);
         btButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +142,7 @@ public class devices_page extends AppCompatActivity {
                             }
                         }
                         if (btAddr != null) {
-                            Toast.makeText(getApplicationContext(), "SmartBox successfully paired.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "SmartBox successfully paired, connected to " + btDeviceName, Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Please Pair the Device first", Toast.LENGTH_SHORT).show();
                         }
@@ -229,6 +232,17 @@ public class devices_page extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (BluetoothConnected) {
+                            if (btSocket!=null && /**LOCKSTATE GOES FROM UNLOCKED TO LOCKED*/)
+                            {
+                                try
+                                {
+                                    btSocket.getOutputStream().write("1".getBytes());
+                                }
+                                catch (IOException e)
+                                {
+                                    msg("Error");
+                                }
+                            }
                             ViewDialog mDialog = new ViewDialog();
                             mDialog.showDialog(devices_page.this, device, viewHolder.lockButton, viewHolder.status);
                         } else {
@@ -241,16 +255,12 @@ public class devices_page extends AppCompatActivity {
                 viewHolder.lockButton2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (BluetoothConnected) {
-                            Intent editIntent = new Intent(devices_page.this,
-                                    Edit_Device_Page.class);
-                            editIntent.putExtra("user data", cur);
-                            //pass along device name to edit_device_page
-                            editIntent.putExtra("device name", viewHolder.name.getText().toString());
-                            devices_page.this.startActivity(editIntent);
-                        } else {
-                            new ConnectBT().execute();
-                        }
+                        Intent editIntent = new Intent(devices_page.this,
+                                Edit_Device_Page.class);
+                        editIntent.putExtra("user data", cur);
+                        //pass along device name to edit_device_page
+                        editIntent.putExtra("device name", viewHolder.name.getText().toString());
+                        devices_page.this.startActivity(editIntent);
                     }
                 });
                 convertView.setTag(viewHolder);
