@@ -1,7 +1,6 @@
 # SmartBox (v1.0)
 
-# Release Notes (v1.0)-----------------------------------------------------------------------------------------------------------------
-
+# Release Notes (v1.0)
 # Features
 
  -User able to register and login to an accounts
