@@ -1,106 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/colorBackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".New_user_page"
-    tools:showIn="@layout/activity_new_user_page">
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
     <EditText
-        android:id="@+id/editText14"
+        android:id="@+id/person_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/edittext"
+        android:autofillHints=""
+        android:hint="@string/person_name"
+        android:textColor="@color/colorNormalPrimary"
+        android:textColorHint="@color/colorLightPrimary"
+        android:drawableStart="@drawable/ic_username"
+        android:drawableLeft="@drawable/ic_username"
+        android:textCursorDrawable="@null"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="36dp" />
+        android:drawablePadding="8dp"
+        android:ems="10"/>
 
-    <EditText
-        android:id="@+id/editText15"
+<!--    <EditText
+        android:id="@+id/pin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="105dp" />
+        android:layout_marginTop="24dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/edittext"
+        android:autofillHints=""
+        android:hint="@string/pin"
+        android:textColor="@color/colorNormalPrimary"
+        android:textColorHint="@color/colorLightPrimary"
+        android:drawableStart="@drawable/ic_password"
+        android:drawableLeft="@drawable/ic_password"
+        android:textCursorDrawable="@null"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:inputType="textPersonName"
+        android:drawablePadding="8dp"
+        android:ems="10"/>-->
 
-    <ImageView
-        android:id="@+id/imageView"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_help"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="177dp" />
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="136dp"
-        android:layout_height="33dp"
-        android:text="Auto-Generate Pin"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="177dp" />
+        <EditText
+            android:id="@+id/pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@drawable/edittextsmall"
+            android:autofillHints=""
+            android:hint="@string/pin"
+            android:textColor="@color/colorNormalPrimary"
+            android:textColorHint="@color/colorLightPrimary"
+            android:drawableStart="@drawable/ic_password"
+            android:drawableLeft="@drawable/ic_password"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:inputType="number"
+            android:maxLength="6"
+            android:drawablePadding="8dp"
+            android:ems="9"/>
 
-    <CheckBox
-        android:id="@+id/checkBox2"
+        <ImageButton
+            android:id="@+id/generate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:layout_gravity="center_vertical"
+            android:focusable="true"
+            android:background="@drawable/circle"
+            app:srcCompat="@drawable/ic_random_pin_white" />
+
+    </LinearLayout>
+
+<!--    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Temporary Access"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="221dp" />
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp">
 
-    <EditText
-        android:id="@+id/editText16"
-        android:layout_width="97dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="272dp" />
+        <ImageButton
+            android:id="@+id/list_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:focusable="true"
+            android:background="@drawable/circle"
+            app:srcCompat="@drawable/ic_random_pin_white" />
 
-    <EditText
-        android:id="@+id/editText17"
-        android:layout_width="100dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_gravity="center_vertical"
+            android:text="@string/generate"
+            android:textSize="14sp"
+            android:textColor="@color/colorNormalPrimary"/>
+
+    </LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        tools:layout_editor_absoluteX="199dp"
-        tools:layout_editor_absoluteY="272dp" />
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp">
+
+        <EditText
+            android:id="@+id/start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@drawable/edittextsmall"
+            android:autofillHints=""
+            android:hint="@string/startdate"
+            android:textColor="@color/colorNormalPrimary"
+            android:textColorHint="@color/colorLightPrimary"
+            android:drawableStart="@drawable/ic_date"
+            android:drawableLeft="@drawable/ic_date"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:editable="false"
+            android:focusable="false"
+            android:drawablePadding="8dp"
+            android:ems="9"/>
+
+        <ImageButton
+            android:id="@+id/start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:layout_gravity="center_vertical"
+            android:focusable="true"
+            android:background="@drawable/circle"
+            app:srcCompat="@drawable/ic_clock_white" />
+
+    </LinearLayout>
+
+
+
+<!--    <EditText
+        android:id="@+id/start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/edittext"
+        android:autofillHints=""
+        android:hint="@string/starttime"
+        android:textColor="@color/colorNormalPrimary"
+        android:textColorHint="@color/colorLightPrimary"
+        android:drawableStart="@drawable/ic_date"
+        android:drawableLeft="@drawable/ic_date"
+        android:textCursorDrawable="@null"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:editable="false"
+        android:clickable="true"
+        android:focusable="true"
+        android:drawablePadding="8dp"
+        android:ems="10"/>-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp">
+
+        <EditText
+            android:id="@+id/end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@drawable/edittextsmall"
+            android:autofillHints=""
+            android:hint="@string/enddate"
+            android:textColor="@color/colorNormalPrimary"
+            android:textColorHint="@color/colorLightPrimary"
+            android:drawableStart="@drawable/ic_date"
+            android:drawableLeft="@drawable/ic_date"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:editable="false"
+            android:longClickable="false"
+            android:focusable="false"
+            android:drawablePadding="8dp"
+            android:ems="9"/>
+
+        <ImageButton
+            android:id="@+id/end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:clickable="true"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/todo"
+            android:focusable="true"
+            android:background="@drawable/circle"
+            app:srcCompat="@drawable/ic_clock_white" />
+
+    </LinearLayout>
+
+<!--    <EditText
+        android:id="@+id/end_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/edittext"
+        android:autofillHints=""
+        android:hint="@string/endtime"
+        android:textColor="@color/colorNormalPrimary"
+        android:textColorHint="@color/colorLightPrimary"
+        android:drawableStart="@drawable/ic_date"
+        android:drawableLeft="@drawable/ic_date"
+        android:textCursorDrawable="@null"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:editable="false"
+        android:clickable="true"
+        android:focusable="true"
+        android:drawablePadding="8dp"
+        android:ems="10"/>-->
+
+    <!--
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="84dp"
+            android:text="@string/cancel"
+            app:layout_constraintBaseline_toBaselineOf="@+id/button6"
+            app:layout_constraintStart_toStartOf="parent" /> -->
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="425dp" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="@string/add"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBackground"
+        android:background="@drawable/ripple"/>
 
-    <Button
-        android:id="@+id/button10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="199dp"
-        tools:layout_editor_absoluteY="424dp" />
+    <!--    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="196dp"
+            android:layout_marginEnd="17dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_help" />
 
-    <EditText
-        android:id="@+id/editText18"
-        android:layout_width="96dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="339dp" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="47dp"
+            android:layout_marginEnd="17dp"
 
-    <EditText
-        android:id="@+id/editText19"
-        android:layout_width="104dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        tools:layout_editor_absoluteX="199dp"
-        tools:layout_editor_absoluteY="339dp" />
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/floatingActionButton3"
+            app:srcCompat="@android:drawable/ic_menu_help" />-->
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -1,24 +1,36 @@
 package com.example.benyu.smartbox;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
 
 public class Edit_Device_Page extends AppCompatActivity {
+    private account cur;
+    private Device cur2;
+    private Device updatedDev;
+    //DatabaseReference databaseDeviceStates;
 
-    private EditText name;
-    private EditText location;
-    private EditText statusLabel;
-    private EditText statusInfo;
+    private EditText deviceName;
+    private EditText deviceLocation;
     private Button manageButton;
-    private Button history;
-    private Button add;
-    private Button delete;
+    private Button saveButton;
+
+    Control model = Control.getInstance();
+    DatabaseReference dbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +39,142 @@ public class Edit_Device_Page extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        //no toolbar title
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        //back arrow functionality in toolbar
+        toolbar.setNavigationIcon(R.drawable.ic_cancel_white);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                finish();
             }
         });
+
+
+        //local storage
+        account current = getIntent().getParcelableExtra("user data");
+        cur = model.updateAccount(current);
+        final Device deviceCurrent = getDevice(current); //method that searches all device names to find matching one
+        cur2 = deviceCurrent;
+        //Log.d("TEST", "ITEM RETURNED FROM METHOD: " + cur2.toString());
+
+        deviceName = (EditText) findViewById(R.id.device_name);
+        deviceName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
+        if(deviceCurrent.getName() != null)
+        deviceName.setText(deviceCurrent.getName());
+        deviceLocation = (EditText) findViewById(R.id.device_location);
+        deviceLocation.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
+        if(deviceCurrent.getName() != null)
+        deviceLocation.setText(deviceCurrent.getLocation());
+
+        //manage users button
+        manageButton = (Button) findViewById(R.id.manage_users);
+        manageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent editIntent = new Intent(Edit_Device_Page.this,
+                        users_page.class);
+                editIntent.putExtra("user data", cur);
+                editIntent.putExtra("device data", cur2.getName());
+                Edit_Device_Page.this.startActivity(editIntent);
+            }
+        });
+
+        //save button functionality
+        saveButton = (Button) findViewById(R.id.save);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                //TODO More In-Depth Error Checking
+                String rename = deviceName.getText().toString();
+                String renameLocation = deviceLocation.getText().toString();
+                if(rename.equals("") || renameLocation.equals("")) {
+                    Toast.makeText(Edit_Device_Page.this,
+                            "Cannot have empty name or location.",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+/*                    databaseDeviceStates = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices");
+                    databaseDeviceStates.child(cur2.getName()).child("name").setValue(rename);*/
+
+                    dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(cur2.getId());
+                    dbRef.child("name").setValue(rename);
+                    dbRef.child("location").setValue(renameLocation);
+                    cur2.setName(rename);
+                    cur2.setLocation(renameLocation);
+
+                    Toast.makeText(Edit_Device_Page.this,
+                            "Successfully saved.",
+                            Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+        });
+
     }
 
+    /*  Takes the current account and looks through the devices to find matching name
+     *
+     *  current      account name
+     *
+     *  returns      device currently on
+     */
+    public Device getDevice(account current) {
+        List<Device> devices = cur.getDeviceList();
+        String deviceName = getIntent().getStringExtra("device name");
+        Log.d("TEST", "NAME OF DEVICE FROM INTENT: " + deviceName);
+
+        for (Device item : devices) {
+            if (item.getName().equals(deviceName)) {
+                Log.d("TEST", "ITEM FOUND: " + item.toString());
+                return item;
+            }
+        }
+
+        //no device found (error?)
+        //TODO Handle Errors
+        return null;
+    }
+
+    //handles the inflation of menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.edit_device_menu, menu);
+        return true;
+    }
+
+    //handles the menu clicks
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_history:
+                //TODO Manage History
+                return true;
+            case R.id.action_delete:
+                dbRef = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(cur2.getName());
+                cur.getDeviceList().remove(cur2);
+                Log.d("TEST", cur.getDeviceList().toString());
+                dbRef.removeValue();
+
+                finish();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

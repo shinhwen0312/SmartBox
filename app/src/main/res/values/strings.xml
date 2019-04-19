@@ -20,19 +20,57 @@
     <string name="title_activity_create__account_page">Create_Account_page</string>
     <string name="title_activity_new_user_page">New_user_page</string>
     <string name="title_activity_edit__device__page">Edit_Device_Page</string>
+    <string name="title_activity_users_page">Users</string>
     <string name="id">ID</string>
 
 
-    <string name="forgot_passowrd">Forgot Passowrd?</string>
+    <!--activity-main-->
+    <string name="app_name_lowercase">SmartBox</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="new_account">Don\'t have an account? Sign up!</string>
+    <string name="login">Log In</string>
+    <string name="remember_me">Remember me?</string>
 
-    <string name="new_account">New Account</string>
 
-    <string name="login">LOGIN</string>
-    <string name="remember_me">Remember Me</string>
-
-
+    <!--activity-create-account-->
+    <string name="create_account">Create Account</string>
     <string name="email">Email</string>
-    <string name="confirm_password">confirm password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign Up</string>
+
+
+    <!--activity-devices-page-->
+    <string name="devices_lowercase">Devices</string>
+    <string name="logout_menu">Log Out</string>
+    <string name="locked">Locked</string>
+    <string name="unlocked">Unlocked</string>
+
+    <!--activity-new-device-page-->
+    <string name="new_device_lowercase">New Device</string>
+
+    <!--activity-edit-device-page-->
+    <string name="edit_device_lowercase">Edit Device</string>
+    <string name="save">Save</string>
+    <string name="history_setting">History</string>
+    <string name="delete">Delete</string>
+    <string name="manage">Manage Users</string>
+
+    <!--activity-users-page-->
+    <string name="users_lowercase">Users</string>
+
+    <!--activity-new-users-page-->
+    <string name="new_user_lowercase">New User</string>
+    <string name="person_name">Person\'s Name</string>
+    <string name="pin">Access Pin</string>
+    <string name="generate">Generate Pin</string>
+    <string name="startdate">Start Date</string>
+    <string name="enddate">End Date</string>
+    <string name="starttime">Start Time</string>
+    <string name="endtime">End Time</string>
+
+
     <string name="name">Id</string>
 
 
@@ -46,15 +84,13 @@
 
     <string name="device_id">Device Id</string>
     <string name="cancel">CANCEL</string>
-    <string name="add">ADD</string>
+    <string name="add">Add</string>
 
     <string name="textview">TextView</string>
-    <string name="password">Password</string>
     <string name="no">NO</string>
     <string name="yes">YES</string>
-    <string name="are_you_sure">ARE YOU SURE?</string>
+    <string name="are_you_sure">Toggle lock status?</string>
     <string name="todo">TODO</string>
-    <string name="ex_bob_williams">ex: Bob Williams</string>
     <string name="id_main">*********</string>
     <string name="location">Location</string>
     <string name="device_name">Device Name</string>

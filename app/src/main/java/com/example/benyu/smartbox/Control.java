@@ -3,7 +3,6 @@ package com.example.benyu.smartbox;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Control {
@@ -40,7 +39,7 @@ public class Control {
         Date end = new Date(2018,12,10);
         Time startT = new Time(5,12,39);
         Time endT = new Time(8,3,58);
-        accountList.get(0).getDeviceList().get(0).getUserList().add(new User("bob",1234, start, end, startT, endT));
+        //accountList.get(0).getDeviceList().get(0).getUserList().add(new User("bob",1234, start, end, startT, endT));
     }
 
     public List<account> getAccountList() {

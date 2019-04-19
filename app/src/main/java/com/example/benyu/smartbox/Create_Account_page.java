@@ -1,8 +1,6 @@
 package com.example.benyu.smartbox;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -32,6 +30,7 @@ public class Create_Account_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create__account_page);
 
+        //no more toolbar in create_account
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -55,9 +54,41 @@ public class Create_Account_page extends AppCompatActivity {
 */
 
         name = (EditText) findViewById(R.id.name);
+        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         password = (EditText)findViewById(R.id.password);
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         email = (EditText) findViewById(R.id.email);
+        email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         confirm = (EditText) findViewById(R.id.confirm);
+        confirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    Utility.hideKeyboard(v);
+                }
+            }
+        });
         cancel = (Button) findViewById(R.id.cancel);
         create = (Button) findViewById(R.id.create);
         newAccount = new account();
@@ -84,7 +115,7 @@ public class Create_Account_page extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(Create_Account_page.this,
-                            "passwords does not match",
+                            "Passwords Do Not Match!",
                             Toast.LENGTH_SHORT).show();
                 }
             }

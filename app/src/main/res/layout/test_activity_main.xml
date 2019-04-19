@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:weightSum="6"
+    android:background="@color/colorBackground"
+    android:clickable="true"
+    android:focusableInTouchMode="true" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_weight="4"
+        android:text="@string/app_name_lowercase"
+        android:textStyle="bold"
+        android:textAlignment="gravity"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textColor="@color/colorDarkPrimary" />
+    <!--
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="144dp"
+            android:text="U s e r n a m e"
+            android:textStyle="bold"
+            android:textAlignment="gravity"
+            android:textAllCaps="true"
+            android:textSize="16dp"
+            android:textColor="@color/colorSecondaryB" />-->
+
+    <EditText
+        android:id="@+id/Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@drawable/edittext"
+        android:autofillHints=""
+        android:hint="@string/username"
+        android:textColor="@color/colorNormalPrimary"
+        android:textColorHint="@color/colorLightPrimary"
+        android:drawableStart="@drawable/ic_username"
+        android:drawableLeft="@drawable/ic_username"
+        android:textCursorDrawable="@null"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:inputType="textPersonName"
+        android:drawablePadding="8dp"
+        android:ems="10"/>
+    <!--
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="P a s s w o r d"
+            android:textStyle="bold"
+            android:textAlignment="gravity"
+            android:textAllCaps="true"
+            android:textSize="16dp"
+            android:textColor="@color/colorSecondaryB" />-->
+
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center_vertical"
+        android:autofillHints=""
+        android:background="@drawable/edittext"
+        android:hint="@string/password"
+        android:textColor="@color/colorNormalPrimary"
+        android:textColorHint="@color/colorLightPrimary"
+        android:drawableStart="@drawable/ic_password"
+        android:drawableLeft="@drawable/ic_password"
+        android:textCursorDrawable="@null"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:inputType="textPassword"
+        android:drawablePadding="8dp"
+        android:ems="10"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:padding="8dp">
+
+        <Switch
+            android:id="@+id/rememberSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:theme="@style/SCBSwitch"
+            android:checked="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_gravity="center_vertical"
+            android:text="@string/remember_me"
+            android:textSize="14sp"
+            android:textColor="@color/colorNormalPrimary"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/login"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBackground"
+        android:background="@drawable/ripple"/>
+
+    <TextView
+        android:id="@+id/forget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="14sp"
+        android:text="@string/forgot_password"
+        android:textAlignment="gravity"
+        android:textColor="@color/colorNormalPrimary"  />
+
+
+    <TextView
+        android:id="@+id/newAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/new_account"
+        android:textAlignment="gravity"
+        android:textSize="14sp"
+        android:textColor="@color/colorNormalPrimary" />
+
+</LinearLayout>
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/colorBackground">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:text="@string/app_name_lowercase"
+        android:textStyle="bold"
+        android:textAlignment="gravity"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textColor="@color/colorDarkPrimary" />
+&lt;!&ndash;
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="144dp"
+        android:text="U s e r n a m e"
+        android:textStyle="bold"
+        android:textAlignment="gravity"
+        android:textAllCaps="true"
+        android:textSize="16dp"
+        android:textColor="@color/colorSecondaryB" />&ndash;&gt;
+
+    <EditText
+        android:id="@+id/Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="144dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/edittext"
+        android:autofillHints=""
+        android:hint="@string/username"
+        android:textColor="@color/colorNormalPrimary"
+        android:textColorHint="@color/colorLightPrimary"
+        android:drawableStart="@drawable/ic_username"
+        android:drawableLeft="@drawable/ic_username"
+        android:textCursorDrawable="@null"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:inputType="textPersonName"
+        android:drawablePadding="8dp"
+        android:ems="10"/>
+&lt;!&ndash;
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="P a s s w o r d"
+        android:textStyle="bold"
+        android:textAlignment="gravity"
+        android:textAllCaps="true"
+        android:textSize="16dp"
+        android:textColor="@color/colorSecondaryB" />&ndash;&gt;
+
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center_vertical"
+        android:autofillHints=""
+        android:background="@drawable/edittext"
+        android:hint="@string/password"
+        android:textColor="@color/colorNormalPrimary"
+        android:textColorHint="@color/colorLightPrimary"
+        android:drawableStart="@drawable/ic_password"
+        android:drawableLeft="@drawable/ic_password"
+        android:textCursorDrawable="@null"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:inputType="textPassword"
+        android:drawablePadding="8dp"
+        android:ems="10"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:padding="8dp">
+
+        <Switch
+            android:id="@+id/rememberSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:theme="@style/SCBSwitch"
+            android:checked="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_gravity="center_vertical"
+            android:text="@string/remember_me"
+            android:textSize="14sp"
+            android:textColor="@color/colorNormalPrimary"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/login"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBackground"
+        android:background="@drawable/button"/>
+
+    <TextView
+        android:id="@+id/forget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="14sp"
+        android:text="@string/forgot_password"
+        android:textAlignment="gravity"
+        android:textColor="@color/colorNormalPrimary"  />
+
+
+    <TextView
+        android:id="@+id/newAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/new_account"
+        android:textAlignment="gravity"
+        android:textSize="14sp"
+        android:textColor="@color/colorNormalPrimary" />
+
+</LinearLayout>-->
