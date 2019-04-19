@@ -3,20 +3,29 @@
 Release Notes (v1.0)--------------------------------------------------------------------------------------------------------------------
 
 Features
+
  User able to register and login to an accounts
  
  User able to add SmartBox devices to their devices page
  
  User able to connect to their SmartBox device via Bluetooth
+ 
  User able to simulate locking or unlocking the SmartBox device via SmartBox app
+ 
  User able to add guest-access to device and share code to guest 
+ 
  Guests are able to input code into physical keypad which will simulate unlocking the device if code is correct
  User able to view access history of SmartBox device in SmartBox app
  
+ 
 Known Bugs and Missing Features
+
  Since there is only one prototype, the application can only connect to one MAC address or one SmartBox device.
+ 
  SmartBox device is missing the locking mechanism and lock status is simulated with an LED; Client has been informed
+ 
  Missing Alexa support as it is beyond the scope of our hardware; Client has been informed
+ 
  Bug: Error handling not implemented while trying to connect to a device that is not the SmartBox. Please connect to device outside of     the application before running.
  Bug: “Remember Me” and “Forgot Password” elements on the home page are non-functional
  Bug: Removing guests from devices on manage guests page is non-functional.
