@@ -43,11 +43,12 @@ Prerequisites
  There are no dependent libraries required.
  
 Download & Installation
+
  https://github.com/shinhwen0312/SmartBox/tree/master/APK%20Install
  
- PC: Download SmartBox.apk file anywhere onto your PC, then connect Android cable to your PC and transfer file over to anywhere on your   Android device. Through a file manager or default file explorer, find the SmartBox.apk file on your Android device and open it.         Android will automatically install application and will add it to your application list. 
+ - PC: Download SmartBox.apk file anywhere onto your PC, then connect Android cable to your PC and transfer file over to anywhere on your Android device. Through a file manager or default file explorer, find the SmartBox.apk file on your Android device and open it.         Android will automatically install application and will add it to your application list. 
  
- Android: On your Android device, download the file SmartBox.apk from the link above and open it on your device. Android will             automatically install application and will add it to your application list. 
+ - Android: On your Android device, download the file SmartBox.apk from the link above and open it on your device. Android will             automatically install application and will add it to your application list. 
  
 Run/Execute
  - Once installed on your Android device, you should be able to see it on your application list. Open it and you will be ready to set-up     your account and SmartBox device.
