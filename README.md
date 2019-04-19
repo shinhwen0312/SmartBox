@@ -1,8 +1,8 @@
 # SmartBox (v1.0)
 
-Release Notes (v1.0)------------------------------------------------------------------------------------------------------------------
+# Release Notes (v1.0)-----------------------------------------------------------------------------------------------------------------
 
-Features
+# Features
 
  -User able to register and login to an accounts
  
@@ -18,9 +18,9 @@ Features
  User able to view access history of SmartBox device in SmartBox app
  
  
-Known Bugs and Missing Features
+# Known Bugs and Missing Features
 
- Since there is only one prototype, the application can only connect to one MAC address or one SmartBox device.
+ -Since there is only one prototype, the application can only connect to one MAC address or one SmartBox device.
  
  SmartBox device is missing the locking mechanism and lock status is simulated with an LED; Client has been informed
  
