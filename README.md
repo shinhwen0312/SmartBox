@@ -1,5 +1,3 @@
-# SmartBox (v1.0)
-
 # Release Notes (v1.0)
 # Features
 
@@ -21,18 +19,22 @@
 
  -Since there is only one prototype, the application can only connect to one MAC address or one SmartBox device.
  
- SmartBox device is missing the locking mechanism and lock status is simulated with an LED; Client has been informed
+ -SmartBox device is missing the locking mechanism and lock status is simulated with an LED; Client has been informed
  
- Missing Alexa support as it is beyond the scope of our hardware; Client has been informed
+ -Missing Alexa support as it is beyond the scope of our hardware; Client has been informed
  
- Bug: Error handling not implemented while trying to connect to a device that is not the SmartBox. Please connect to device outside of     the application before running.
- Bug: “Remember Me” and “Forgot Password” elements on the home page are non-functional
- Bug: Removing guests from devices on manage guests page is non-functional.
- Bug: Creating guests with blank access dates will result in invalid default values.
- Bug: On manage guests page, “Add Guests” button blocks “Edit Guests” button if exactly 8 guests exist.
+ -Bug: Error handling not implemented while trying to connect to a device that is not the SmartBox. Please connect to device outside of     the application before running.
  
-Bug Fixes
-  None yet, more bug fixes to come in v1.1 (est. release 4/21/2019)
+ -Bug: “Remember Me” and “Forgot Password” elements on the home page are non-functional
+ 
+ -Bug: Removing guests from devices on manage guests page is non-functional.
+ 
+ -Bug: Creating guests with blank access dates will result in invalid default values.
+ 
+ -Bug: On manage guests page, “Add Guests” button blocks “Edit Guests” button if exactly 8 guests exist.
+ 
+# Bug Fixes
+  - None yet, more bug fixes to come in v1.1 (est. release 4/21/2019)
 
 Installation Guide (v1.0)---------------------------------------------------------------------------------------------------------------
 
