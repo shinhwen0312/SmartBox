@@ -36,13 +36,13 @@
 # Bug Fixes
   - None yet, more bug fixes to come in v1.1 (est. release 4/21/2019)
 
-Installation Guide (v1.0)---------------------------------------------------------------------------------------------------------------
+# Installation Guide (v1.0)
 
-Prerequisites
- Android device with Bluetooth capabilities. Any Android version should be compatible.
+# Prerequisites
+ -Android device with Bluetooth capabilities. Any Android version should be compatible.
  There are no dependent libraries required.
  
-Download & Installation
+# Download & Installation
  https://github.com/shinhwen0312/SmartBox/tree/master/APK%20Install
  PC: Download SmartBox.apk file anywhere onto your PC, then connect Android cable to your PC and transfer file over to anywhere on your   Android device. Through a file manager or default file explorer, find the SmartBox.apk file on your Android device and open it.         Android will automatically install application and will add it to your application list. 
  Android: On your Android device, download the file SmartBox.apk from the link above and open it on your device. Android will             automatically install application and will add it to your application list. 
