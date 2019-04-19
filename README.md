@@ -1,5 +1,5 @@
 # Release Notes (v1.0)
-# Features
+Features
 
  - User able to register and login to an accounts
  
