@@ -3,8 +3,10 @@
 Release Notes (v1.0)--------------------------------------------------------------------------------------------------------------------
 
 Features
- User able to register and login to an account
+ User able to register and login to an accounts
+ 
  User able to add SmartBox devices to their devices page
+ 
  User able to connect to their SmartBox device via Bluetooth
  User able to simulate locking or unlocking the SmartBox device via SmartBox app
  User able to add guest-access to device and share code to guest 
