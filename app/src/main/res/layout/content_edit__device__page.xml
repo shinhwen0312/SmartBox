@@ -8,16 +8,20 @@
     android:layout_gravity="center_horizontal"
     android:background="@color/colorBackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_new_device_page">
+    tools:context=".Edit_Device_Page"
+    tools:showIn="@layout/activity_edit__device__page"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/device_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center_vertical"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/edittext"
+        android:autofillHints=""
         android:hint="@string/device_name"
         android:textColor="@color/colorNormalPrimary"
         android:textColorHint="@color/colorLightPrimary"
@@ -27,18 +31,19 @@
         android:paddingLeft="12dp"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:inputType="textPersonName"
+        android:inputType="textUri|textPersonName"
         android:drawablePadding="8dp"
         android:ems="10"/>
 
     <EditText
-        android:id="@+id/editText8"
+        android:id="@+id/device_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center_vertical"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/edittext"
+        android:autofillHints=""
         android:hint="@string/location"
         android:textColor="@color/colorNormalPrimary"
         android:textColorHint="@color/colorLightPrimary"
@@ -52,180 +57,65 @@
         android:drawablePadding="8dp"
         android:ems="10"/>
 
-    <EditText
-        android:id="@+id/editText9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:gravity="center_vertical"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/edittext"
-        android:hint="@string/device_id"
-        android:textColor="@color/colorNormalPrimary"
-        android:textColorHint="@color/colorLightPrimary"
-        android:drawableStart="@drawable/ic_device_id"
-        android:drawableLeft="@drawable/ic_device_id"
-        android:textCursorDrawable="@null"
-        android:paddingLeft="12dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:inputType="textPersonName"
-        android:drawablePadding="8dp"
-        android:ems="10"/>
-
-    <!--
-        <Button
-            android:id="@+id/button5"
+    <!--    <Button
+            android:id="@+id/button11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="84dp"
-            android:text="@string/cancel"
-            app:layout_constraintBaseline_toBaselineOf="@+id/button6"
-            app:layout_constraintStart_toStartOf="parent" /> -->
+            android:layout_marginStart="17dp"
+            android:layout_marginBottom="29dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/manage_users" />-->
+
+    <!--    <TextView
+            android:id="@+id/textView2"
+            android:layout_width="94dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/device_status" />-->
+
+    <!--    <Button
+            android:id="@+id/button12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/history" />-->
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="32dp"
-        android:text="@string/add"
+        android:text="@string/save"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:textColor="@color/colorBackground"
-        android:background="@drawable/button"/>
+        android:background="@drawable/ripple"/>
 
-    <!--    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton3"
+    <Button
+        android:id="@+id/manage_users"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="48dp"
+        android:text="@string/manage"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textColor="@color/colorBackground"
+        android:background="@drawable/ripple"/>
+
+    <!--    <Button
+            android:id="@+id/button14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="196dp"
-            android:layout_marginEnd="17dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:backgroundTint="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_help" />
+            android:layout_gravity="center_horizontal"
+            android:text="@string/delete_device" />-->
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="47dp"
-            android:layout_marginEnd="17dp"
-
-            android:clickable="true"
-            android:focusable="true"
-            app:backgroundTint="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/floatingActionButton3"
-            app:srcCompat="@android:drawable/ic_menu_help" />-->
-
+    <!--    <TextView
+            android:id="@+id/textView3"
+            android:layout_width="74dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="99dp"
+            android:text="@string/stars" />-->
 </LinearLayout>
-<!--
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Edit_Device_Page"
-    tools:showIn="@layout/activity_edit__device__page">
-
-    <EditText
-        android:id="@+id/editText20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/device_name"
-        android:inputType="textUri|textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" tools:targetApi="o"/>
-
-    <EditText
-        android:id="@+id/editText21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-
-        android:layout_marginTop="22dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/location"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editText20"
-        app:layout_constraintTop_toBottomOf="@+id/editText20" tools:targetApi="o"/>
-
-    <Button
-        android:id="@+id/button11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-
-        android:layout_marginBottom="29dp"
-        android:text="@string/manage_users"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="94dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="223dp"
-        android:layout_marginEnd="6dp"
-
-        android:layout_marginBottom="222dp"
-        android:text="@string/device_status"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button13"
-        app:layout_constraintTop_toTopOf="@+id/editText20" />
-
-    <Button
-        android:id="@+id/button12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/history"
-        app:layout_constraintEnd_toStartOf="@+id/button14"
-        app:layout_constraintStart_toStartOf="@+id/button14"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <Button
-        android:id="@+id/button13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-
-        android:layout_marginTop="19dp"
-        android:text="@string/add_user"
-        app:layout_constraintStart_toEndOf="@+id/button12"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <Button
-        android:id="@+id/button14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:text="@string/delete_device"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button13" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="74dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="100dp"
-
-        android:layout_marginEnd="99dp"
-
-        android:text="@string/stars"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView2" />
-</android.support.constraint.ConstraintLayout>-->
