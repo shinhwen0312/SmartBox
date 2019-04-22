@@ -451,7 +451,8 @@ public class devices_page extends AppCompatActivity {
                                                 Log.d("*******PIN: ", pin);
                                                 if (pin.equals(data)) {
                                                     pinEquals = true;
-
+                                                    FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(d.getName()).child("accessedby").child((String)snapshot.child("name").getValue()).setValue(snapshot.child("name").getValue());
+                                                    FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(d.getName()).child("accessedby").child((String)snapshot.child("name").getValue()).child("accesstime").setValue(Calendar.getInstance().getTime());
                                                     try {
                                                         btSocket.getOutputStream().write("0".getBytes());
                                                     } catch (IOException e) {
