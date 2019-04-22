@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -38,6 +40,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -59,7 +63,10 @@ public class devices_page extends AppCompatActivity {
     Boolean BluetoothConnected = false;
     ProgressDialog progress;
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-
+    private Handler handler;
+    private interface MessageConstants {
+        public static final int MESSAGE_READ = 0;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Control model = Control.getInstance();
@@ -141,6 +148,9 @@ public class devices_page extends AppCompatActivity {
                         }
                         if (btAddr != null) {
                             new ConnectBT().execute();
+                            msg("Bluetooth successfully paired.");
+                            new ConnectedThreads(btSocket).start();
+                            
                         } else {
                             Toast.makeText(getApplicationContext(), "Please Pair the Device first", Toast.LENGTH_SHORT).show();
                         }
@@ -337,6 +347,41 @@ public class devices_page extends AppCompatActivity {
         }
     }
 
+    private class ConnectedThreads extends Thread {
+        private final BluetoothSocket mmSocket;
+        private final InputStream mmInStream;
+        private byte[] mmBuffer;
+
+        public ConnectedThreads(BluetoothSocket socket) {
+            mmSocket = socket;
+            InputStream tmpIn = null;
+
+            try {
+                tmpIn = socket.getInputStream();
+            } catch (IOException e) {
+
+                Log.e("TEST ERROR","Error occured when creating input stream");
+            }
+            mmInStream = tmpIn;
+        }
+
+        public void run() {
+            mmBuffer = new byte[1024];
+            int numBytes;
+
+            while (true) {
+                try {
+                    numBytes = mmInStream.read(mmBuffer);
+                    Message readMsg = handler.obtainMessage(MessageConstants.MESSAGE_READ, numBytes, -1, mmBuffer);
+                    readMsg.sendToTarget();
+                } catch (IOException e) {
+                    Log.d("USER ERROR", "Input stream was disconnected.");
+                    break;
+                }
+            }
+        }
+    }
+
 
     private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
     {
@@ -372,7 +417,6 @@ public class devices_page extends AppCompatActivity {
             if (!ConnectSuccess) {
                 msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
             } else {
-                msg("Connected.");
                 BluetoothConnected = true;
             }
             progress.dismiss();
@@ -383,5 +427,6 @@ public class devices_page extends AppCompatActivity {
     private void msg(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
+
 
 }
