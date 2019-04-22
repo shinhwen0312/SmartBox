@@ -42,7 +42,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -58,10 +61,12 @@ public class devices_page extends AppCompatActivity {
     public static String EXTRA_ADDRESS = "device_address";
     String btDeviceName;
     String btAddr;
+    boolean firstSet = false;
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     BluetoothSocket btSocket = null;
     Boolean BluetoothConnected = false;
     ProgressDialog progress;
+    Device firstDevice;
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private Handler handler;
     private interface MessageConstants {
@@ -83,7 +88,7 @@ public class devices_page extends AppCompatActivity {
         databaseLocks.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                firstSet = false;
                 //iterating through all the objects
                 cur.getDeviceList().clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -91,6 +96,10 @@ public class devices_page extends AppCompatActivity {
                     Device a = postSnapshot.getValue(Device.class);
                     //adding object to the list
                     cur.addDevice(a);
+                    if(!firstSet){
+                        firstDevice = a;
+                        firstSet = true;
+                    }
                     Log.d("check", "checking how many times");
                 }
 
@@ -428,5 +437,26 @@ public class devices_page extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 
+    public int[] validPins(){
+        //DatabaseReference dev = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(firstDevice);
+        List<User> users = firstDevice.getUserList();
+        ArrayList<Integer> codes = new ArrayList<Integer>();
+        for(User u:users){
+            u.getStartDate();
+            u.getStartTime();
+            Date currentTime = Calendar.getInstance().getTime();
+            //Date curDate = currentTime.getDate();
+            if(true){
+                codes.add(Integer.parseInt(u.getPin()));
+            }
+
+
+        }
+        int[] validCodes = new int[codes.size()];
+        for(int i =0;i < codes.size();i++){
+            validCodes[i] = codes.get(i);
+        }
+        return validCodes;
+    }
 
 }
