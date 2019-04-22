@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -163,8 +164,6 @@ public class devices_page extends AppCompatActivity {
                         }
                         if (btAddr != null) {
                             new ConnectBT().execute();
-                            msg("Bluetooth successfully paired.");
-
                         } else {
                             Toast.makeText(getApplicationContext(), "Please Pair the Device first", Toast.LENGTH_SHORT).show();
                         }
@@ -238,7 +237,7 @@ public class devices_page extends AppCompatActivity {
                 viewHolder.name = (TextView) convertView.findViewById(R.id.list_item_name);
                 viewHolder.status = (TextView) convertView.findViewById(R.id.list_item_status);
                 final Device device = devicesList.get(position);
-                d = devicesList.get(0);
+                d = devicesList.get(devicesList.size() - 1); //used for bluetooth
                 viewHolder.name.setText(device.getName());
                 viewHolder.lockButton = (ImageButton) convertView.findViewById(R.id.list_item_button);
                 viewHolder.lockButton2 = (ImageButton) convertView.findViewById(R.id.list_item_button2);
@@ -312,7 +311,7 @@ public class devices_page extends AppCompatActivity {
                     //locked->unlocked
                     if (d.getLockStage()) {
                         if (BluetoothConnected) {
-                            if (btSocket != null) {
+                            if (btSocket != null && d.getName().equals("test")) {
                                 try {
                                     btSocket.getOutputStream().write("0".getBytes());
                                     d.setLockStage(false);
@@ -335,7 +334,7 @@ public class devices_page extends AppCompatActivity {
                         //unlocked->locked
                     } else {
                         if (BluetoothConnected) {
-                            if (btSocket != null) {
+                            if (btSocket != null  && d.getName().equals("test")) {
                                 try {
                                     btSocket.getOutputStream().write("1".getBytes());
                                     d.setLockStage(true);
@@ -424,9 +423,16 @@ public class devices_page extends AppCompatActivity {
                 while(!Thread.currentThread().isInterrupted() && !kill_worker) {
                     try {
                         //Read the incoming response
+                        if (inputStream.available() > 0) {
+                            try {
+                                Thread.currentThread().sleep(2000);
+                            } catch (InterruptedException e) {
+
+                            }
+                        }
                         int byteCount = inputStream.available();
                         if (byteCount > 0) {
-                            Log.d("P****BYTE COUNT: ", Integer.toString(byteCount));
+                            Log.d("****BYTE COUNT: ", Integer.toString(byteCount));
                             byte[] rawBytes = new byte[byteCount];
                             inputStream.read(rawBytes);
 
@@ -445,6 +451,7 @@ public class devices_page extends AppCompatActivity {
                                                 Log.d("*******PIN: ", pin);
                                                 if (pin.equals(data)) {
                                                     pinEquals = true;
+
                                                     try {
                                                         btSocket.getOutputStream().write("0".getBytes());
                                                     } catch (IOException e) {

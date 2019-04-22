@@ -26,7 +26,7 @@ char* buf;
 
 void setup()
 {
-  btSerial.begin(9600);
+  btSerial.begin(115200);
   Serial.begin(9600);         //Sets the data rate in bits per second (baud) for serial data transmission
   pinMode(13, OUTPUT);        //Sets digital pin 13 as output pin
 }
