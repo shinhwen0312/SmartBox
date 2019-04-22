@@ -43,10 +43,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
@@ -442,11 +444,13 @@ public class devices_page extends AppCompatActivity {
         List<User> users = firstDevice.getUserList();
         ArrayList<Integer> codes = new ArrayList<Integer>();
         for(User u:users){
-            u.getStartDate();
-            u.getStartTime();
+            Date startD = u.getStartDate();
+            Time startT = u.getStartTime();
+            Date endD = u.getEndDate();
             Date currentTime = Calendar.getInstance().getTime();
             //Date curDate = currentTime.getDate();
-            if(true){
+            Date date = Locale.getDefault().;
+            if(currentTime.after(startD) && currentTime.before(endD)){
                 codes.add(Integer.parseInt(u.getPin()));
             }
 
