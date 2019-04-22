@@ -44,17 +44,29 @@
         app:rippleColor="@color/buttonHighlight"
         app:srcCompat="@drawable/ic_add"
         tools:srcCompat="@drawable/ic_add" />
-<!--
+
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
-        android:layout_width="30dp"
+        android:id="@+id/bluetooth"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="300dp"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="15dp"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="@color/colorPrimaryDark"
-        app:srcCompat="@android:drawable/ic_menu_help" />-->
+        app:rippleColor="@color/buttonHighlight"
+        app:srcCompat="@drawable/ic_bluetooth"
+        android:focusable="true" />
+
+    <!--
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="300dp"
+            android:layout_marginLeft="300dp"
+            android:layout_marginTop="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/colorPrimaryDark"
+            app:srcCompat="@android:drawable/ic_menu_help" />-->
 
 </android.support.design.widget.CoordinatorLayout>
