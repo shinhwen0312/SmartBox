@@ -110,15 +110,18 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
+                                          if(Id.getText().toString().equals("") || Password.getText().toString().equals("")) {
+                                              Toast.makeText(MainActivity.this, "Fields has no input", Toast.LENGTH_SHORT).show();
+                                          }
+                                          else {
+                                              databaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
+                                              //.child(Id.getText().toString())
+                                              databaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                  @Override
+                                                  public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                          databaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
-                                          //.child(Id.getText().toString())
-                                          databaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
-                                              @Override
-                                              public void onDataChange(DataSnapshot dataSnapshot) {
 
-
-                                                  if (dataSnapshot.exists() && dataSnapshot.child(Id.getText().toString()).exists()) {
+                                                      if (dataSnapshot.exists() && dataSnapshot.child(Id.getText().toString()).exists()) {
                                                       /*Log.d("check",dataSnapshot.toString());
                                                       Log.d("check",Id.getText().toString());
                                                       Log.d("check",dataSnapshot.child(Id.getText().toString()).toString());
@@ -126,20 +129,18 @@ public class MainActivity extends AppCompatActivity {
                                                       Log.d("check",Password.getText().toString());*/
 
 
-                                                      if(dataSnapshot.child(Id.getText().toString()).exists()) {
-                                                          passHolder = dataSnapshot.child(Id.getText().toString()).child("password").getValue().toString();
-                                                      }
+                                                          if (dataSnapshot.child(Id.getText().toString()).exists()) {
+                                                              passHolder = dataSnapshot.child(Id.getText().toString()).child("password").getValue().toString();
+                                                          }
 
-                                                      //iterating through all the objects
-                                                      if (passHolder.equals(Password.getText().toString())) {
-
-
+                                                          //iterating through all the objects
+                                                          if (passHolder.equals(Password.getText().toString())) {
 
 
-                                                          check = true;
-                                                          final Control model = Control.getInstance();
-                                                          List<account> newList = model.getAccountList();
-                                                          c = new account(Id.getText().toString(), passHolder, dataSnapshot.child(Id.getText().toString()).child("email").getValue().toString());
+                                                              check = true;
+                                                              final Control model = Control.getInstance();
+                                                              List<account> newList = model.getAccountList();
+                                                              c = new account(Id.getText().toString(), passHolder, dataSnapshot.child(Id.getText().toString()).child("email").getValue().toString());
 
                                                           /*for (account c : newList) {    //checking username and password stored in userdata
                                                               if ((c.getName().equals(Id.getText().toString())) &&
@@ -148,51 +149,52 @@ public class MainActivity extends AppCompatActivity {
                                                                   current = c;
                                                               }
                                                           }*/
-                                                          databaseLocks = FirebaseDatabase.getInstance().getReference("users").child(c.getName()).child("devices");
+                                                              databaseLocks = FirebaseDatabase.getInstance().getReference("users").child(c.getName()).child("devices");
 
-                                                          databaseLocks.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                              @Override
-                                                              public void onDataChange(DataSnapshot dataSnapshot) {
+                                                              databaseLocks.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                  @Override
+                                                                  public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                                                  //iterating through all the objects
-                                                                  c.getDeviceList().clear();
-                                                                  for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                                                                      //getting object
-                                                                      Device a = postSnapshot.getValue(Device.class);
-                                                                      //adding object to the list
-                                                                      c.addDevice(a);
-                                                                      Log.d("check","checking how many times");
+                                                                      //iterating through all the objects
+                                                                      c.getDeviceList().clear();
+                                                                      for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                                                          //getting object
+                                                                          Device a = postSnapshot.getValue(Device.class);
+                                                                          //adding object to the list
+                                                                          c.addDevice(a);
+                                                                          Log.d("check", "checking how many times");
+
+                                                                      }
+                                                                  }
+
+                                                                  @Override
+                                                                  public void onCancelled(DatabaseError databaseError) {
 
                                                                   }
-                                                              }
-                                                              @Override
-                                                              public void onCancelled(DatabaseError databaseError) {
+                                                              });
 
-                                                              }
-                                                          });
-
-                                                          model.addAccount(c);
-                                                          Intent logIntent = new Intent(MainActivity.this,
-                                                                  devices_page.class);
-                                                          logIntent.putExtra("user data", c);
-                                                          MainActivity.this.startActivity(logIntent);
+                                                              model.addAccount(c);
+                                                              Intent logIntent = new Intent(MainActivity.this,
+                                                                      devices_page.class);
+                                                              logIntent.putExtra("user data", c);
+                                                              MainActivity.this.startActivity(logIntent);
 
 
-
-                                                      } else{
-                                                            Toast.makeText(MainActivity.this,
-                                                                  "Incorrect Username and/or Password.",
-                                                                  Toast.LENGTH_SHORT).show();
-                                                          System.out.println(passHolder + " - " + Password.getText().toString());
+                                                          } else {
+                                                              Toast.makeText(MainActivity.this,
+                                                                      "Incorrect Username and/or Password.",
+                                                                      Toast.LENGTH_SHORT).show();
+                                                              System.out.println(passHolder + " - " + Password.getText().toString());
+                                                          }
                                                       }
                                                   }
-                                              }
-                                              @Override
-                                              public void onCancelled(DatabaseError databaseError) {
 
-                                              }
-                                          });
+                                                  @Override
+                                                  public void onCancelled(DatabaseError databaseError) {
 
+                                                  }
+                                              });
+                                          }
                                           if(!check) {
                                               /*Toast.makeText(MainActivity.this,
                                                       "Incorrect Username and/or Password.",
