@@ -100,6 +100,7 @@
     <string name="add_user">ADD USER</string>
     <string name="delete_device">DELETE DEVICE</string>
     <string name="stars">***</string>
+    <string name="title_activity_history_page">history_page</string>
 
 
 </resources>
