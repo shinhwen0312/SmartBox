@@ -426,8 +426,10 @@ public class devices_page extends AppCompatActivity {
                         //Read the incoming response
                         int byteCount = inputStream.available();
                         if (byteCount > 0) {
+                            Log.d("P****BYTE COUNT: ", Integer.toString(byteCount));
                             byte[] rawBytes = new byte[byteCount];
                             inputStream.read(rawBytes);
+
                             final String data = new String(rawBytes,"UTF-8");
 
                             handler.post(new Runnable() {
@@ -437,21 +439,24 @@ public class devices_page extends AppCompatActivity {
                                     FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(d.getName()).child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
+                                            Boolean pinEquals = false;
                                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                                String pin = (String)snapshot.child("pin").getValue();
+                                                String pin = (String) snapshot.child("pin").getValue();
                                                 Log.d("*******PIN: ", pin);
                                                 if (pin.equals(data)) {
+                                                    pinEquals = true;
                                                     try {
                                                         btSocket.getOutputStream().write("0".getBytes());
                                                     } catch (IOException e) {
 
                                                     }
-                                                } else {
-                                                    try {
-                                                        btSocket.getOutputStream().write("11".getBytes());
-                                                    } catch (IOException e) {
+                                                }
+                                            }
+                                            if (!pinEquals) {
+                                                try {
+                                                    btSocket.getOutputStream().write("2".getBytes());
+                                                } catch (IOException e) {
 
-                                                    }
                                                 }
                                             }
                                         }

@@ -38,12 +38,9 @@ void loop()
   
   if (customKey){
     if (customKey == '#') {
-      buf = (char*) malloc(sizeof(char)*(password.length() + 1));
-      password.toCharArray(buf, password.length()+1);
-      btSerial.write(buf);
-      free(buf);
-      Serial.println("Sending: " + password);
-      password = "";
+      btSerial.print(password);
+      Serial.println("Now sending: " + password);
+      password = "";  
     } else {
       password += customKey;
       Serial.println(password);
@@ -56,6 +53,14 @@ void loop()
       digitalWrite(13, HIGH);  //If value is 1 then LED turns ON
     else if (data == '0')      //Checks whether value of data is equal to 0
       digitalWrite(13, LOW);   //If value is 0 then LED turns OFF
+    else if (data == '2') {
+      digitalWrite(13, LOW);
+      delay(250);
+      digitalWrite(13, HIGH);
+      delay(250);
+      digitalWrite(13, LOW);
+      delay(250);
+      digitalWrite(13, HIGH);
+    }
   }
-
 }
