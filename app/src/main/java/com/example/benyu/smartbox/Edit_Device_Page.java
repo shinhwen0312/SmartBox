@@ -164,6 +164,11 @@ public class Edit_Device_Page extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_history:
+                Intent editIntent = new Intent(Edit_Device_Page.this,
+                        history_page.class);
+                editIntent.putExtra("user data", cur);
+                editIntent.putExtra("device data", cur2.getName());
+                Edit_Device_Page.this.startActivity(editIntent);
                 //TODO Manage History
                 return true;
             case R.id.action_delete:
