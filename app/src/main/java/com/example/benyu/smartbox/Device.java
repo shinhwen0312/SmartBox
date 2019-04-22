@@ -12,7 +12,6 @@ public class Device implements Parcelable {
     private String location;
     private boolean lockStage;
     private List<User> users;
-    private List<History> historyList;
 
     public Device(String name, String location, String id) {
         this.name = name;
@@ -20,7 +19,6 @@ public class Device implements Parcelable {
         this.id = id;
         lockStage = false;
         users = new ArrayList<>();
-        historyList = new ArrayList<>();
     }
 
     public Device() { this("Enter a name", "Enter a password", "123");
@@ -39,7 +37,6 @@ public class Device implements Parcelable {
     public List<User> getUserList() {
         return users;
     }
-    public List<History> getHistoryList() { return historyList; }
 
     public List getNameList() {
         List<String> nameList = new ArrayList<>();
@@ -51,14 +48,6 @@ public class Device implements Parcelable {
             }
         }
         return nameList;
-    }
-
-    public boolean addHistory(History history) {
-        if(history == null) {
-            return false;
-        }
-        historyList.add(history);
-        return true;
     }
 
     public boolean addUser(User user) {
