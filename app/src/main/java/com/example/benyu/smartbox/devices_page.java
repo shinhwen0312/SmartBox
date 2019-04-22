@@ -64,16 +64,21 @@ public class devices_page extends AppCompatActivity {
     String btDeviceName;
     String btAddr;
     boolean firstSet = false;
+
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     BluetoothSocket btSocket = null;
     Boolean BluetoothConnected = false;
     ProgressDialog progress;
     Device firstDevice;
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    private Handler handler;
-    private interface MessageConstants {
-        public static final int MESSAGE_READ = 0;
-    }
+
+    private InputStream inputStream;
+    Handler handler = new Handler();
+    boolean kill_worker = false;
+    DatabaseReference inThreadRef;
+    Device d;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Control model = Control.getInstance();
@@ -81,7 +86,6 @@ public class devices_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_devices_page);
         list = (ListView) findViewById(R.id.list);
-
 
         account current = getIntent().getParcelableExtra("user data");
         cur = model.updateAccount(current);
@@ -160,8 +164,7 @@ public class devices_page extends AppCompatActivity {
                         if (btAddr != null) {
                             new ConnectBT().execute();
                             msg("Bluetooth successfully paired.");
-                            new ConnectedThreads(btSocket).start();
-                            
+
                         } else {
                             Toast.makeText(getApplicationContext(), "Please Pair the Device first", Toast.LENGTH_SHORT).show();
                         }
@@ -235,6 +238,7 @@ public class devices_page extends AppCompatActivity {
                 viewHolder.name = (TextView) convertView.findViewById(R.id.list_item_name);
                 viewHolder.status = (TextView) convertView.findViewById(R.id.list_item_status);
                 final Device device = devicesList.get(position);
+                d = devicesList.get(0);
                 viewHolder.name.setText(device.getName());
                 viewHolder.lockButton = (ImageButton) convertView.findViewById(R.id.list_item_button);
                 viewHolder.lockButton2 = (ImageButton) convertView.findViewById(R.id.list_item_button2);
@@ -358,41 +362,6 @@ public class devices_page extends AppCompatActivity {
         }
     }
 
-    private class ConnectedThreads extends Thread {
-        private final BluetoothSocket mmSocket;
-        private final InputStream mmInStream;
-        private byte[] mmBuffer;
-
-        public ConnectedThreads(BluetoothSocket socket) {
-            mmSocket = socket;
-            InputStream tmpIn = null;
-
-            try {
-                tmpIn = socket.getInputStream();
-            } catch (IOException e) {
-
-                Log.e("TEST ERROR","Error occured when creating input stream");
-            }
-            mmInStream = tmpIn;
-        }
-
-        public void run() {
-            mmBuffer = new byte[1024];
-            int numBytes;
-
-            while (true) {
-                try {
-                    numBytes = mmInStream.read(mmBuffer);
-                    Message readMsg = handler.obtainMessage(MessageConstants.MESSAGE_READ, numBytes, -1, mmBuffer);
-                    readMsg.sendToTarget();
-                } catch (IOException e) {
-                    Log.d("USER ERROR", "Input stream was disconnected.");
-                    break;
-                }
-            }
-        }
-    }
-
 
     private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
     {
@@ -413,6 +382,7 @@ public class devices_page extends AppCompatActivity {
                     btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
                     BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                     btSocket.connect();//start connection
+
                 }
             } catch (IOException e) {
                 ConnectSuccess = false;//if the try failed, you can check the exception here
@@ -431,6 +401,7 @@ public class devices_page extends AppCompatActivity {
                 BluetoothConnected = true;
             }
             progress.dismiss();
+            startListeningThread();
         }
     }
 
@@ -439,28 +410,68 @@ public class devices_page extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 
-    public int[] validPins(){
-        //DatabaseReference dev = FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(firstDevice);
-        List<User> users = firstDevice.getUserList();
-        ArrayList<Integer> codes = new ArrayList<Integer>();
-        for(User u:users){
-            Date startD = u.getStartDate();
-            Time startT = u.getStartTime();
-            Date endD = u.getEndDate();
-            Date currentTime = Calendar.getInstance().getTime();
-            //Date curDate = currentTime.getDate();
-            Date date = Locale.getDefault().;
-            if(currentTime.after(startD) && currentTime.before(endD)){
-                codes.add(Integer.parseInt(u.getPin()));
+
+    void startListeningThread()  {
+        try {
+            inputStream = btSocket.getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Thread worker = new Thread(new Runnable()   {
+            @Override
+            public void run()   {
+                while(!Thread.currentThread().isInterrupted() && !kill_worker) {
+                    try {
+                        //Read the incoming response
+                        int byteCount = inputStream.available();
+                        if (byteCount > 0) {
+                            byte[] rawBytes = new byte[byteCount];
+                            inputStream.read(rawBytes);
+                            final String data = new String(rawBytes,"UTF-8");
+
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d("********DATA: ", data);
+                                    FirebaseDatabase.getInstance().getReference("users").child(cur.getName()).child("devices").child(d.getName()).child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                                String pin = (String)snapshot.child("pin").getValue();
+                                                Log.d("*******PIN: ", pin);
+                                                if (pin.equals(data)) {
+                                                    try {
+                                                        btSocket.getOutputStream().write("0".getBytes());
+                                                    } catch (IOException e) {
+
+                                                    }
+                                                } else {
+                                                    try {
+                                                        btSocket.getOutputStream().write("11".getBytes());
+                                                    } catch (IOException e) {
+
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    } catch (IOException e) {
+                        kill_worker = true;
+                    }
+                }
             }
+        });
 
-
-        }
-        int[] validCodes = new int[codes.size()];
-        for(int i =0;i < codes.size();i++){
-            validCodes[i] = codes.get(i);
-        }
-        return validCodes;
+        worker.start();
     }
 
 }
