@@ -116,9 +116,7 @@ public class devices_page extends AppCompatActivity {
             }
         });
 
-        /**
-         * On Bluetooth icon click, enable
-         */
+        //bluetooth connect
         FloatingActionButton btButton = (FloatingActionButton) findViewById(R.id.bluetooth);
         btButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +140,7 @@ public class devices_page extends AppCompatActivity {
                             }
                         }
                         if (btAddr != null) {
-                            Toast.makeText(getApplicationContext(), "SmartBox successfully paired, connected to " + btDeviceName, Toast.LENGTH_SHORT).show();
+                            new ConnectBT().execute();
                         } else {
                             Toast.makeText(getApplicationContext(), "Please Pair the Device first", Toast.LENGTH_SHORT).show();
                         }
@@ -303,13 +301,11 @@ public class devices_page extends AppCompatActivity {
                                 }
                             } else {
                                 dialog.dismiss();
-                                msg("Connecting to device first. Please try again.");
-                                new ConnectBT().execute();
+                                msg("Please connect to bluetooth.");
                             }
                         } else {
                             dialog.dismiss();
-                            msg("Connecting to device first. Please try again.");
-                            new ConnectBT().execute();
+                            msg("Please connect to bluetooth.");
                         }
                         //unlocked->locked
                     } else {
@@ -328,39 +324,15 @@ public class devices_page extends AppCompatActivity {
                                 }
                             } else {
                                 dialog.dismiss();
-                                msg("Connecting to device first. Please try again.");
-                                new ConnectBT().execute();
+                                msg("Please connect to bluetooth.");
                             }
                         } else {
-                            if (BluetoothConnected) {
-                                if (btSocket != null) {
-                                    try {
-                                        btSocket.getOutputStream().write("0".getBytes());
-                                        d.setLockStage(false);
-                                        databaseLockStates.child(d.getId()).child("lockStage").setValue(false);
-                                        b.setImageResource(R.drawable.ic_unlocked_state);
-                                        s.setText(getResources().getString(R.string.unlocked));
-                                        dialog.dismiss();
-                                    } catch (IOException e) {
-                                        msg("Error");
-                                        dialog.dismiss();
-                                    }
-                                } else {
-                                    dialog.dismiss();
-                                    msg("Connecting to device first. Please try again.");
-                                    new ConnectBT().execute();
-                                }
-                            } else {
-                                dialog.dismiss();
-                                msg("Connecting to device first. Please try again.");
-                                new ConnectBT().execute();
-
-                            }
+                            dialog.dismiss();
+                            msg("Please connect to bluetooth.");
                         }
                     }
                 }
             });
-
             dialog.show();
         }
     }
@@ -399,7 +371,6 @@ public class devices_page extends AppCompatActivity {
 
             if (!ConnectSuccess) {
                 msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
-                finish();
             } else {
                 msg("Connected.");
                 BluetoothConnected = true;
